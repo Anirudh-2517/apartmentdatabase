@@ -76,7 +76,7 @@ function VisitorsInfo() {
     try {
       const payload = { year, month };
       const response = await axios.post(
-        "http://localhost:9000/api/visitor-count",
+        "http://localhost:9000/api/security/visitor-count",
         payload
       );
 

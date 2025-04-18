@@ -17,7 +17,6 @@ router.get('/getallvisitors', async (req, res) => {
 router.post('/visitor-count', async (req, res) => {
   try {
     const { year, month } = req.body;
-    console.log(year)
     // Ensure the month is zero-padded
     const formattedMonth = month.padStart(2, '0');
     const visitors = await db.collection('visitors').aggregate([
