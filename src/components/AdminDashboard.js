@@ -5,6 +5,7 @@ import AddOwner from "./Addowner";
 import Addemployee from "./Addemployee";
 import FinancialExpenses from "./FinancialExpenses";
 import AddApartmentDetails from "./AddApartmentDetails";
+import AddFlatDetails from './AddFlatDetails'
 import Adminsettings from "./Adminsettings";
 import DashboardOverview from "./DashboardOverview"; // You'll need to create this component
 
@@ -35,6 +36,7 @@ function AdminDashboard({ setLoginStatus }) {
             <div className="space-y-4">
               <NavItem to="/" icon={<Home />} label="Home" />
               <NavItem to="/add-owner" icon={<Users />} label="Add Flat Owners" />
+              <NavItem to="/addflatdetails" icon={<Users />} label="Add Flat Details" />
               <NavItem to="/add-employee" icon={<UserPlus />} label="Employees" />
               <NavItem to="/add-apartment" icon={<Building />} label="Apartments" />
               <NavItem to="/financial-expenses" icon={<DollarSign />} label="Expenses" />
@@ -68,6 +70,7 @@ function AdminDashboard({ setLoginStatus }) {
               <Routes>
                 <Route path="/" element={<DashboardOverview />} />
                 <Route path="/add-owner" element={<AddOwner />} />
+                <Route path="/addflatdetails" element={<AddFlatDetails />} />
                 <Route path="/add-employee" element={<Addemployee />} />
                 <Route path="/add-apartment" element={<AddApartmentDetails />} />
                 <Route path="/financial-expenses" element={<FinancialExpenses />} />

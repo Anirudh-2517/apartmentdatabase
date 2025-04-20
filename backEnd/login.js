@@ -18,7 +18,6 @@ router.post("/authenticate", async (req, res) => {
 
         else
        user = await collection.find({ Login: username, Password: password, Adesignation: userType }).toArray();
-    console.log(user)
       if (user.length > 0) {
         return res.status(200).json({ message: "Login successful", userType,ofname:user[0].ofname,olname:user[0].olname,oid:user[0].oid,Login:user[0].Login });
       } else {

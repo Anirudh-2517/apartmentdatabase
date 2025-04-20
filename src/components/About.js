@@ -3,7 +3,6 @@ import { Building, Users, Calculator, MessageSquare, ChevronRight, Home, Clock, 
 
 function About() {
   const [hoveredFeature, setHoveredFeature] = useState(null);
-
   const features = [
     {
       icon: <Building className="w-6 h-6" />,
@@ -30,7 +29,6 @@ function About() {
       bgColor: "from-pink-500 to-rose-500"
     }
   ];
-
   const stats = [
     {
       number: "5+",
@@ -51,7 +49,6 @@ function About() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-        {/* Hero Section with Animated Background */}
         <div className="relative overflow-hidden rounded-3xl mb-16 bg-gradient-to-r from-teal-600 to-blue-600 p-8 sm:p-16">
           <div className="relative z-10 text-center">
             <h1 className="text-5xl sm:text-6xl font-extrabold text-white mb-6 animate-fade-in">
@@ -63,8 +60,6 @@ function About() {
           </div>
           <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-10"></div>
         </div>
-
-        {/* Stats Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {stats.map((stat, index) => (
             <div
@@ -83,8 +78,6 @@ function About() {
             </div>
           ))}
         </div>
-
-        {/* Feature Cards */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           {features.map((feature, index) => (
             <div
@@ -115,8 +108,6 @@ function About() {
             </div>
           ))}
         </div>
-
-        {/* Mission Statement */}
         <div className="relative overflow-hidden rounded-2xl bg-white shadow-xl mb-16">
           <div className="p-8 sm:p-12">
             <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-600 mb-6">
@@ -129,8 +120,6 @@ function About() {
           </div>
           <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-teal-500 to-blue-500"></div>
         </div>
-
-        {/* Values Section */}
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-teal-600 to-blue-500 p-8 sm:p-12">
           <div className="relative z-10 max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-white mb-6">
@@ -144,7 +133,6 @@ function About() {
             </p>
           </div>
           <div className="absolute top-0 left-0 w-full h-full bg-pattern opacity-10"></div>
-
         </div>
         <div className="mt-16 bg-gradient-to-r from-teal-500 to-teal-600 p-6 rounded-lg shadow-xl text-white">
           <h2 className="text-3xl font-bold mb-4">
@@ -162,7 +150,6 @@ function About() {
           </ol>
         </div>
       </div>
-
       <style jsx global>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }

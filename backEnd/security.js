@@ -1,13 +1,21 @@
 const express = require('express')
 const router = express.Router()
 const client = require("./dbconnect")
-
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
 
 router.get('/getallvisitors', async (req, res) => {
   try {
     const visitors = await db.collection('visitors').find().toArray();  // Fetch all employees from MongoDB
+    res.json(visitors);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching visitors data', error });
+  }
+});
+router.get('/getinfobycellnumber/:scannedData', async (req, res) => {
+  const vcellno=req.params.scannedData
+  try {
+    const visitors = await db.collection('visitors').find({vcellno:vcellno}).toArray();  // Fetch all employees from MongoDB
     res.json(visitors);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching visitors data', error });
@@ -48,10 +56,8 @@ router.post('/visitor-count', async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error', error: err.message });
   }
 });
-
 router.post('/addvisitors', async (req, res) => {
   const payload = req.body
-  console.log(payload)
   try {
     const result = await db.collection('visitors').insertOne(payload)
     res.send("added visitor!!!")

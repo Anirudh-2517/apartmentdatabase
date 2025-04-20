@@ -53,14 +53,11 @@ app.post('/api/create-order', async (req, res) => {
   
   try {
       const { amount, currency, receipt } = req.body; // Accept amount, currency, and receipt from the request
-        console.log(amount+currency+receipt)
       const order = await razorpay.orders.create({
           amount: amount * 100, // Razorpay works in paise; convert to smallest currency unit
           currency,
           receipt
       });
-      console.log(order)
-
       res.status(201).json({
           success: true,
           orderId: order.id,
@@ -75,7 +72,6 @@ app.post('/api/create-order', async (req, res) => {
 });
 app.post('/api/capture-payment', async (req, res) => {
   const { paymentId, amount } = req.body;
-
   try {
       // Step 1: Verify Payment Status
       const paymentDetails = await razorpay.payments.fetch(paymentId);
@@ -88,7 +84,6 @@ app.post('/api/capture-payment', async (req, res) => {
 
       // Step 2: Capture Payment
       const response = await razorpay.payments.capture(paymentId, amount);
-      console.log(response)
       res.json({ success: true, response });
   } catch (error) {
       console.error('Error capturing payment:', error);
@@ -146,7 +141,6 @@ app.post("/api/Raisedemand", async (req, res) => {
 
 app.get("/api/getDues/:year", async (req, res) => {
   const year = req.params.year;
-  console.log("Requested year:", year);
   try {
     const collection = db.collection("ownerandmaintainence");
 
@@ -160,9 +154,7 @@ app.get("/api/getDues/:year", async (req, res) => {
         }
       )
       .toArray();
-    
-    console.log("Dues found:", Dues);
-    return res.status(200).json(Dues);
+        return res.status(200).json(Dues);
   } catch (error) {
     console.error("Error fetching data:", error);
     return res.status(500).json({ message: "Server error. Please try again later." });
@@ -193,11 +185,8 @@ app.get("/api/getMaintainance/:oid", async (req, res) => {
 });
 app.post("/api/getMaintainance", async (req, res) => {
   const { oid,year, estatus } = req.body;  // Assuming the body contains the year and the new status
-
   try {
     const collection = db.collection("ownerandmaintainence");
-
-    // Update the Maintainance array for the specific owner (oid) and year
     const result = await collection.updateOne(
       { oid: oid, "maintainence.year": year }, // Find the Owner with the specified OID and year in Maintainance array
       {
@@ -217,7 +206,6 @@ app.post("/api/getMaintainance", async (req, res) => {
     return res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
-
 app.get('/temperature', async (req, res) => {
   try {
     const url = 'https://api.thingspeak.com/channels/2796922/feeds.json?api_key=UVLIOZ47RTOXHCVN&results=2';

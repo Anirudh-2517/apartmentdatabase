@@ -2,9 +2,9 @@ import { useState } from "react";
 import { BrowserRouter} from "react-router-dom";
 import "./App.css";
 import Chairman from "./components/Chairman";
-import Secretary from "./components/Secretary";
+import Secretary from "./components/SecretaryDashboard";
 import Owner from "./components/Owner";
-import Security from "./components/Security";
+import Security from "./components/SecurityDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 import Home from "./components/Home";
 
@@ -13,7 +13,17 @@ function App()
   const [loginStatus, setLoginStatus] = useState(false);
   const [login,setLogin]=useState("")
   const [userType, setUserType] = useState("");
+  const [scannedData, setScannedData] = useState("");
   const [oid, setOid] = useState()
+  const [formData, setFormData] = useState({
+    vname: "",
+    vcellno: "",
+    flatno: "",
+    vdate: "",
+    vpurpose: "",
+    intime: "",
+    outtime: ""
+  });
   const [firstTime, setFirstTime] = useState(true);
   const [username, setUsername] = useState("");
   const handleLogout = () => {
@@ -51,7 +61,7 @@ function App()
         </div>
       ) : 
       (
-        <Security setLoginStatus={setLoginStatus} />
+        <Security formData={formData} setFormData={setFormData} scannedData={scannedData} setScannedData={setScannedData} setLoginStatus={setLoginStatus} />
       )}
     </div>
   );

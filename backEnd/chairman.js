@@ -1,7 +1,6 @@
 const express=require('express')
 const router=express.Router()
 const client=require("./dbconnect")
-
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
 
@@ -26,11 +25,8 @@ router.post('/postmessage', async (req, res) => {
         res.status(500).send("Error occurred while adding the message.");
     }
 });
-
-
 router.post('/postnotice',async(req,res)=>{
     const payload1=req.body
-    console.log(payload1)
     try {
       const result=await db.collection('notices').insertOne(payload1)
     res.send("Posted notice!!!")
@@ -38,7 +34,6 @@ router.post('/postnotice',async(req,res)=>{
       console.log(error)
     }
 })
-
 router.get('/getNotices', async (req, res) => {
   try {
     const notice = await db.collection('notices').find().toArray(); 
@@ -47,7 +42,6 @@ router.get('/getNotices', async (req, res) => {
     res.status(500).json({ message: 'Error fetching data', error });
   }
 });
-
 router.get('/getMessages', async (req, res) => {
   try {
     const notice = await db.collection('messages').find().toArray(); 

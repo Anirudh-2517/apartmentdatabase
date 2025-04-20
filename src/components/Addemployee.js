@@ -12,10 +12,8 @@ const Addemployee = () => {
     empaddress: '',
     empsalarydet: [],
   });
-  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState({ type: '', message: '' });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -23,12 +21,10 @@ const Addemployee = () => {
       [name]: value,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setFormStatus({ type: '', message: '' });
-    
     try {
       const response = await axios.post('http://localhost:9000/api/admin/addemployee', formData);
       console.log('Data submitted successfully:', response.data);
@@ -56,7 +52,6 @@ const Addemployee = () => {
       setIsSubmitting(false);
     }
   };
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-600 via-blue-400 to-blue-50 px-4 sm:px-6 lg:px-8 py-10">
       <div className="bg-white shadow-2xl rounded-xl p-6 sm:p-8 lg:p-10 max-w-2xl w-full border border-blue-100">
@@ -73,7 +68,6 @@ const Addemployee = () => {
           </h2>
           <p className="text-gray-600">Complete the form below to add a new team member</p>
         </div>
-        
         {formStatus.message && (
           <div 
             className={`mb-6 p-4 rounded-lg flex items-start ${
@@ -81,8 +75,7 @@ const Addemployee = () => {
                 ? 'bg-green-50 text-green-700 border border-green-200' 
                 : 'bg-red-50 text-red-700 border border-red-200'
             }`}
-            role="alert"
-          >
+            role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {formStatus.type === 'success' ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -93,7 +86,6 @@ const Addemployee = () => {
             <span>{formStatus.message}</span>
           </div>
         )}
-        
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -105,18 +97,10 @@ const Addemployee = () => {
                   Employee ID <span className="text-red-500">*</span>
                 </label>
               </div>
-              <input
-                id="empid"
-                type="text"
-                name="empid"
-                value={formData.empid}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                required
-                placeholder="Enter employee ID"
+              <input id="empid" type="text" name="empid" value={formData.empid} onChange={handleChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required placeholder="Enter employee ID"
               />
             </div>
-            
             <div>
               <div className="flex items-center mb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -138,7 +122,6 @@ const Addemployee = () => {
               />
             </div>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <div className="flex items-center mb-2">
@@ -160,7 +143,7 @@ const Addemployee = () => {
                 placeholder="Enter cell number"
               />
             </div>
-            
+      
             <div>
               <div className="flex items-center mb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -183,7 +166,6 @@ const Addemployee = () => {
               </select>
             </div>
           </div>
-          
           <div>
             <div className="flex items-center mb-2">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -205,7 +187,6 @@ const Addemployee = () => {
             />
             <p className="mt-1 text-sm text-gray-500">12-digit identification number</p>
           </div>
-          
           <div>
             <div className="flex items-center mb-2">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

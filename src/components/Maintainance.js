@@ -14,7 +14,6 @@ function Maintainance({ oid, username, login }) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: 'year', direction: 'asc' });
   const [filterStatus, setFilterStatus] = useState('all');
-
   const payNow = async (M) => {
     try {
       setProcessingPayment(true);
@@ -25,7 +24,6 @@ function Maintainance({ oid, username, login }) {
         currency,
         receipt,
       });
-
       if (response.data.success) {
         setOrderId(response.data.orderId);
         launchRazorpay(response.data.orderId, response.data.amount);
@@ -71,7 +69,6 @@ function Maintainance({ oid, username, login }) {
         console.log(error);
       });
   };
-
   const showNotification = (msg) => {
     const notification = document.getElementById("notification");
     notification.innerText = msg;
@@ -80,7 +77,6 @@ function Maintainance({ oid, username, login }) {
       notification.classList.add("hidden");
     }, 3000);
   };
-
   const launchRazorpay = (orderId, amount) => {
     if (typeof window.Razorpay === 'undefined') {
       console.error('Razorpay SDK not loaded');
@@ -89,7 +85,7 @@ function Maintainance({ oid, username, login }) {
     }
 
     const options = {
-      key: 'rzp_test_FRoCXFr2FkZqrx', // Replace with your Razorpay API Key
+      key: 'rzp_test_FRoCXFr2FkZqrx',
       amount: amount,
       currency: currency,
       name: 'jFork Technology Services',
@@ -123,11 +119,9 @@ function Maintainance({ oid, username, login }) {
         color: '#3498db',
       },
     };
-
     const razorpayInstance = new window.Razorpay(options);
     razorpayInstance.open();
   };
-
   useEffect(() => {
     setLoading(true);
     axios
@@ -146,7 +140,6 @@ function Maintainance({ oid, username, login }) {
     setSelectedYear(M);
     setShowConfirmModal(true);
   };
-
   const handleSort = (key) => {
     let direction = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
@@ -154,7 +147,6 @@ function Maintainance({ oid, username, login }) {
     }
     setSortConfig({ key, direction });
   };
-
   const sortedMaintenance = [...maintainance].sort((a, b) => {
     if (a[sortConfig.key] < b[sortConfig.key]) {
       return sortConfig.direction === 'asc' ? -1 : 1;
@@ -164,37 +156,29 @@ function Maintainance({ oid, username, login }) {
     }
     return 0;
   });
-
   const filteredMaintenance = sortedMaintenance.filter(item => {
     if (filterStatus === 'all') return true;
     return item.estatus === filterStatus;
   });
-
   const renderSortIcon = (key) => {
     if (sortConfig.key !== key) return null;
     return sortConfig.direction === 'asc' ? '↑' : '↓';
   };
-
   const getTotalAmount = () => {
     return maintainance
       .filter(item => item.estatus === 'Pending')
       .reduce((total, item) => total + parseFloat(item.amount), 0);
   };
-
   const isPastDue = (dateString) => {
     const dueDate = new Date(dateString);
     const today = new Date();
     return dueDate < today;
   };
-
   return (
     <div className="bg-white text-gray-800 min-h-screen">
-      {/* Notification */}
       <div id="notification" className="fixed top-6 right-6 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50 hidden transition-opacity duration-300">
         Notification message
       </div>
-
-      {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-indigo-700">Maintenance Payments</h1>
@@ -205,8 +189,6 @@ function Maintainance({ oid, username, login }) {
             </div>
           )}
         </div>
-
-        {/* Filters */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex gap-3">
             <button 
@@ -229,8 +211,6 @@ function Maintainance({ oid, username, login }) {
             </button>
           </div>
         </div>
-
-        {/* Maintenance Table */}
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
@@ -318,8 +298,6 @@ function Maintainance({ oid, username, login }) {
             <p className="text-gray-500 text-lg">No maintenance records available</p>
           </div>
         )}
-
-        {/* Payment History Section */}
         {maintainance.some(m => m.estatus === 'Paid') && (
           <div className="mt-12">
             <h2 className="text-xl font-bold text-gray-700 mb-4">Payment History</h2>

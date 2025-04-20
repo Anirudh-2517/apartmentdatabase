@@ -54,17 +54,17 @@ function Chairman({ setLoginStatus }) {
   // Format date for display
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
     });
   };
 
   const NavItem = ({ to, icon, label }) => {
     const location = useLocation();
     const isActive = location.pathname === to;
-    
+
     return (
       <li className={`w-full ${isActive ? "bg-blue-700" : "hover:bg-blue-700"} rounded-lg transition-colors`}>
         <Link to={to} className="flex items-center gap-3 p-3 text-white">
@@ -90,7 +90,7 @@ function Chairman({ setLoginStatus }) {
             </div>
           </div>
         </div>
-        
+
         <nav className="p-4">
           <ul className="space-y-2">
             <NavItem to="/" icon={<Home size={18} />} label="Overview" />
@@ -102,10 +102,10 @@ function Chairman({ setLoginStatus }) {
             <NavItem to="/settings" icon={<Settings size={18} />} label="Settings" />
           </ul>
         </nav>
-        
+
         <div className="mt-auto p-4 border-t border-blue-500">
-          <button 
-            onClick={() => setLoginStatus(false)} 
+          <button
+            onClick={() => setLoginStatus(false)}
             className="flex items-center gap-2 text-white hover:text-blue-200 transition-colors w-full"
           >
             <LogOut size={18} />
@@ -179,9 +179,9 @@ function Chairman({ setLoginStatus }) {
                   </h2>
                   <Link to="/notice" className="text-sm text-blue-600 hover:underline">View all</Link>
                 </div>
-                
+
                 {error && <div className="p-3 bg-red-50 text-red-700 rounded-md mb-3">{error}</div>}
-                
+
                 <div className="space-y-3">
                   {filteredNotices.length > 0 ? (
                     filteredNotices.slice(0, 3).map((notice) => (
@@ -212,7 +212,7 @@ function Chairman({ setLoginStatus }) {
                   </h2>
                   <Link to="/message" className="text-sm text-blue-600 hover:underline">View all</Link>
                 </div>
-                
+
                 <div className="space-y-3">
                   {filteredMessages.length > 0 ? (
                     filteredMessages.slice(0, 3).map((message) => (

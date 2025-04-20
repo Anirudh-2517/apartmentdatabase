@@ -1,14 +1,12 @@
 const express=require('express')
 const router=express.Router()
 const client=require("./dbconnect")
-
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
 
 router.post('/addExpense',async(req,res)=>{
     const expense=req.body
     const amount=parseFloat(expense.amount)
-    console.log(expense)
     try {
       const result=await db.collection('Expenses').insertOne(expense)
       const result1=await db.collection('collectioncorpus').updateOne({},{$inc:{expenses:amount}})
@@ -18,7 +16,6 @@ router.post('/addExpense',async(req,res)=>{
       console.log(error)
     }
 })
-
 router.get('/getfinancialyear', async (req,res)=>{
   try {
     const financialyear=await db.collection('counters').find().toArray();
@@ -27,7 +24,6 @@ router.get('/getfinancialyear', async (req,res)=>{
     console.log(error)
   }
 })
-
 router.get('/getallemployees/:year', async (req, res) => {
   const year = req.params.year;
    // Extract year parameter from the request
@@ -50,8 +46,7 @@ router.get('/getallemployees/:year', async (req, res) => {
     console.error('Error fetching employees:', error);
     res.status(500).json({ message: 'Error fetching employee data', error });
   }
-});
-
+})
 router.get('/paymentdues', async (req, res) => {
   try {
     const collection = db.collection('ownerandmaintainence');
@@ -85,8 +80,7 @@ router.get('/paymentdues', async (req, res) => {
     console.error('Error fetching data:', error);
     res.status(500).json({ message: 'Error fetching payment dues', error });
   }
-});
-
+})
 router.post('/recievepayment', async (req, res) => {
   const {
     oid,
@@ -131,8 +125,6 @@ router.post('/recievepayment', async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 });
-
-
 router.get('/getlodgedcomplaints', async (req, res) => {
   try {
     const complaints = await db.collection('complaints').find().toArray();  // Fetch all employees from MongoDB
@@ -141,7 +133,6 @@ router.get('/getlodgedcomplaints', async (req, res) => {
     res.status(500).json({ message: 'Error fetching data', error });
   }
 });
-
 router.post('/generatesalarydetails', async (req, res) => {
   const {payload,empid}=req.body
   try {

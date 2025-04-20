@@ -20,38 +20,30 @@ router.get("/getsummaryexpenses", async (req, res) => {
         },
       },
     ]).toArray();
-
-    console.log("Aggregation results:", results);
     res.json(results);
   } catch (error) {
     console.error("Error during aggregation:", error);
     res.status(500).json({ error: "An error occurred while processing your request." });
   }
 });
-
 router.post("/setfinancialyear", async (req, res) => {
   try {
     const {financialyear} = req.body;
-    console.log(financialyear)
     const result = await db.collection('counters').updateOne({}, { $set: { financialyear: financialyear } })
     res.send(result)
   } catch (error) {
     console.log(error)
   }
-
 })
-
 router.post("/setannualmaintainence", async (req, res) => {
   try {
     const {annualmaintainence} = req.body;
-    console.log(annualmaintainence)
     const result = await db.collection('counters').updateOne({}, { $set: { annualmaintainence: annualmaintainence } })
     res.send(result)
   } catch (error) {
     console.log(error)
   }
 })
-
 router.post('/addowner', async (req, res) => {
   const formData = req.body
   let oid = formData.oid
@@ -63,20 +55,16 @@ router.post('/addowner', async (req, res) => {
     console.log(error)
   }
 })
-
 router.get('/getoidcount', async (req, res) => {
   try {
     const oidcount = await db.collection('counters').find().toArray();
-    console.log(oidcount)
     res.json(oidcount);  // Send the employee data as JSON
   } catch (error) {
     res.status(500).json({ message: 'Error fetching data', error });
   }
 });
-
 router.post('/addemployee', async (req, res) => {
   const payload = req.body
-  console.log(payload)
   try {
     const result = await db.collection('employee').insertOne(payload)
     res.send("added employee!!!")
@@ -84,10 +72,8 @@ router.post('/addemployee', async (req, res) => {
     console.log(error)
   }
 })
-
 router.post('/insertapartmentdetails', async (req, res) => {
   const payload = req.body
-  console.log(payload)
   try {
     const result = await db.collection('Apartment').insertOne(payload)
     res.send("Added apartment details!!!")
@@ -95,10 +81,8 @@ router.post('/insertapartmentdetails', async (req, res) => {
     console.log(error)
   }
 })
-
 router.post("/getmonthwiseexpenses", async (req, res) => {
   let {description,year}=req.body
-  console.log(description+" "+year)
   try {
     const result = await db.collection("Expenses").aggregate([
       {
@@ -125,16 +109,11 @@ router.post("/getmonthwiseexpenses", async (req, res) => {
         $sort: { "_id.year": 1, "_id.month": 1 }
       }
     ]).toArray();
-    console.log(result)
-
     const transformedData = result.map(item => ({
       month: item._id.month,
       year: item._id.year,
       totalAmount: item.totalAmount
     }));
-    console.log(transformedData)
-
-    console.log("Aggregation result", transformedData);
     //const chartData = result.map(({ _id, totalAmount }) => ({
      // month: `${_id.month}-${_id.year}`,
       //totalAmount,

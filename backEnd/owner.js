@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const client = require("./dbconnect")
-
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
 
@@ -15,7 +14,6 @@ router.post('/updatepaymentstatus', async (req, res) => {
     console.log(error)
   }
 })
-
 router.post('/updatetenantstatus', async (req, res) => { 
   const { oid, tenant } = req.body;
 
@@ -41,7 +39,6 @@ router.post('/updatetenantstatus', async (req, res) => {
     res.status(500).json({ message: "Error updating tenant status", error });
   }
 });
-
 router.get('/getallowners', async (req, res) => {
   try {
     const owners = await db.collection('ownerandmaintainence').find().toArray();
@@ -51,7 +48,6 @@ router.get('/getallowners', async (req, res) => {
     res.status(500).json({ message: 'Error fetching employee data', error });
   }
 });
-
 router.get('/gettenants/:oid', async (req, res) => {
   const oid = parseInt(req.params.oid)
   try {
@@ -59,18 +55,14 @@ router.get('/gettenants/:oid', async (req, res) => {
     const owners = await db.collection('ownerandmaintainence')
       .find({ oid: oid }, { projection: { tenant: 1, _id: 0 } })
       .toArray();
-
-
     // Flatten all tenant arrays from each matching document
     const tenants = owners.flatMap(doc => doc.tenant || []);
-
     res.json(tenants);
   } catch (error) {
     console.error("Error while fetching tenants:", error);
     res.status(500).json({ message: 'Error fetching tenant data', error });
   }
 });
-
 router.get('/getOwnerServices', async (req, res) => {
   try {
     const owners = await db.collection('services').find().toArray();
@@ -80,7 +72,6 @@ router.get('/getOwnerServices', async (req, res) => {
     res.status(500).json({ message: 'Error fetching service data', error });
   }
 });
-
 router.get('/getfinancedata', async (req, res) => {
   try {
     const owners = await db.collection('collectioncorpus').find().toArray();
@@ -89,7 +80,6 @@ router.get('/getfinancedata', async (req, res) => {
     res.status(500).json({ message: 'Error fetching employee data', error });
   }
 });
-
 router.post('/generatemaintainencedetails', async (req, res) => {
   const { payload1, oid } = req.body
   try {
@@ -100,20 +90,15 @@ router.post('/generatemaintainencedetails', async (req, res) => {
     res.status(500).json({ message: 'Error saving maintainence data', error });
   }
 });
-
 router.post('/addamount', async (req, res) => {
   const payload1 = req.body;
   const amount = payload1.amount;
-  console.log("Amount to add:", amount);
-
   try {
     // Step 1: Increment amountcollected
     const result = await db.collection('collectioncorpus').updateOne(
       {},
       { $inc: { amountcollected: amount } }
     );
-
-    // Step 2: Recalculate totalamount and balance
     const result1 = await db.collection('collectioncorpus').updateOne(
       {},
       [
@@ -141,21 +126,17 @@ router.post('/addamount', async (req, res) => {
     res.status(500).json({ message: 'Error updating collection corpus', error });
   }
 });
-
 router.get('/getmaintainence/:oid', async (req, res) => {
   let oid = parseInt(req.params.oid);
   try {
     const owners = await db.collection('ownerandmaintainence').find({ oid: oid }).toArray();
-    console.log(owners)
     res.json(owners);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching employee data', error });
   }
 });
-
 router.post('/lodgecomplaint', async (req, res) => {
   const payload = req.body
-  console.log(payload)
   try {
     const result = await db.collection('complaints').insertOne(payload)
     res.send("added complaint!!!")
@@ -163,7 +144,6 @@ router.post('/lodgecomplaint', async (req, res) => {
     console.log(error)
   }
 })
-
 router.post('/addtenant', async (req, res) => {
   const payload = req.body
   try {

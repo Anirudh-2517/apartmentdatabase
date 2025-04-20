@@ -10,7 +10,6 @@ import {
 } from "react-icons/fa";
 
 function AddApartmentDetails() {
-  // Refs for form inputs
   const ApartmentName = useRef(null);
   const BuilderName = useRef(null);
   const Address = useRef(null);
@@ -20,12 +19,8 @@ function AddApartmentDetails() {
   const NoOfFlats = useRef(null);
   const NoOfFloors = useRef(null);
   const SocietyName = useRef(null);
-
-  // Form state
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState({ show: false, type: '', message: '' });
-
-  // Validation function
   const validateForm = () => {
     const required = [
       { ref: ApartmentName, name: 'Apartment Name' },
@@ -34,7 +29,6 @@ function AddApartmentDetails() {
       { ref: NoOfFlats, name: 'Number of Flats' },
       { ref: SocietyName, name: 'Society Name' }
     ];
-
     for (const field of required) {
       if (!field.ref.current.value.trim()) {
         showNotification('error', `${field.name} is required`);
@@ -42,14 +36,11 @@ function AddApartmentDetails() {
         return false;
       }
     }
-
-    // Validate numeric fields
     const numericFields = [
       { ref: NoOfWings, name: 'Number of Wings' },
       { ref: NoOfFlats, name: 'Number of Flats' },
       { ref: NoOfFloors, name: 'Number of Floors' }
     ];
-
     for (const field of numericFields) {
       const value = field.ref.current.value;
       if (value && (isNaN(value) || parseInt(value) <= 0)) {
@@ -58,23 +49,17 @@ function AddApartmentDetails() {
         return false;
       }
     }
-
     return true;
   };
-
-  // Helper to show notifications
   const showNotification = (type, message) => {
     setNotification({ show: true, type, message });
     setTimeout(() => {
       setNotification({ show: false, type: '', message: '' });
     }, 5000);
   };
-
   const addApartmentDetails = () => {
     if (!validateForm()) return;
-
     setIsSubmitting(true);
-
     const payload = {
       ApartmentName: ApartmentName.current.value,
       BuilderName: BuilderName.current.value,
@@ -86,12 +71,9 @@ function AddApartmentDetails() {
       Nooffloors: NoOfFloors.current.value,
       SocietyName: SocietyName.current.value,
     };
-
-    axios
-      .post("http://localhost:9000/api/admin/insertapartmentdetails", payload)
+    axios.post("http://localhost:9000/api/admin/insertapartmentdetails", payload)
       .then((response) => {
         showNotification('success', 'Apartment details have been successfully added!');
-        // Clear input fields after submission
         document.getElementById("apartmentForm").reset();
       })
       .catch((err) => {
@@ -102,8 +84,6 @@ function AddApartmentDetails() {
         setIsSubmitting(false);
       });
   };
-
-  // Improved Input field component with icon outside
   const InputField = ({ icon, label, placeholder, type = "text", reference, required = false }) => (
     <div className="mb-4">
       <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -123,14 +103,12 @@ function AddApartmentDetails() {
       </div>
     </div>
   );
-
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-      {/* Notification */}
       {notification.show && (
         <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg ${notification.type === 'success'
-            ? 'bg-green-100 border-l-4 border-green-500 text-green-700'
-            : 'bg-red-100 border-l-4 border-red-500 text-red-700'
+          ? 'bg-green-100 border-l-4 border-green-500 text-green-700'
+          : 'bg-red-100 border-l-4 border-red-500 text-red-700'
           } flex items-center`}>
           <div className="mr-3">
             {notification.type === 'success' ? (
@@ -154,15 +132,12 @@ function AddApartmentDetails() {
           </button>
         </div>
       )}
-
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6">
           <h2 className="text-white text-2xl font-bold">Add Apartment Details</h2>
           <p className="text-blue-100 mt-2">Register a new apartment complex in the system</p>
         </div>
-
         <form id="apartmentForm" className="p-6">
-          {/* Form organized in sections */}
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-gray-700 mb-4 border-b pb-2">Basic Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -219,7 +194,7 @@ function AddApartmentDetails() {
                 placeholder="Enter area name"
                 reference={AreaName}
               />
-              <InputField 
+              <InputField
                 icon={<FaCity className="text-gray-500" size={16} />}
                 label="City"
                 placeholder="Enter city name"
@@ -228,7 +203,6 @@ function AddApartmentDetails() {
               />
             </div>
           </div>
-
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-gray-700 mb-4 border-b pb-2">Structure Details</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -256,13 +230,12 @@ function AddApartmentDetails() {
               />
             </div>
           </div>
-
           <div className="flex justify-end mt-8">
             <button
               type="button"
               className={`px-6 py-3 font-semibold text-white rounded-lg shadow-lg transition-all ${isSubmitting
-                  ? 'bg-gray-500 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
+                ? 'bg-gray-500 cursor-not-allowed'
+                : 'bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
                 }`}
               onClick={addApartmentDetails}
               disabled={isSubmitting}
@@ -287,7 +260,6 @@ function AddApartmentDetails() {
           </div>
         </form>
       </div>
-
       <div className="mt-4 text-center text-gray-500 text-sm">
         <p>Fields marked with <span className="text-red-500">*</span> are required</p>
       </div>
