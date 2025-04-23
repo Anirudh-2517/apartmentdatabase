@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
 
-function AddTenant() {
+function AddTenant({oid}) {
     // References for form inputs
     const tname = useRef("");
     const taadhar = useRef("");
@@ -47,20 +47,20 @@ function AddTenant() {
         }, 5000);
     };
 
-    // Handle form submission
     const addtenant = async () => {
         if (!validateForm()) return;
         
         setIsSubmitting(true);
         
         const payload = {
+            oid:oid,
             tname: tname.current.value,
             taadhar: taadhar.current.value,
             taddress: taddress.current.value,
             tcell: tcell.current.value,
             tod: tod.current.value,
             tld: tld.current.value,
-            tstatus: "occupied"
+            tstatus: "Occupied"
         };
         
         try {

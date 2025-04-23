@@ -18,7 +18,7 @@ function Paymentdue() {
       {(paymentdues && paymentdues.length > 0) ? (paymentdues.map((owner, index) => (
         <div key={index} className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-semibold text-blue-700 mb-4">
-            Maintenance of :- {owner.ofname} {owner.olname}
+            Maintenance of :- {owner.ofname} {owner.olname} - {owner.oid}
           </h3>
           <div className="flex flex-wrap gap-6">
             {owner.maintainence && owner.maintainence.length > 0 ? (

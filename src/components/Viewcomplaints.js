@@ -13,6 +13,7 @@ function Viewcomplaints() {
         console.log(error)
       })
   }, [])
+  
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-md">
@@ -59,7 +60,7 @@ function Viewcomplaints() {
               {/* Resolve Button */}
               <button
                 className="col-span-2 px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-              //   onClick={() => handleResolve(index)}
+                // onClick={() => handleResolve(index)}
               >
                 Resolve
               </button>

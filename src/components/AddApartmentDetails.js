@@ -71,7 +71,12 @@ function AddApartmentDetails() {
       Nooffloors: NoOfFloors.current.value,
       SocietyName: SocietyName.current.value,
     };
-    axios.post("http://localhost:9000/api/admin/insertapartmentdetails", payload)
+
+
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+
+    axios.post(`${API_BASE_URL}/admin/insertapartmentdetails`, payload)
       .then((response) => {
         showNotification('success', 'Apartment details have been successfully added!');
         document.getElementById("apartmentForm").reset();

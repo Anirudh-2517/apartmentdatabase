@@ -16,12 +16,12 @@ import axios from "axios";
 
 // Register chart components
 ChartJS.register(
-  CategoryScale, 
-  LinearScale, 
-  BarElement, 
-  Title, 
-  Tooltip, 
-  Legend, 
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
   ArcElement,
   PointElement,
   LineElement
@@ -44,7 +44,7 @@ const FinancialExpenses = () => {
     setNotificationMessage(message);
     setNotificationType(type);
     setShowNotification(true);
-    
+
     setTimeout(() => {
       setShowNotification(false);
     }, 3000);
@@ -58,11 +58,11 @@ const FinancialExpenses = () => {
       .then((response) => {
         const data = response.data || [];
         setExpenseData(data);
-        
+
         // Calculate total expenses
         const total = data.reduce((sum, item) => sum + (item.total || 0), 0);
         setTotalExpenseAmount(total);
-        
+
         setLoading(false);
       })
       .catch((error) => {
@@ -85,7 +85,7 @@ const FinancialExpenses = () => {
     }
 
     setChartLoading(true);
-    
+
     const payload = {
       description: selectedDescription,
       year: selectedYear
@@ -146,24 +146,27 @@ const FinancialExpenses = () => {
   };
 
   // Data for the overall expenses chart
+  // Data for the overall expenses chart
   const overallChartData = {
     labels: expenseData.map((item) => item._id || "Unknown"),
     datasets: [
       {
         label: "Total Expenses",
         data: expenseData.map((item) => item.total || 0),
-        backgroundColor: chartType === "doughnut" 
-          ? chartColors.doughnut.backgroundColor 
-          : chartColors.bar.backgroundColor,
-        borderColor: chartType === "doughnut" 
-          ? chartColors.doughnut.borderColor 
-          : chartColors.bar.borderColor,
+        backgroundColor: chartType === "doughnut"
+          ? chartColors.doughnut.backgroundColor
+          : expenseData.map((_, index) => `hsl(${(index * 30) % 360}, 70%, 60%)`),
+        borderColor: chartType === "doughnut"
+          ? chartColors.doughnut.borderColor
+          : expenseData.map((_, index) => `hsl(${(index * 30) % 360}, 70%, 50%)`),
         borderWidth: 2,
-        borderRadius: chartType === "bar" ? 10 : 0,
+        borderRadius: chartType === "bar" ? 5 : 0,
         tension: 0.4,
+        barThickness: chartType === "bar" ? 20 : undefined,
       },
     ],
   };
+
 
   // Data for the month-wise expenses chart
   const monthWiseChartData = {
@@ -172,28 +175,30 @@ const FinancialExpenses = () => {
       {
         label: `Expenses for ${selectedDescription} (${selectedYear})`,
         data: monthWiseData ? monthWiseData.map((item) => item.totalAmount || 0) : [],
-        backgroundColor: chartColors.monthWise.backgroundColor,
-        borderColor: chartColors.monthWise.borderColor,
+        backgroundColor: monthWiseData ? monthWiseData.map((_, index) => `hsl(${(index * 30) % 360}, 70%, 60%)`) : [],
+        borderColor: monthWiseData ? monthWiseData.map((_, index) => `hsl(${(index * 30) % 360}, 70%, 50%)`) : [],
         borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 5,
+        barThickness: 20,
         tension: 0.4,
       },
     ],
   };
+
 
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: { display: true, position: "top" },
-      title: { 
-        display: true, 
-        text: chartType === "doughnut" ? "Expense Distribution" : "Financial Overview", 
-        font: { size: 18, weight: 'bold' } 
+      title: {
+        display: true,
+        text: chartType === "doughnut" ? "Expense Distribution" : "Financial Overview",
+        font: { size: 18, weight: 'bold' }
       },
       tooltip: {
         callbacks: {
-          label: function(context) {
+          label: function (context) {
             const label = context.dataset.label || '';
             const value = context.raw || 0;
             return `${label}: ₹${value.toLocaleString()}`;
@@ -203,10 +208,10 @@ const FinancialExpenses = () => {
     },
     scales: chartType !== "doughnut" ? {
       x: { grid: { display: false } },
-      y: { 
+      y: {
         grid: { color: "rgba(209, 213, 219, 0.2)" },
         ticks: {
-          callback: function(value) {
+          callback: function (value) {
             return '₹' + value.toLocaleString();
           }
         }
@@ -248,10 +253,9 @@ const FinancialExpenses = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-10">
       {/* Notification */}
       {showNotification && (
-        <div 
-          className={`fixed top-6 right-6 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${
-            notificationType === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
-          }`}
+        <div
+          className={`fixed top-6 right-6 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${notificationType === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+            }`}
         >
           {notificationMessage}
         </div>
@@ -282,33 +286,30 @@ const FinancialExpenses = () => {
               <button
                 type="button"
                 onClick={() => setChartType("bar")}
-                className={`px-4 py-2 text-sm font-medium rounded-l-lg ${
-                  chartType === "bar"
+                className={`px-4 py-2 text-sm font-medium rounded-l-lg ${chartType === "bar"
                     ? "bg-indigo-600 text-white"
                     : "bg-white text-gray-700 hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 Bar Chart
               </button>
               <button
                 type="button"
                 onClick={() => setChartType("line")}
-                className={`px-4 py-2 text-sm font-medium ${
-                  chartType === "line"
+                className={`px-4 py-2 text-sm font-medium ${chartType === "line"
                     ? "bg-indigo-600 text-white"
                     : "bg-white text-gray-700 hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 Line Chart
               </button>
               <button
                 type="button"
                 onClick={() => setChartType("doughnut")}
-                className={`px-4 py-2 text-sm font-medium rounded-r-lg ${
-                  chartType === "doughnut"
+                className={`px-4 py-2 text-sm font-medium rounded-r-lg ${chartType === "doughnut"
                     ? "bg-indigo-600 text-white"
                     : "bg-white text-gray-700 hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 Doughnut Chart
               </button>
@@ -354,7 +355,7 @@ const FinancialExpenses = () => {
               {/* Dropdown for Year */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
-                <select 
+                <select
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
                   className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 focus:outline-none transition"
@@ -371,11 +372,10 @@ const FinancialExpenses = () => {
                 <button
                   onClick={fetchMonthWiseExpenses}
                   disabled={chartLoading}
-                  className={`w-full p-3 rounded-lg shadow text-white font-medium transition-all ${
-                    chartLoading
+                  className={`w-full p-3 rounded-lg shadow text-white font-medium transition-all ${chartLoading
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-indigo-600 hover:bg-indigo-700 hover:shadow-lg"
-                  }`}
+                    }`}
                 >
                   {chartLoading ? (
                     <span className="flex items-center justify-center">

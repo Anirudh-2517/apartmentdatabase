@@ -1,37 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Link,
-  useLocation,
-  Navigate
-} from "react-router-dom";
-import {
-  Bell,
-  LogOut,
-  Settings,
-  User,
-  Home,
-  CreditCard,
-  FileText,
-  Mail,
-  DollarSign,
-  AlertCircle,
-  PlusCircle,
-  ChevronRight,
-  Menu,
-  X,
-  Calendar,
-  Clock,
-  BarChart3,
-  Building,
-  Shield,
-  Users,
-  Sun,
-  Moon,
-  Coffee
-} from "lucide-react";
+import {BrowserRouter as Router,Route,Routes,Link,useLocation,Navigate} from "react-router-dom";
+import {Bell,LogOut,  Settings,User,Home,CreditCard,FileText,Mail,DollarSign,AlertCircle,PlusCircle,ChevronRight,Menu,X,Calendar,Clock,BarChart3,
+  Building,Shield,Users,Sun,Moon,Coffee} from "lucide-react";
 import Employee from "./Employee";
 import Paymentdue from "./Paymentdue";
 import Raisedemand from "./Raisedemand";
@@ -42,7 +12,6 @@ import AddExpense from "./AddExpense";
 function NavLink({ to, label, icon }) {
   const location = useLocation();
   const isActive = location.pathname === to;
-
   return (
     <Link
       to={to}

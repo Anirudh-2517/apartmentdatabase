@@ -28,16 +28,49 @@ router.get("/getsummaryexpenses", async (req, res) => {
 });
 router.post("/setfinancialyear", async (req, res) => {
   try {
-    const {financialyear} = req.body;
+    const { financialyear } = req.body;
     const result = await db.collection('counters').updateOne({}, { $set: { financialyear: financialyear } })
     res.send(result)
   } catch (error) {
     console.log(error)
   }
 })
+router.post("/setapartmentname", async (req, res) => {
+  try {
+    const { Apartmentname } = req.body;
+    const result = await db.collection('Apartment').updateOne({}, { $set: { Apartmentname: Apartmentname } })
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  }
+})
+router.post("/setblocksorwings", (req, res) => {
+  try {
+    const { Blocks } = req.body;
+    console.log(Blocks)
+    if (Blocks === "Blocks") {
+      const result = db.collection('Apartment').updateOne({}, { $set: { Blocks: true } })
+      res.send(result)
+    }
+    else {
+      const result = db.collection('Apartment').updateOne({}, { $set: { Blocks: false } })
+    }
+  } catch (error) {
+    console.log(error)
+  }
+})
+router.get("/getblocksorwings", async (req, res) => {
+  try {
+    const result = await db.collection('Apartment').find({}).toArray()
+    res.json(result);
+  } catch (error) {
+    console.error("Error during aggregation:", error);
+    res.status(500).json({ error: "An error occurred while processing your request." });
+  }
+});
 router.post("/setannualmaintainence", async (req, res) => {
   try {
-    const {annualmaintainence} = req.body;
+    const { annualmaintainence } = req.body;
     const result = await db.collection('counters').updateOne({}, { $set: { annualmaintainence: annualmaintainence } })
     res.send(result)
   } catch (error) {
@@ -82,13 +115,13 @@ router.post('/insertapartmentdetails', async (req, res) => {
   }
 })
 router.post("/getmonthwiseexpenses", async (req, res) => {
-  let {description,year}=req.body
+  let { description, year } = req.body
   try {
     const result = await db.collection("Expenses").aggregate([
       {
         $match: {
-          description:description,
-          year:year,
+          description: description,
+          year: year,
           date: { $exists: true, $ne: null }, // Ensure only documents with valid dates are processed
           amount: { $exists: true, $ne: null } // Ensure only valid amounts are processed
         }
@@ -115,14 +148,14 @@ router.post("/getmonthwiseexpenses", async (req, res) => {
       totalAmount: item.totalAmount
     }));
     //const chartData = result.map(({ _id, totalAmount }) => ({
-     // month: `${_id.month}-${_id.year}`,
-      //totalAmount,
+    // month: `${_id.month}-${_id.year}`,
+    //totalAmount,
     //}));
     return res.send(transformedData);
   } catch (error) {
     console.error("Error fetching month-wise expenses:", error);
     return res.status(500).json({ message: "Failed to fetch month-wise expenses" });
   }
-}); 
+});
 
 module.exports = router;

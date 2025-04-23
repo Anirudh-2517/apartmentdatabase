@@ -145,13 +145,27 @@ router.post('/lodgecomplaint', async (req, res) => {
   }
 })
 router.post('/addtenant', async (req, res) => {
-  const payload = req.body
+  const payload = req.body;
   try {
-    const result = await db.collection('ownerandmaintainence').updateOne({},{$push:{tenant:payload}})
-    res.send("Added tenant!!!")
+    // Ensure oid is present in the payload
+    if (!payload.oid) {
+      return res.status(400).send("Missing 'oid' in payload.");
+    }
+
+    const result = await db.collection('ownerandmaintainence').updateOne(
+      { oid: payload.oid }, // Filter by oid
+      { $push: { tenant: payload } } // Push the payload into tenant array
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).send("No document found with the given oid.");
+    }
+
+    res.send("Added tenant!");
   } catch (error) {
-    console.log(error)
+    console.error(error);
+    res.status(500).send("Error adding tenant.");
   }
-})
+});
 
 module.exports = router;

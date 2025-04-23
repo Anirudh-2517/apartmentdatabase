@@ -215,7 +215,7 @@ function Owner({ oid, username, setLoginStatus ,login }) {
               <Routes>
                 <Route path="/viewexpenses" element={<Financialdata />} />
                 <Route path="/lodgecomplaint" element={<ComplaintFeedback />} />
-                <Route path="/addtenant" element={<AddTenant />} />
+                <Route path="/addtenant" element={<AddTenant oid={oid}  />} />
                 <Route path="/ownerservices" element={<OwnerServices />} />
                 <Route path="/tenantview" element={<DisplayTenants oid={oid}/>} />
                 <Route path="/paymaintainence" element={<Maintainance oid={oid} login={login} />} />

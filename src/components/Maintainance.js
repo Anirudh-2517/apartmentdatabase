@@ -18,7 +18,7 @@ function Maintainance({ oid, username, login }) {
     try {
       setProcessingPayment(true);
       setMessage("Processing payment...");
-      
+
       const response = await axios.post('http://localhost:9000/api/create-order', {
         amount: parseFloat(M.amount),
         currency,
@@ -191,19 +191,19 @@ function Maintainance({ oid, username, login }) {
         </div>
         <div className="flex justify-between items-center mb-6">
           <div className="flex gap-3">
-            <button 
+            <button
               onClick={() => setFilterStatus('all')}
               className={`px-4 py-2 rounded-lg transition-all ${filterStatus === 'all' ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               All
             </button>
-            <button 
+            <button
               onClick={() => setFilterStatus('Pending')}
               className={`px-4 py-2 rounded-lg transition-all ${filterStatus === 'Pending' ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               Pending
             </button>
-            <button 
+            <button
               onClick={() => setFilterStatus('Paid')}
               className={`px-4 py-2 rounded-lg transition-all ${filterStatus === 'Paid' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >

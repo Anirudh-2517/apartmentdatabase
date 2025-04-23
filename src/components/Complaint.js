@@ -30,17 +30,18 @@ function ComplaintFeedback() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     const payload = {
       category: complaint.category,
-      description: complaint.description,
+      cdescription: complaint.description,
       isAnonymous: complaint.isAnonymous,
-      status: "Pending", // Always set to 'Pending'
+      cstatus: "Pending", // Always set to 'Pending'
+      submittedAt: new Date().toISOString(), // Add date here
     };
-
+  
     try {
       const response = await axios.post(
-        "http://localhost:9000/api/AddComplaint",
+        "http://localhost:9000/api/owner/lodgecomplaint",
         payload
       );
       showNotification(response.data.message || "Complaint submitted successfully!", "success");
@@ -57,6 +58,7 @@ function ComplaintFeedback() {
       setIsSubmitting(false);
     }
   };
+  
 
   const categories = [
     { value: "maintenance", label: "Maintenance" },
