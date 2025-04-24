@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import { Home, Users, UserPlus, Building, DollarSign, Settings, LogOut, Menu, X } from "lucide-react";
-import AddOwner from "./Addowner";
-import Addemployee from "./Addemployee";
-import FinancialExpenses from "./FinancialExpenses";
-import AddApartmentDetails from "./AddApartmentDetails";
-import AddFlatDetails from './AddFlatDetails'
-import Adminsettings from "./Adminsettings";
-import DashboardOverview from "./DashboardOverview"; // You'll need to create this component
+import AddOwner from "../admin/Addowner";
+import Addemployee from "../admin/Addemployee";
+import FinancialExpenses from "../admin/FinancialExpenses";
+import AddApartmentDetails from "../admin/AddApartmentDetails";
+import AddFlatDetails from '../admin/AddFlatDetails'
+import Adminsettings from "../admin/Adminsettings";
+import DashboardOverview from "../admin/DashboardOverview"; // You'll need to create this component
 
 function AdminDashboard({ setLoginStatus }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);

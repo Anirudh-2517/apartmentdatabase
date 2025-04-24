@@ -173,7 +173,10 @@ function VisitorsInfo() {
       backgroundColor: chartColors.primary.backgroundColor,
       borderColor: chartColors.primary.borderColor,
       borderWidth: 2,
+      barThickness: 20, // smaller value = thinner bars
+      // or use maxBarThickness if you want it to auto-fit but not exceed a width
     };
+    
     
     // For pie chart, use different colors for each day
     if (chartType === "pie") {

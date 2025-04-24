@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { BrowserRouter} from "react-router-dom";
 import "./App.css";
-import Chairman from "./components/Chairman";
+import Chairman from "./components/ChairmanDashboard";
 import Secretary from "./components/SecretaryDashboard";
-import Owner from "./components/Owner";
+import Owner from "./components/OwnerDashboard";
 import Security from "./components/SecurityDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 import Home from "./components/Home";

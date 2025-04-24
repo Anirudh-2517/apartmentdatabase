@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Home, Users, UserPlus, List, LogOut, Bell } from 'lucide-react';
-import AddVisitors from './AddVisitor';
-import DisplayVisitors from './DisplayVisitors';
-import VisitorsInfo from './VisitorsInfo';
+import AddVisitors from '../security/AddVisitor';
+import DisplayVisitors from '../security/DisplayVisitors';
+import VisitorsInfo from '../security/VisitorsInfo';
 
 function SecurityDashboard({ setLoginStatus,setScannedData,scannedData,formData,setFormData}) {
     const [activeTab, setActiveTab] = useState('home');

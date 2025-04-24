@@ -6,7 +6,10 @@ db = client.db(dbName);
 
 router.get('/getallvisitors', async (req, res) => {
   try {
-    const visitors = await db.collection('visitors').find().toArray();  // Fetch all employees from MongoDB
+    const visitors = await db.collection('visitors').find({})
+    .sort({ vdate: -1 })
+    .limit(10)
+    .toArray();  // Fetch all employees from MongoDB
     res.json(visitors);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching visitors data', error });
@@ -21,7 +24,6 @@ router.get('/getinfobycellnumber/:scannedData', async (req, res) => {
     res.status(500).json({ message: 'Error fetching visitors data', error });
   }
 });
-
 router.post('/visitor-count', async (req, res) => {
   try {
     const { year, month } = req.body;

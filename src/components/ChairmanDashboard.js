@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
-import ChairmanMessages, { ChairmanNotice, ChairmanRaiseMDemand } from "./ChairmanMessages";
-import AcademicCalendar from "./ApartmentCalender";
+import ChairmanMessages, { ChairmanNotice, ChairmanRaiseMDemand } from "../chairman/ChairmanMessages";
+import AcademicCalendar from "../chairman/ApartmentCalender";
 import { Route, Routes, Link, useLocation } from "react-router-dom";
 import { Bell, MessageSquare, Search, Home, LogOut, User, FileText, Calendar, Settings } from "lucide-react";
 

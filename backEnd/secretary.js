@@ -127,7 +127,10 @@ router.post('/recievepayment', async (req, res) => {
 });
 router.get('/getlodgedcomplaints', async (req, res) => {
   try {
-    const complaints = await db.collection('complaints').find().toArray();  // Fetch all employees from MongoDB
+    const complaints = await db.collection('complaints').find({})
+    .sort({ date: -1 })
+    .limit(5)
+    .toArray();  // Fetch all employees from MongoDB
     res.send(complaints);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching data', error });

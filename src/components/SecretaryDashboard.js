@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import {BrowserRouter as Router,Route,Routes,Link,useLocation,Navigate} from "react-router-dom";
 import {Bell,LogOut,  Settings,User,Home,CreditCard,FileText,Mail,DollarSign,AlertCircle,PlusCircle,ChevronRight,Menu,X,Calendar,Clock,BarChart3,
   Building,Shield,Users,Sun,Moon,Coffee} from "lucide-react";
-import Employee from "./Employee";
-import Paymentdue from "./Paymentdue";
-import Raisedemand from "./Raisedemand";
-import SendReminder from "./SendReminder";
-import Viewcomplaints from "./Viewcomplaints";
-import AddExpense from "./AddExpense";
+import Employee from "../secretary/Employee";
+import Paymentdue from "../secretary/Paymentdue";
+import Raisedemand from "../secretary/Raisedemand";
+import SendReminder from "../secretary/SendReminder";
+import Viewcomplaints from "../secretary/Viewcomplaints";
+import AddExpense from "../secretary/AddExpense";
 
 function NavLink({ to, label, icon }) {
   const location = useLocation();

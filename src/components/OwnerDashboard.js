@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Link, Routes, Route, useLocation } from 'react-router-dom';
-import ComplaintFeedback from "./Complaint";
-import Maintainance from "./Maintainance";
-import FinancialExpenses from "./FinancialExpenses";
-import Financialdata from "./Financialdata";
-import OwnerServices from "./Ownerservices";
-import TempDisplay from "./TempDisplay";
-import AddTenant from "./AddTenant"
-import Gassensorinfo from "./Gassensorinfo";
+import ComplaintFeedback from "../owner/Complaint";
+import Maintainance from "../owner/Maintainance";
+import FinancialExpenses from "../admin/FinancialExpenses";
+import Financialdata from "../owner/Financialdata";
+import OwnerServices from "../owner/Ownerservices";
+import TempDisplay from "../owner/TempDisplay";
+import AddTenant from "../owner/AddTenant"
+import Gassensorinfo from "../owner/Gassensorinfo";
 import {
   Home, FileText, DollarSign, BarChart2, Thermometer, Wind,
   Menu, X, LogOut, User, ChevronRight, Settings, Bell
 } from 'lucide-react';
-import DisplayTenants from "./DisplayTenants";
+import DisplayTenants from "../owner/DisplayTenants";
 
 function Owner({ oid, username, setLoginStatus ,login }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
