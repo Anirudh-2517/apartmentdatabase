@@ -8,10 +8,9 @@ function ComplaintFeedback() {
     isAnonymous: false,
     status: "Pending",
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState({ show: false, type: "", message: "" });
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setComplaint((prev) => ({
@@ -41,7 +40,7 @@ function ComplaintFeedback() {
   
     try {
       const response = await axios.post(
-        "http://localhost:9000/api/owner/lodgecomplaint",
+        `${API_BASE_URL}/owner/lodgecomplaint`,
         payload
       );
       showNotification(response.data.message || "Complaint submitted successfully!", "success");

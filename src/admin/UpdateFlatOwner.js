@@ -4,6 +4,7 @@ import axios from "axios";
 function UpdateFlatOwner() {
   const FlatId = useRef("");
   const NewOwner = useRef("");
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const updateFlatOwner = () => {
     const payload = {
@@ -12,7 +13,7 @@ function UpdateFlatOwner() {
     };
 
     axios
-      .put("http://localhost:9000/api/updateFlatOwner", payload)
+      .put(`${API_BASE_URL}/updateFlatOwner`, payload)
       .then((response) => {
         alert("Flat owner updated successfully!");
         FlatId.current.value = "";
@@ -23,7 +24,6 @@ function UpdateFlatOwner() {
         alert("Failed to update flat owner. Please try again.");
       });
   };
-
   return (
     <div className="flex justify-center items-center min-h-screen ">
       <div className="bg-white shadow-2xl rounded-xl p-8 sm:p-10 max-w-2xl w-full m-4">
@@ -31,7 +31,6 @@ function UpdateFlatOwner() {
           Update Flat Owner
         </h2>
         <div className="space-y-4">
-          {/* Flat ID Input */}
           <div className="relative">
             <input
               type="text"

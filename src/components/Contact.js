@@ -76,7 +76,7 @@ function Contact() {
           </div>
 
           {/* Developer Cards */}
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden md:col-span-1 transform transition duration-300 hover:shadow-2xl hover:-translate-y-1">
+          {/* <div className="bg-white rounded-2xl shadow-xl overflow-hidden md:col-span-1 transform transition duration-300 hover:shadow-2xl hover:-translate-y-1">
             <div className="flex justify-center mt-7">
               <div className="relative w-36 h-36 rounded-full bg-gradient-to-r from-pink-400 via-yellow-500 to-orange-600 p-1 shadow-lg">
                 <div className="w-full h-full bg-white rounded-full overflow-hidden">
@@ -94,7 +94,7 @@ function Contact() {
               <p className="text-gray-600 font-semibold text-lg">Full Stack Web Dev</p>
               <h2>shreyashkulkarni03@gmail.com</h2>
             </div>
-          </div>
+          </div> */}
 
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden md:col-span-1 transform transition duration-300 hover:shadow-2xl hover:-translate-y-1">
             <div className="flex justify-center mt-6">

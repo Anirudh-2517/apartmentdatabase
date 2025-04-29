@@ -50,5 +50,13 @@ router.get('/getMessages', async (req, res) => {
     res.status(500).json({ message: 'Error fetching data', error });
   }
 });
+router.get('/getownersandtenants', async (req, res) => {
+  try {
+    const notice = await db.collection('ownerandmaintainence').find({Adesignation:"Owner"}).toArray(); 
+    res.json(notice);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching data', error });
+  }
+});
 
 module.exports = router;

@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "675f12ebcbac7b28f3016119"
+  },
+  "Apartmentname": "Amar Elite",
+  "Address": "3rd cross ",
+  "AreaName": "Bhagyanagar",
+  "City": " Belgaum",
+  "Buildername": "Amar Aknoji",
+  "NumberOfWings": "1",
+  "SocietyName": "Amar Elite Society",
+  "Numberofflats": "36",
+  "Numberoffloors": "6",
+  "Blocks": false,
+  "Apartmenttype": "Host"
+}]

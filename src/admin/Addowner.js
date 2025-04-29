@@ -9,6 +9,7 @@ const AddOwner = () => {
   const [addedOwner, setAddedOwner] = useState(null);
   const [loading, setLoading] = useState(false);
   const [worb, setWorb] = useState(false)
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const [formData, setFormData] = useState({
     oid: "",
@@ -42,7 +43,7 @@ const AddOwner = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:9000/api/admin/getoidcount")
+      .get(`${API_BASE_URL}/admin/getoidcount`)
       .then((response) => {
         setFormData((prevData) => ({
           ...prevData,
@@ -55,7 +56,7 @@ const AddOwner = () => {
         setLoading(false);
       });
 
-    axios.get("http://localhost:9000/api/admin/getblocksorwings")
+    axios.get(`${API_BASE_URL}/admin/getblocksorwings`)
       .then(response => {
         console.log("im here")
         setWorb(response.data[0].Blocks)
@@ -201,8 +202,8 @@ const AddOwner = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:9000/api/admin/addowner",
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+      const response = await axios.post(`${API_BASE_URL}/admin/addowner`,
         formData
       );
       setAddedOwner(formData);

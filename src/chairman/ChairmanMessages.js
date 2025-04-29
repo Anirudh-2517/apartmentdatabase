@@ -7,7 +7,7 @@ function ChairmanMessages() {
   const [error, setError] = useState(null);
   const msgRef = useRef("");
   const flatnoRef = useRef("");
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const sendMessage = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -24,7 +24,7 @@ function ChairmanMessages() {
         throw new Error("Please fill in all fields");
       }
 
-      await axios.post("http://localhost:9000/api/chairman/postmessage", payload);
+      await axios.post(`${API_BASE_URL}/chairman/postmessage`, payload);
       setSuccess(true);
       msgRef.current.value = "";
       flatnoRef.current.value = "";
@@ -112,7 +112,7 @@ export function ChairmanNotice() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const noticeRef = useRef("");
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const postNotice = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -126,7 +126,7 @@ export function ChairmanNotice() {
         throw new Error("Please enter a notice");
       }
 
-      await axios.post("http://localhost:9000/api/chairman/postnotice", { notice });
+      await axios.post(`${API_BASE_URL}/chairman/postnotice`, { notice });
       setSuccess(true);
       noticeRef.current.value = "";
     } catch (error) {

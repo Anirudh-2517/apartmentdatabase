@@ -5,12 +5,13 @@ const TempDisplay = () => {
   const [temperatureData, setTemperatureData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchTemperature = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:9000/temperature"); // Replace with your backend URL
+        const response = await axios.get(`${API_BASE_URL}/temperature`); // Replace with your backend URL
         setTemperatureData(response.data);
       } catch (err) {
         setError("Failed to fetch temperature data");

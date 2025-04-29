@@ -11,9 +11,10 @@ function Employee() {
     const amount = useRef("");
     const sstatus = useRef("");
     const saldate = useRef("");
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
-        axios.get("http://localhost:9000/api/secretary/getfinancialyear")
+        axios.get(`${API_BASE_URL}/secretary/getfinancialyear`)
             .then(response => {
                 setFinancialyear(response.data);
             })
@@ -23,7 +24,7 @@ function Employee() {
     }, [financialyear]);
 
     useEffect(() => {
-        axios.get("http://localhost:9000/api/secretary/getallemployees/" + financialyear)
+        axios.get(`${API_BASE_URL}/secretary/getallemployees/` + financialyear)
             .then(response => {
                 setEmployee(response.data);
             })
@@ -51,7 +52,7 @@ function Employee() {
                 saldate: saldate1
             };
             
-            axios.post("http://localhost:9000/api/secretary/generatesalarydetails", { payload, empid })
+            axios.post(`${API_BASE_URL}/secretary/generatesalarydetails`, { payload, empid })
                 .then(response => {
                     alert("Salary details added successfully!");
                     // Reset form fields

@@ -38,6 +38,8 @@ function VisitorsInfo() {
   const [highestDay, setHighestDay] = useState({ date: "", count: 0 });
   const [previousPeriodData, setPreviousPeriodData] = useState(null);
   const [showComparison, setShowComparison] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 10 }, (_, i) => (currentYear - 2 + i).toString());
@@ -76,7 +78,7 @@ function VisitorsInfo() {
     try {
       const payload = { year, month };
       const response = await axios.post(
-        "http://localhost:9000/api/security/visitor-count",
+        `${API_BASE_URL}/security/visitor-count`,
         payload
       );
 
@@ -115,7 +117,7 @@ function VisitorsInfo() {
     try {
       const payload = { year: prevYear.toString(), month: formattedPrevMonth };
       const response = await axios.post(
-        "http://localhost:9000/api/visitor-count",
+        `${API_BASE_URL}/visitor-count`,
         payload
       );
 

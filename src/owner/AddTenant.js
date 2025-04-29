@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
 
+
 function AddTenant({oid}) {
     // References for form inputs
     const tname = useRef("");
@@ -9,6 +10,7 @@ function AddTenant({oid}) {
     const tcell = useRef("");
     const tod = useRef("");
     const tld = useRef("");
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     
     // Form state management
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -64,7 +66,7 @@ function AddTenant({oid}) {
         };
         
         try {
-            await axios.post("http://localhost:9000/api/owner/addtenant", payload);
+            await axios.post(`${API_BASE_URL}/owner/addtenant`, payload);
             showNotification("Tenant added successfully");
             
             // Reset form

@@ -4,8 +4,10 @@ import CollectMaintainence from './CollectMaintainence'
 
 function Paymentdue() {
   const [paymentdues, setPaymentdues] = useState([])
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
-    axios.get("http://localhost:9000/api/secretary/paymentdues")
+    axios.get(`${API_BASE_URL}/secretary/paymentdues`)
       .then(response => {
         setPaymentdues(response.data)
       })

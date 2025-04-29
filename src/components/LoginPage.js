@@ -10,6 +10,7 @@ const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin 
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,7 +24,7 @@ const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin 
     setUsername(formData.username);
 
     try {
-      const response = await fetch("http://localhost:9000/api/login/authenticate", {
+      const response = await fetch(`${API_BASE_URL}/login/authenticate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

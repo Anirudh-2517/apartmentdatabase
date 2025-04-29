@@ -3,9 +3,10 @@ import axios from 'axios'
 
 function Viewcomplaints() {
   const [complaints, setComplaints] = useState([])
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
-    axios.get("http://localhost:9000/api/secretary/getlodgedcomplaints")
+    axios.get(`${API_BASE_URL}/secretary/getlodgedcomplaints`)
       .then(response => {
         setComplaints(response.data)
       })

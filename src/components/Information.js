@@ -3,10 +3,12 @@ import axios from "axios";
 
 function Information() {
   const [info, setInfo] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/api/getinfo")
+      .get(`${API_BASE_URL}/getinfo`)
       .then((response) => {
         setInfo(response.data);
       })

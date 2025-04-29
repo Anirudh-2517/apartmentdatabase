@@ -15,6 +15,7 @@ function RaiseDemand() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from({ length: 5 }, (_, i) => `${currentYear + i}-${currentYear + i + 1}`);
@@ -68,7 +69,7 @@ function RaiseDemand() {
         estatus: "Pending"
       };
       
-      const response = await axios.post("http://localhost:9000/api/Raisedemand", payload);
+      const response = await axios.post(`${API_BASE_URL}/Raisedemand`, payload);
       
       if (response.data.message === "Duplicate year detected in Maintainance field.") {
         setErrorMessage("Duplicate year detected! Please check and try again.");

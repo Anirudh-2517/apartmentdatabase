@@ -26,7 +26,8 @@ const Addemployee = () => {
     setIsSubmitting(true);
     setFormStatus({ type: '', message: '' });
     try {
-      const response = await axios.post('http://localhost:9000/api/admin/addemployee', formData);
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;    
+      const response = await axios.post(`${API_BASE_URL}/admin/addemployee`, formData);
       console.log('Data submitted successfully:', response.data);
       setFormStatus({ 
         type: 'success', 

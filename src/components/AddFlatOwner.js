@@ -18,7 +18,7 @@ function AddFlatOwner() {
     };
 
     axios
-      .post("http://localhost:9000/api/insertFlatOwner", payload)
+      .post(`${API_BASE_URL}/insertFlatOwner`, payload)
       .then((response) => {
         alert("Owner Inserted");
       })

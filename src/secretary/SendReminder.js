@@ -15,6 +15,7 @@ function SendReminder() {
       "Kindly clear your pending maintenance payment at your earliest convenience."
     ]);
     const [selectedTemplate, setSelectedTemplate] = useState("");
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   
     useEffect(() => {
       // Mock data for demonstration purposes
@@ -41,7 +42,7 @@ function SendReminder() {
       setLoading(true);
   
       axios
-        .post("http://localhost:9000/api/secretary/sendReminder", reminder)
+        .post(`${API_BASE_URL}/secretary/sendReminder`, reminder)
         .then(() => {
           setNotification({
             show: true,

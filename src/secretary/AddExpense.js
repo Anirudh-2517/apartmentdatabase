@@ -12,6 +12,7 @@ function AddExpense() {
     });
     const [loading, setLoading] = useState(false);
     const [notification, setNotification] = useState({ show: false, type: "", message: "" });
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -22,7 +23,7 @@ function AddExpense() {
       event.preventDefault();
       setLoading(true);
   
-      axios.post("http://localhost:9000/api/secretary/addExpense", expense)
+      axios.post(`${API_BASE_URL}/secretary/addExpense`, expense)
         .then(() => {
           setNotification({
             show: true,

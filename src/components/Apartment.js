@@ -17,7 +17,7 @@ function Apartment() {
   useEffect(() => {
     const fetchApartmentData = async () => {
       try {
-        const response = await axios.get("http://localhost:9000/api/getAptname");
+        const response = await axios.get(`${API_BASE_URL}/getAptname`);
         setApartmentData(response.data[0]);
         Aname.current.value = response.data[0].Apartmentname;
         Address.current.value = response.data[0].Address;
@@ -54,11 +54,11 @@ function Apartment() {
     try {
       if (!apartmentData) {
         // Add new apartment data
-        const response = await axios.post("http://localhost:9000/api/insertApartmentData", payload);
+        const response = await axios.post(`${API_BASE_URL}/insertApartmentData`, payload);
         alert("Apartment data inserted successfully!");
       } else {
         // Update existing apartment data
-        const response = await axios.post("http://localhost:9000/api/updateApartmentData", payload);
+        const response = await axios.post(`${API_BASE_URL}/updateApartmentData`, payload);
         alert("Apartment details updated successfully!");
       }
     } catch (err) {

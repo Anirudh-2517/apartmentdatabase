@@ -49,7 +49,7 @@ const EnhancedLandingPage = () => {
     {
       quote: 'The better and user -friendly property management solution we are using. This is incredibly the future of managing apartments.',
       author: 'Y.M.Patil',
-      role:'Chairman'
+      role: 'Chairman'
     }
   ];
 
@@ -71,31 +71,29 @@ const EnhancedLandingPage = () => {
 
 
 
-                <div className="flex flex-wrap gap-4">
+                {/* <div className="flex flex-wrap gap-4">
                   <button className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition flex items-center">
                     Get Started <ChevronRight className="ml-2 h-5 w-5" />
                   </button>
                   <button className="border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition">
                     Schedule Demo
                   </button>
-                </div>
+                </div> */}
               </div>
               <div className="relative">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
                   <img
                     src="/Amar.jpg"
                     alt="Showcase"
-                    className="w-full h-[400px] object-cover"
+                    className="w-full h-[400px] object-cover transform transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-blue-600/10" />
                 </div>
-                <div className="absolute -z-10 top-1/2 right-1/2 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl" />
                 <div className="absolute -z-10 bottom-1/2 left-1/2 w-96 h-96 bg-indigo-100/50 rounded-full blur-3xl" />
               </div>
             </div>
           </div>
         </section>
-
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">

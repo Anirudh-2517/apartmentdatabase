@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "67c11c3b0ac80aa709898f2f"
+  },
+  "notice": "There will be a quarterly residents meeting at every month-end. \nVenue: Meeting hall ,4th floor."
+},
+{
+  "_id": {
+    "$oid": "67c11c950ac80aa709898f30"
+  },
+  "notice": "The maintenance charges have been changed as according to the new year policy."
+},
+{
+  "_id": {
+    "$oid": "67c11ceb0ac80aa709898f31"
+  },
+  "notice": "Your new neighborhood has been added. \nMrs. Shashikala Bandivadekar has been added to our family."
+}]

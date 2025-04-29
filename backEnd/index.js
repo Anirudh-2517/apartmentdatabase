@@ -10,12 +10,13 @@ const owner=require('./owner')
 const login=require('./login')
 const client=require("./dbconnect")
 const axios=require('axios')
+require('dotenv').config();
+
+const SERVER_PORT = process.env.SERVER_PORT;
 
 const app = express();
-
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
-
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -37,6 +38,40 @@ const razorpay = new Razorpay({
   key_id: 'rzp_test_FRoCXFr2FkZqrx', // Replace with your Razorpay Key ID
   key_secret: '4FFZPHjeFmQO9IQTPc6mlDoK' // Replace with your Razorpay Key Secret
 });
+
+app.post('/predict', (req, res) => {
+  console.log("I am here with "+JSON.stringify(req.body))
+  const python = spawn('python', ['xgboost.py', JSON.stringify(req.body)]);
+  
+  python.stdout.on('data', (data) => {
+    const output = data.toString();
+    
+    // Split the output by newline to separate lines
+    const lines = output.split('\n');
+    
+    // Find the second line (index 1) and extract the numerical value after the colon
+    const secondLine = lines[1];
+    
+    // Use a regular expression to capture the number after the colon
+    const match = secondLine.match(/:\s*(-?\d+(\.\d+)?)/);
+   
+    if (match) {
+        const predictedRent = parseFloat(match[1].trim());
+        console.log(predictedRent);
+        console.log("XGBoot...")
+        res.json({ predicted_rent: predictedRent });
+    } else {
+        console.error("No valid number found in the second line after the colon.");
+        res.json({ error: "Unable to extract rent value." });
+    }
+});
+
+
+  python.stderr.on('data', (data) => {
+    console.error(`Python error: ${data}`);
+    res.status(500).send("Error running prediction");
+  });
+})
 
 app.use("/api/security",security)
 app.use("/api/admin",admin)
@@ -138,7 +173,6 @@ app.post("/api/Raisedemand", async (req, res) => {
     res.status(500).json({ message: "An unexpected error occurred." });
   }
 });
-
 app.get("/api/getDues/:year", async (req, res) => {
   const year = req.params.year;
   try {
@@ -508,7 +542,6 @@ app.get('/temperature', async (req, res) => {
 //   }
 // })
 
-const PORT = 9000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(SERVER_PORT , () => {
+  console.log(`Server is running on port ${SERVER_PORT}`);
 });

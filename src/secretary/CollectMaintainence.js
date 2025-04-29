@@ -6,6 +6,7 @@ function CollectMaintenance({ amount, paymentdate, year, status, oid }) {
   const paymentdescription = useRef("");
   const [isLoading, setIsLoading] = useState(false);
   const [notification, setNotification] = useState({ show: false, message: "", type: "" });
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const receivepayment = () => {
     setIsLoading(true);
@@ -24,7 +25,7 @@ function CollectMaintenance({ amount, paymentdate, year, status, oid }) {
       paymentdescription: paymentdescription1,
       estatus: "Paid"
     };
-    axios.post("http://localhost:9000/api/secretary/recievepayment", payload)
+    axios.post(`${API_BASE_URL}/secretary/recievepayment`, payload)
       .then(response => {
         const { message, data } = response.data;
         setNotification({ show: true, message: message, type: "success" });

@@ -1,0 +1,12 @@
+[{
+  "_id": {
+    "$oid": "6771027ceb5e7edc890a79fa"
+  },
+  "balancecarriedforward": 1000,
+  "amountcollected": 390000,
+  "amountexpected": 450000,
+  "totalamount": 391000,
+  "financialyear": "2024-25",
+  "balance": 281135,
+  "expenses": 108865
+}]

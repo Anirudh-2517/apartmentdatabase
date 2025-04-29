@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "674f176ea70c2c70efdb4e11"
+  },
+  "Login": "Security",
+  "Password": "abc",
+  "Adesignation": "Security"
+},
+{
+  "_id": {
+    "$oid": "675071cb8ce9b600543d9d9b"
+  },
+  "ofname": "Vijay",
+  "olname": "Patil",
+  "ogender": "m",
+  "ocellno": "9901846049",
+  "Adesignation": "Security",
+  "oemail": "vijay@gmail.com",
+  "Login": "Security",
+  "Password": "abc"
+}]

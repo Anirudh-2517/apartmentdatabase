@@ -1,32 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-  PointElement,
-  LineElement,
-} from "chart.js";
+import {Chart as ChartJS,CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,ArcElement,PointElement,LineElement,} from "chart.js";
 import axios from "axios";
-
-// Register chart components
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-  PointElement,
-  LineElement
-);
-
+import { ChevronDown } from "lucide-react";
+ChartJS.register(CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,ArcElement,PointElement,LineElement);
 const FinancialExpenses = () => {
   const [expenseData, setExpenseData] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState("");
@@ -39,27 +16,33 @@ const FinancialExpenses = () => {
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationType, setNotificationType] = useState("success");
   const [totalExpenseAmount, setTotalExpenseAmount] = useState(0);
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const years = [
+    "2022-23",
+    "2023-24",
+    "2024-25",
+    "2025-26",
+    "2026-27",
+    "2027-28",
+    "2028-29",
+    "2029-30"
+  ];
   const displayNotification = (message, type = "success") => {
     setNotificationMessage(message);
     setNotificationType(type);
     setShowNotification(true);
-
     setTimeout(() => {
       setShowNotification(false);
     }, 3000);
   };
-
-  // Fetch overall summary expenses
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:9000/api/admin/getsummaryexpenses")
+      .get(`${API_BASE_URL}/admin/getsummaryexpenses`)
       .then((response) => {
         const data = response.data || [];
         setExpenseData(data);
-
-        // Calculate total expenses
         const total = data.reduce((sum, item) => sum + (item.total || 0), 0);
         setTotalExpenseAmount(total);
 
@@ -71,27 +54,39 @@ const FinancialExpenses = () => {
         setLoading(false);
       });
   }, [monthWiseData]);
-
-  // Fetch month-wise expenses based on the selected description
+  const handleYearSelect = (year) => {
+    setSelectedYear(year);
+    setDropdownOpen(false);
+    sendSelectedYearData(year);
+  };
+  const sendSelectedYearData = (year) => {
+    setLoading(true);
+    axios.post(`${API_BASE_URL}/admin/setyear`, { selectedYear: year })
+      .then((response) => {
+        displayNotification(`Year ${year} selected successfully`);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error sending selected year:", error);
+        displayNotification("Failed to set selected year. Please try again.", "error");
+        setLoading(false);
+      });
+  };
   const fetchMonthWiseExpenses = () => {
     if (!selectedDescription) {
       displayNotification("Please select a description.", "error");
       return;
     }
-
     if (!selectedYear) {
       displayNotification("Please select a year.", "error");
       return;
     }
-
     setChartLoading(true);
-
     const payload = {
       description: selectedDescription,
       year: selectedYear
     };
-
-    axios.post("http://localhost:9000/api/admin/getmonthwiseexpenses", payload)
+    axios.post(`${API_BASE_URL}/admin/getmonthwiseexpenses`, payload)
       .then((response) => {
         const data = response.data;
         if (Array.isArray(data)) {
@@ -109,17 +104,13 @@ const FinancialExpenses = () => {
         setChartLoading(false);
       });
   };
-
   const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
-
   const getMonthName = (monthNumber) => {
     return months[monthNumber - 1] || "Unknown";
   };
-
-  // Colors for charts
   const chartColors = {
     bar: {
       backgroundColor: "rgba(99, 102, 241, 0.8)",
@@ -144,9 +135,6 @@ const FinancialExpenses = () => {
       borderColor: "rgba(5, 150, 105, 1)",
     }
   };
-
-  // Data for the overall expenses chart
-  // Data for the overall expenses chart
   const overallChartData = {
     labels: expenseData.map((item) => item._id || "Unknown"),
     datasets: [
@@ -162,13 +150,10 @@ const FinancialExpenses = () => {
         borderWidth: 2,
         borderRadius: chartType === "bar" ? 5 : 0,
         tension: 0.4,
-        barThickness: chartType === "bar" ? 20 : undefined,
+        barThickness: chartType === "bar" ? 50 : undefined,
       },
     ],
   };
-
-
-  // Data for the month-wise expenses chart
   const monthWiseChartData = {
     labels: monthWiseData ? monthWiseData.map((item) => getMonthName(item.month)) : [],
     datasets: [
@@ -184,8 +169,6 @@ const FinancialExpenses = () => {
       },
     ],
   };
-
-
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -218,8 +201,6 @@ const FinancialExpenses = () => {
       },
     } : {},
   };
-
-  // Render different chart types
   const renderChart = () => {
     if (loading) {
       return (
@@ -228,7 +209,6 @@ const FinancialExpenses = () => {
         </div>
       );
     }
-
     if (expenseData.length === 0) {
       return (
         <div className="flex justify-center items-center h-96 bg-gray-50 rounded-xl">
@@ -236,7 +216,6 @@ const FinancialExpenses = () => {
         </div>
       );
     }
-
     switch (chartType) {
       case "bar":
         return <Bar data={overallChartData} options={chartOptions} />;
@@ -248,10 +227,8 @@ const FinancialExpenses = () => {
         return <Bar data={overallChartData} options={chartOptions} />;
     }
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-10">
-      {/* Notification */}
       {showNotification && (
         <div
           className={`fixed top-6 right-6 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${notificationType === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
@@ -260,13 +237,11 @@ const FinancialExpenses = () => {
           {notificationMessage}
         </div>
       )}
-
       <div className="max-w-7xl mx-auto px-4">
-        {/* Dashboard Header */}
         <div className="bg-white shadow-xl rounded-2xl mb-8 p-8 border border-gray-100">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
             <h1 className="text-4xl font-bold text-indigo-800 mb-4 md:mb-0">
-              Financial Expenses Dashboard
+              Financial Expenses
             </h1>
             <div className="flex items-center space-x-3">
               <div className="px-4 py-2 bg-indigo-50 rounded-lg">
@@ -279,16 +254,54 @@ const FinancialExpenses = () => {
               </div>
             </div>
           </div>
-
-          {/* Chart Type Selection */}
           <div className="flex justify-center mb-6">
-            <div className="inline-flex rounded-md shadow-sm" role="group">
+            <div className="inline-flex items-center space-x-4" role="group">
+              <div className="relative w-48">
+                <label htmlFor="year-select" className="block text-sm font-medium text-gray-700 mb-1">
+                  Academic Year
+                </label>
+                <button
+                  type="button"
+                  className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  aria-haspopup="listbox"
+                  aria-expanded={dropdownOpen}
+                  aria-labelledby="year-select"
+                >
+                  <span className="block truncate">
+                    {selectedYear || 'Select a year'}
+                  </span>
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <ChevronDown className="h-4 w-4 text-gray-400" />
+                  </span>
+                </button>
+                {dropdownOpen && (
+                  <ul
+                    className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                    tabIndex="-1"
+                    role="listbox"
+                    aria-labelledby="year-select"
+                  >
+                    {years.map((year) => (
+                      <li
+                        key={year}
+                        className={`cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-indigo-100 ${selectedYear === year ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-900'
+                          }`}
+                        onClick={() => handleYearSelect(year)}
+                        role="option"
+                        aria-selected={selectedYear === year}>
+                        {year}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
               <button
                 type="button"
                 onClick={() => setChartType("bar")}
                 className={`px-4 py-2 text-sm font-medium rounded-l-lg ${chartType === "bar"
-                    ? "bg-indigo-600 text-white"
-                    : "bg-white text-gray-700 hover:bg-gray-100"
+                  ? "bg-indigo-600 text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-100"
                   }`}
               >
                 Bar Chart
@@ -297,8 +310,8 @@ const FinancialExpenses = () => {
                 type="button"
                 onClick={() => setChartType("line")}
                 className={`px-4 py-2 text-sm font-medium ${chartType === "line"
-                    ? "bg-indigo-600 text-white"
-                    : "bg-white text-gray-700 hover:bg-gray-100"
+                  ? "bg-indigo-600 text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-100"
                   }`}
               >
                 Line Chart
@@ -307,32 +320,24 @@ const FinancialExpenses = () => {
                 type="button"
                 onClick={() => setChartType("doughnut")}
                 className={`px-4 py-2 text-sm font-medium rounded-r-lg ${chartType === "doughnut"
-                    ? "bg-indigo-600 text-white"
-                    : "bg-white text-gray-700 hover:bg-gray-100"
-                  }`}
-              >
+                  ? "bg-indigo-600 text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-100"
+                  }`}>
                 Doughnut Chart
               </button>
             </div>
           </div>
-
-          {/* Overall Financial Chart */}
           <div className="h-96 mb-12">
             {renderChart()}
           </div>
         </div>
-
-        {/* Detailed Analysis Section */}
         <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-100">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">
             Monthly Expense Analysis
           </h2>
-
-          {/* Filter Section */}
           <div className="bg-gray-50 p-6 rounded-xl mb-8">
             <h3 className="text-lg font-medium text-gray-700 mb-4">Filter Options</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Dropdown for Expense Description */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Expense Category</label>
                 <select
@@ -351,8 +356,6 @@ const FinancialExpenses = () => {
                   <option value="others">Others</option>
                 </select>
               </div>
-
-              {/* Dropdown for Year */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
                 <select
@@ -366,15 +369,13 @@ const FinancialExpenses = () => {
                   ))}
                 </select>
               </div>
-
-              {/* Button for Fetching Data */}
               <div className="flex items-end">
                 <button
                   onClick={fetchMonthWiseExpenses}
                   disabled={chartLoading}
                   className={`w-full p-3 rounded-lg shadow text-white font-medium transition-all ${chartLoading
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-indigo-600 hover:bg-indigo-700 hover:shadow-lg"
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-indigo-600 hover:bg-indigo-700 hover:shadow-lg"
                     }`}
                 >
                   {chartLoading ? (
@@ -392,8 +393,6 @@ const FinancialExpenses = () => {
               </div>
             </div>
           </div>
-
-          {/* Month-Wise Financial Chart */}
           <div className="bg-white p-4 rounded-xl">
             <div className="h-96">
               {chartLoading ? (
@@ -417,8 +416,6 @@ const FinancialExpenses = () => {
               )}
             </div>
           </div>
-
-          {/* Data Summary */}
           {monthWiseData && monthWiseData.length > 0 && (
             <div className="mt-8">
               <h3 className="text-xl font-semibold text-gray-700 mb-4">Data Summary</h3>
@@ -450,11 +447,6 @@ const FinancialExpenses = () => {
               </div>
             </div>
           )}
-        </div>
-
-        {/* Footer */}
-        <div className="text-center mt-8 text-gray-500 text-sm">
-          <p>Last updated: {new Date().toLocaleDateString()}</p>
         </div>
       </div>
     </div>

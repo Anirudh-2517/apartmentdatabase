@@ -9,6 +9,7 @@ function AdminSettings() {
   const [selectedWingOrBlock, setSelectedWingOrBlock] = useState('');
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState({ show: false, message: "" });
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const showSuccess = (message) => {
     setSuccessMessage({ show: true, message });
@@ -31,7 +32,7 @@ function AdminSettings() {
     setLoading(true);
     try {
       const payload = { annualmaintainence: amount };
-      await axios.post("http://localhost:9000/api/admin/setannualmaintainence", payload);
+      await axios.post(`${API_BASE_URL}/admin/setannualmaintainence`, payload);
       showSuccess("Annual maintenance amount set successfully!");
       annualMaintenanceRef.current.value = "";
     } catch (error) {
@@ -51,7 +52,7 @@ function AdminSettings() {
     setLoading(true);
     try {
       const payload = { Blocks: selectedWingOrBlock };
-      await axios.post("http://localhost:9000/api/admin/setblocksorwings", payload);
+      await axios.post(`${API_BASE_URL}/admin/setblocksorwings`, payload);
       showSuccess("Wings/Blocks setting updated successfully!");
       setSelectedWingOrBlock("");
     } catch (error) {
@@ -72,7 +73,7 @@ function AdminSettings() {
     setLoading(true);
     try {
       const payload = { financialyear: year };
-      await axios.post("http://localhost:9000/api/admin/setfinancialyear", payload);
+      await axios.post(`${API_BASE_URL}/admin/setfinancialyear`, payload);
       showSuccess("Financial year set successfully!");
       financialYearRef.current.value = "";
     } catch (error) {
@@ -93,7 +94,7 @@ function AdminSettings() {
     setLoading(true);
     try {
       const payload = { Apartmentname: aptName };
-      await axios.post("http://localhost:9000/api/admin/setapartmentname", payload);
+      await axios.post(`${API_BASE_URL}/admin/setapartmentname`, payload);
       showSuccess("Apartment name set successfully!");
       apartmentNameRef.current.value = "";
     } catch (error) {
@@ -115,7 +116,6 @@ function AdminSettings() {
       )}
 
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Administrative Settings</h1>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Financial Year Card - Blue */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden">

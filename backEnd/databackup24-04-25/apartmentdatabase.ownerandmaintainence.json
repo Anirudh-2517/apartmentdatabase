@@ -1,0 +1,1075 @@
+[{
+  "_id": {
+    "$oid": "67472424fe08ac1f0f4748f9"
+  },
+  "oid": 5001,
+  "ofname": "Abhijeet",
+  "olname": "Bhatkhande",
+  "ogender": "M",
+  "ocellno": "1234567890",
+  "oemail": "abhibhatkhande@gmail.com",
+  "famcount": "6",
+  "maintainence": [
+    {
+      "paymentdate": "12-12-24",
+      "amount": "15000",
+      "year": "2024-25",
+      "modeofpayment": "cash",
+      "paymentdescription": "Denominations of 500*30",
+      "estatus": "Paid"
+    },
+    {
+      "paymentdate": "2024-11-03",
+      "amount": "15000",
+      "year": "2025-26",
+      "estatus": "Paid",
+      "modeofpayment": "Cash",
+      "paymentdescription": "hello"
+    }
+  ],
+  "flatno": "001",
+  "Adesignation": "Owner",
+  "Login": "001",
+  "Messages": [
+    {
+      "postedtext": "pay the maintainence asap"
+    }
+  ],
+  "Password": "abc",
+  "wing": "A",
+  "floorno": "0",
+  "tenant": [
+    {
+      "tname": "Vijay Patil",
+      "taadhar": "1234567890",
+      "taddress": "Tilakwadi",
+      "tcell": "7789539416",
+      "tod": "12-03-2024",
+      "tld": "12-03-2025",
+      "tstatus": "Vacated"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "674b2a30182b45698ec9f4a0"
+  },
+  "oid": 5002,
+  "ofname": "Padma Sharad",
+  "olname": "Kamat",
+  "ogender": "F",
+  "ocellno": "9901846049",
+  "oemail": "padmakamat@gmail.com",
+  "famcount": "7",
+  "flatno": "002",
+  "maintainence": [
+    {
+      "paymentdate": "2024-11-29",
+      "amount": "12345",
+      "year": "2024-25",
+      "estatus": "Paid",
+      "modeofpayment": "gpay",
+      "paymentdescription": "gpay"
+    },
+    {
+      "paymentdescription": "hello",
+      "year": "2025-26",
+      "paymentdate": "2024-12-28",
+      "amount": "16000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "hello",
+      "year": "2027",
+      "paymentdate": "2024-12-28",
+      "amount": "2000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "500*4",
+      "year": "2025",
+      "paymentdate": "2025-01-03",
+      "amount": "4000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "500*4",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    }
+  ],
+  "Login": "002",
+  "Messages": [
+    ""
+  ],
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "wing": "A",
+  "floorno": "0",
+  "tenant": [
+    {
+      "tname": "Ajay Patil",
+      "taadhar": "1234567890",
+      "taddress": "Tilakwadi",
+      "tcell": "7789539416",
+      "tod": "02-05-2024",
+      "tld": "02-05-2025"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "674b31969ac1defd40c4bc99"
+  },
+  "oid": 5003,
+  "ofname": "G.",
+  "olname": "Ramnath",
+  "ogender": "M",
+  "ocellno": "9901846049",
+  "oemail": "ramnath@gmail.com",
+  "famcount": "8",
+  "flatno": "003",
+  "maintainence": [
+    {
+      "paymentdate": "2024-11-29",
+      "amount": "12345",
+      "year": "2024-25",
+      "estatus": "Paid",
+      "modeofpayment": "gpay",
+      "paymentdescription": "gpay"
+    },
+    {
+      "paymentdescription": "hello",
+      "year": "2025-26",
+      "paymentdate": "2024-12-28",
+      "amount": "16000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "500*4",
+      "year": "2027",
+      "paymentdate": "2024-12-28",
+      "amount": "2000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "2000*2",
+      "year": "2025",
+      "paymentdate": "2025-01-03",
+      "amount": "4000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "500*30",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    }
+  ],
+  "Adesignation": "Owner",
+  "Messages": [
+    ""
+  ],
+  "Login": "003",
+  "Password": "abc",
+  "wing": "A",
+  "floorno": "0"
+},
+{
+  "_id": {
+    "$oid": "675071cb8ce9b600543d9d9b"
+  },
+  "ofname": "Mohan",
+  "olname": "Kondali",
+  "ogender": "M",
+  "ocellno": "9901846049",
+  "Adesignation": "Owner",
+  "oemail": "mohan@gmail.com",
+  "Login": "004",
+  "Password": "abc",
+  "oid": 5004,
+  "maintainence": [
+    {
+      "paymentdescription": "2000*2",
+      "year": "2027",
+      "paymentdate": "2025-01-03",
+      "amount": "2000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "2000*2",
+      "year": "2025",
+      "paymentdate": "2025-01-03",
+      "amount": "4000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "bank icici",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Paid",
+      "modeofpayment": "Check"
+    }
+  ],
+  "wing": "A",
+  "famcount": "4",
+  "flatno": "004",
+  "floorno": "0",
+  "Messages": [
+    {}
+  ]
+},
+{
+  "_id": {
+    "$oid": "6766d020323d5cabb4d6db2e"
+  },
+  "oid": 5005,
+  "ofname": "Abhijeet",
+  "olname": "Bhatkhande",
+  "ogender": "M",
+  "ocellno": "9901846049",
+  "oemail": "abhibhatkhande@gmail.com",
+  "famcount": "8",
+  "flatno": "005",
+  "maintainence": [
+    {
+      "paymentdate": "12-12-24",
+      "amount": 15000,
+      "year": "2024-25",
+      "modeofpayment": "cash",
+      "paymentdescription": "Denominations of 500*30",
+      "estatus": "Paid"
+    },
+    {
+      "paymentdate": "2024-11-03",
+      "amount": "15000",
+      "year": "2025-26",
+      "estatus": "Paid",
+      "modeofpayment": "Cash",
+      "paymentdescription": "30*500\n"
+    },
+    {
+      "paymentdescription": "30*500\n",
+      "year": "2027",
+      "paymentdate": null,
+      "amount": "2000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "30*500\n",
+      "year": "2025",
+      "paymentdate": "2025-01-03",
+      "amount": "4000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "30*500\n",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    }
+  ],
+  "Adesignation": "Owner",
+  "Messages": [],
+  "Login": "005",
+  "Password": "abc",
+  "floorno": "0",
+  "wing": "A"
+},
+{
+  "_id": {
+    "$oid": "6766d38fedee85b150578462"
+  },
+  "oid": 5006,
+  "ofname": "Sadashiv",
+  "olname": "Nerlikar",
+  "ogender": "M",
+  "ocellno": "7795395411",
+  "oemail": "sadashiv@gmail.com",
+  "famcount": "4",
+  "flatno": "101",
+  "maintainence": [
+    {
+      "paymentdescription": "raise demand",
+      "year": "2024-25",
+      "paymentdate": "2024-12-28",
+      "amount": "16000",
+      "estatus": "Paid"
+    },
+    {
+      "paymentdescription": "boi bank",
+      "year": "2025-26",
+      "paymentdate": "2024-12-28",
+      "amount": "16000",
+      "estatus": "Paid",
+      "modeofpayment": "Check"
+    },
+    {
+      "paymentdescription": "boi bank",
+      "year": "2027",
+      "paymentdate": null,
+      "amount": "2000",
+      "estatus": "Paid",
+      "modeofpayment": "Check"
+    },
+    {
+      "paymentdescription": "boi bank",
+      "year": "2025",
+      "paymentdate": "2025-01-03",
+      "amount": "4000",
+      "estatus": "Paid",
+      "modeofpayment": "Check"
+    },
+    {
+      "paymentdescription": "boi bank",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Paid",
+      "modeofpayment": "Check"
+    }
+  ],
+  "Adesignation": "Owner",
+  "Login": "101",
+  "Messages": [
+    {
+      "postedtext": "anything"
+    }
+  ],
+  "Password": "abc",
+  "floorno": "1",
+  "wing": "A",
+  "tenant": [
+    {
+      "oid": 5006,
+      "tname": "Ajay Patil",
+      "taadhar": "154732498602",
+      "taddress": "2nd railway gate tilakwadi",
+      "tcell": "4785605173",
+      "tod": "2025-04-21",
+      "tld": "2025-05-29",
+      "tstatus": "Vacated"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6766d537edee85b150578463"
+  },
+  "oid": 5007,
+  "ofname": "Radha",
+  "olname": "Godekar",
+  "ogender": "F",
+  "ocellno": "2233556689",
+  "oemail": "radha@gmail.com",
+  "Login": "102",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "8",
+  "flatno": "102",
+  "maintainence": [
+    {
+      "paymentdescription": "32*500 notes ",
+      "year": "2024-25",
+      "paymentdate": "2024-12-28",
+      "amount": "16000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "icici bank check",
+      "year": "2025-26",
+      "paymentdate": "2024-12-28",
+      "amount": "16000",
+      "estatus": "Paid",
+      "modeofpayment": "Check"
+    },
+    {
+      "paymentdescription": "sbi check",
+      "year": "2027",
+      "paymentdate": "2024-12-28",
+      "amount": "2000",
+      "estatus": "Paid",
+      "modeofpayment": "Check"
+    },
+    {
+      "paymentdescription": "Additonal Expense--tank cleaning",
+      "year": "2025",
+      "paymentdate": "2025-01-03",
+      "amount": "4000",
+      "estatus": "Pending"
+    },
+    {
+      "paymentdescription": "icici bank check",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Paid",
+      "modeofpayment": "Check"
+    }
+  ],
+  "Messages": [
+    {
+      "postedtext": "Your maintenance payment due is in 2 days.\nPlease pay it as soon as possible."
+    },
+    {
+      "postedtext": "Your maintenance payment due is in 2 days.\nPlease pay it as soon as possible."
+    }
+  ],
+  "floorno": "1",
+  "wing": "A"
+},
+{
+  "_id": {
+    "$oid": "6766d632edee85b150578464"
+  },
+  "oid": 5008,
+  "ofname": "Sunil",
+  "olname": "F.Rodd",
+  "ogender": "M",
+  "ocellno": "1133557799",
+  "oemail": "sfrodd@gmail.com",
+  "Login": "Admin",
+  "Password": "abc",
+  "Adesignation": "Admin",
+  "famcount": "4",
+  "flatno": "103",
+  "maintainence": [
+    {
+      "paymentdate": "12-12-2025",
+      "amount": "15000",
+      "modeofpayment": "Net banking",
+      "paymentdescription": "Online payment",
+      "estatus": "Paid",
+      "year": "2024-25"
+    },
+    {
+      "paymentdescription": "Additonal Expense--tank cleaning",
+      "year": "2025",
+      "paymentdate": "2025-01-03",
+      "amount": "4000",
+      "estatus": "Paid",
+      "modeofpayment": "Phonepay"
+    },
+    {
+      "paymentdescription": "boi bank check deposited",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Paid",
+      "modeofpayment": "Check"
+    }
+  ],
+  "Messages": [
+    {
+      "postedtext": "Come meet me immediately"
+    },
+    {
+      "postedtext": "Pay your maintenance dues as early as possible as your due day is in 2 days."
+    }
+  ],
+  "floorno": "1",
+  "wing": "A"
+},
+{
+  "_id": {
+    "$oid": "67b768b434fa12763a1da355"
+  },
+  "oid": 5031,
+  "ofname": "Sunil.F.",
+  "olname": "Rodd",
+  "ogender": "M",
+  "ocellno": "1133557799",
+  "oemail": "sfrodd@gmail.com",
+  "Login": "Secretary",
+  "Password": "abc",
+  "Adesignation": "Secretary",
+  "famcount": "4",
+  "flatno": "103",
+  "maintainence": [
+    {
+      "paymentdate": "12-12-2025",
+      "amount": "15000",
+      "modeofpayment": "Net banking",
+      "paymentdescription": "Online payment",
+      "estatus": "Paid",
+      "year": "2024-25"
+    },
+    {
+      "paymentdescription": "2000*2 notes paid",
+      "year": "2025",
+      "paymentdate": "2025-01-03",
+      "amount": "4000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    },
+    {
+      "paymentdescription": "30*500 notes",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Paid",
+      "modeofpayment": "Cash"
+    }
+  ],
+  "Messages": [
+    {
+      "postedtext": "Come meet me immediately"
+    }
+  ],
+  "floorno": "1",
+  "wing": "A"
+},
+{
+  "_id": {
+    "$oid": "67b8babe13abec9b0a9a2a91"
+  },
+  "oid": 5010,
+  "ofname": "Avinash",
+  "olname": "Tonapi",
+  "ogender": "M",
+  "ocellno": "7795395411",
+  "oemail": "avinash@gmail.com",
+  "Login": "104",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "6",
+  "flatno": "104",
+  "floorno": "1",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b8bc6813abec9b0a9a2a92"
+  },
+  "oid": 5011,
+  "ofname": "Gopal.R.",
+  "olname": "Kalghatgi",
+  "ogender": "M",
+  "ocellno": "9886038379",
+  "oemail": "gopalk@gmail.com",
+  "Login": "105",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "2",
+  "flatno": "105",
+  "floorno": "1",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b8bd6e13abec9b0a9a2a93"
+  },
+  "oid": 5012,
+  "ofname": "Sneha",
+  "olname": "Nerlikar",
+  "ogender": "F",
+  "ocellno": "1232516436",
+  "oemail": "snehanerlikar@gmail.com",
+  "Login": "106",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "4",
+  "flatno": "106",
+  "floorno": "1",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": [
+    {
+      "postedtext": "u need to pay the additional maintainence"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67b8c56013abec9b0a9a2a94"
+  },
+  "oid": 5013,
+  "ofname": "Seema",
+  "olname": "Kulkarni",
+  "ogender": "F",
+  "ocellno": "1133557799",
+  "oemail": "seemak@gmail.com",
+  "Login": "201",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "4",
+  "flatno": "201",
+  "floorno": "2",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b8c59e13abec9b0a9a2a95"
+  },
+  "oid": 5014,
+  "ofname": "S.L.",
+  "olname": "Desai",
+  "ogender": "M",
+  "ocellno": "1133557799",
+  "oemail": "desaisl@gmail.com",
+  "Login": "202",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "4",
+  "flatno": "202",
+  "floorno": "2",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": [
+    {
+      "postedtext": "Pay your maintenance dues as early as possible as your due day is in 2 days."
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67b8c67713abec9b0a9a2a96"
+  },
+  "oid": 5015,
+  "ofname": "Bharat",
+  "olname": "Katti",
+  "ogender": "M",
+  "ocellno": "1232516436",
+  "oemail": "bharatk@gmail.com",
+  "Login": "203",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "2",
+  "flatno": "203",
+  "floorno": "2",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b8c6c813abec9b0a9a2a97"
+  },
+  "oid": 5016,
+  "ofname": "Subhodh",
+  "olname": "Hanamannavar",
+  "ogender": "M",
+  "ocellno": "1133557799",
+  "oemail": "hanamannavar@gmail.com",
+  "Login": "204",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "6",
+  "flatno": "204",
+  "floorno": "2",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "10",
+      "estatus": "Paid"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b8c70e13abec9b0a9a2a98"
+  },
+  "oid": 5017,
+  "ofname": "Manorama",
+  "olname": "Kshirsagar",
+  "ogender": "F",
+  "ocellno": "1133557799",
+  "oemail": "manorama@gmail.com",
+  "Login": "205",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "6",
+  "flatno": "205",
+  "floorno": "2",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b8c74413abec9b0a9a2a99"
+  },
+  "oid": 5018,
+  "ofname": "Santosh",
+  "olname": "Kudchi",
+  "ogender": "M",
+  "ocellno": "1232516436",
+  "oemail": "kudchi@gmail.com",
+  "Login": "206",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "5",
+  "flatno": "206",
+  "floorno": "2",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b9d9c51a7991e7f1b4aa6d"
+  },
+  "oid": 5019,
+  "ofname": "Y.M.",
+  "olname": "Patil",
+  "ogender": "M",
+  "ocellno": "8795719813",
+  "oemail": "patilym@gmail.com",
+  "Login": "Chairman",
+  "Password": "abc",
+  "Adesignation": "Chairman",
+  "famcount": "5",
+  "flatno": "301",
+  "floorno": "3",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b9e16a1a7991e7f1b4aa6e"
+  },
+  "oid": 5020,
+  "ofname": "Shashikala",
+  "olname": "Bandivadekar",
+  "ogender": "F",
+  "ocellno": "9876879508",
+  "oemail": "shashikalabk@gmail.com",
+  "Login": "302",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "2",
+  "flatno": "302",
+  "floorno": "3",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b9e1c71a7991e7f1b4aa6f"
+  },
+  "oid": 5021,
+  "ofname": "Vishal",
+  "olname": "Naik",
+  "ogender": "M",
+  "ocellno": "8693486098",
+  "oemail": "naik@gmail.com",
+  "Login": "303",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "7",
+  "flatno": "303",
+  "floorno": "3",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b9e1fc1a7991e7f1b4aa70"
+  },
+  "oid": 5022,
+  "ofname": "Nitin",
+  "olname": "Pote",
+  "ogender": "M",
+  "ocellno": "2389874368",
+  "oemail": "nitinpote@gmail.com",
+  "Login": "304",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "4",
+  "flatno": "304",
+  "floorno": "3",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": [
+    {
+      "postedtext": "Your maintenance charges are not yet paid.\nPlease pay them in due time. "
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67b9e22e1a7991e7f1b4aa71"
+  },
+  "oid": 5023,
+  "ofname": "Nishiganda",
+  "olname": "Jangale",
+  "ogender": "F",
+  "ocellno": "9901846049",
+  "oemail": "nishigandaj@gmail.com",
+  "Login": "305",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "4",
+  "flatno": "305",
+  "floorno": "3",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67b9e27b1a7991e7f1b4aa72"
+  },
+  "oid": 5024,
+  "ofname": "Rajendra",
+  "olname": "Patil",
+  "ogender": "M",
+  "ocellno": "2233556689",
+  "oemail": "rajpatil@gmail.com",
+  "Login": "306",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "4",
+  "flatno": "306",
+  "floorno": "3",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67bad1a1567fdb38e1a8a725"
+  },
+  "oid": 5090,
+  "ofname": "Rajendra",
+  "olname": "Patil",
+  "ogender": "M",
+  "ocellno": "2233556689",
+  "oemail": "rajpatil@gmail.com",
+  "Login": "Security",
+  "Password": "abc",
+  "Adesignation": "Security",
+  "famcount": "4",
+  "flatno": "306",
+  "floorno": "3",
+  "wing": "A",
+  "maintainence": [
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": []
+},
+{
+  "_id": {
+    "$oid": "67fcae4a19da3a25a4616a7d"
+  },
+  "oid": 5031,
+  "ofname": "Sunil",
+  "olname": "F.Rodd",
+  "ogender": "M",
+  "ocellno": "1133557799",
+  "oemail": "sfrodd@gmail.com",
+  "Login": "103",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "4",
+  "flatno": "103",
+  "maintainence": [
+    {
+      "paymentdate": "12-12-2025",
+      "amount": "15000",
+      "modeofpayment": "Net banking",
+      "paymentdescription": "Online payment",
+      "estatus": "Paid",
+      "year": "2024-25"
+    },
+    {
+      "paymentdescription": "Additonal Expense--tank cleaning",
+      "year": "2025",
+      "paymentdate": "2025-01-03",
+      "amount": "4000",
+      "estatus": "Pending"
+    },
+    {
+      "paymentdescription": "Annual Maintainance",
+      "year": "2025-26",
+      "paymentdate": "2025-02-23",
+      "amount": "15000",
+      "estatus": "Pending"
+    }
+  ],
+  "Messages": [
+    {
+      "postedtext": "Come meet me immediately"
+    },
+    {
+      "postedtext": "Pay your maintenance dues as early as possible as your due day is in 2 days."
+    }
+  ],
+  "floorno": "1",
+  "wing": "A",
+  "maintainance": {
+    "1": {
+      "estatus": null
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "6802a122098a6a1313450fba"
+  },
+  "oid": 5025,
+  "ofname": "Anirudh",
+  "olname": "M",
+  "ogender": "M",
+  "ocellno": "9901846049",
+  "oemail": "anirudhmore43@gmail.com",
+  "Login": "604",
+  "Password": "abc",
+  "Adesignation": "Owner",
+  "famcount": "2",
+  "flatno": "604",
+  "floorno": "6",
+  "wing": "A",
+  "maintainence": [],
+  "Messages": []
+}]

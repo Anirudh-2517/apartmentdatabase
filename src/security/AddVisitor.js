@@ -8,6 +8,7 @@ const AddVisitors = ({ onVisitorAdded, setScannedData, scannedData, formData, se
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -45,7 +46,7 @@ const AddVisitors = ({ onVisitorAdded, setScannedData, scannedData, formData, se
         setIsLoading(true);
         setError(null);
 
-        axios.post("http://localhost:9000/api/security/addvisitors", formData)
+        axios.post(`${API_BASE_URL}/security/addvisitors`, formData)
             .then(() => {
                 setSuccess(true);
                 if (onVisitorAdded) onVisitorAdded(); // Notify parent to refresh list

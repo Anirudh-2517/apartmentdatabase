@@ -12,10 +12,12 @@ const DisplayVisitors = () => {
     const [filterFlat, setFilterFlat] = useState('');
     const [showFilters, setShowFilters] = useState(false);
     const printRef = useRef();
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     const fetchVisitors = () => {
         setIsLoading(true);
-        axios.get("http://localhost:9000/api/security/getallvisitors")
+        axios.get(`${API_BASE_URL}/security/getallvisitors`)
             .then(response => {
                 setVisitors(response.data);
                 setIsLoading(false);

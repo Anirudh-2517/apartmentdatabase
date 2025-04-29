@@ -14,12 +14,14 @@ function Maintainance({ oid, username, login }) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: 'year', direction: 'asc' });
   const [filterStatus, setFilterStatus] = useState('all');
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const payNow = async (M) => {
     try {
       setProcessingPayment(true);
       setMessage("Processing payment...");
 
-      const response = await axios.post('http://localhost:9000/api/create-order', {
+      const response = await axios.post(`${API_BASE_URL}/create-order`, {
         amount: parseFloat(M.amount),
         currency,
         receipt,
@@ -37,7 +39,7 @@ function Maintainance({ oid, username, login }) {
       setProcessingPayment(false);
     }
 
-    axios.post(`http://localhost:9000/api/getMaintainance`, { oid: oid, year: M.year, status: "Updated" })
+    axios.post(`${API_BASE_URL}/getMaintainance`, { oid: oid, year: M.year, status: "Updated" })
       .then(response => {
         showNotification("Status updated successfully");
       })
@@ -53,7 +55,7 @@ function Maintainance({ oid, username, login }) {
       username: login
     };
 
-    axios.post("http://localhost:9000/api/owner/updatepaymentstatus", payload2)
+    axios.post(`${API_BASE_URL}/owner/updatepaymentstatus`, payload2)
       .then(response => {
         showNotification("Payment status updated");
       })
@@ -61,7 +63,7 @@ function Maintainance({ oid, username, login }) {
         console.log(error);
       });
 
-    axios.post("http://localhost:9000/api/owner/addamount", payload1)
+    axios.post(`${API_BASE_URL}/owner/addamount`, payload1)
       .then(response => {
         showNotification("Amount added successfully");
       })
@@ -93,7 +95,7 @@ function Maintainance({ oid, username, login }) {
       order_id: orderId,
       handler: async (response) => {
         try {
-          const captureResponse = await axios.post('http://localhost:9000/api/capture-payment', {
+          const captureResponse = await axios.post(`${API_BASE_URL}/capture-payment`, {
             paymentId: response.razorpay_payment_id,
             amount: parseFloat(amount),
           });
@@ -125,7 +127,7 @@ function Maintainance({ oid, username, login }) {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:9000/api/getMaintainance/${oid}`)
+      .get(`${API_BASE_URL}/getMaintainance/${oid}`)
       .then((response) => {
         setMaintainance(response.data);
         setLoading(false);

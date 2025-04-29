@@ -1,0 +1,247 @@
+[{
+  "_id": {
+    "$oid": "67b49d8f9fd4e5717aa106ad"
+  },
+  "date": "2022-06-15",
+  "amount": "17586",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "June",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b49e829fd4e5717aa106ae"
+  },
+  "date": "2022-06-22",
+  "amount": "7769",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "June",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b49ee79fd4e5717aa106af"
+  },
+  "date": "2022-07-16",
+  "amount": "6922",
+  "description": "Water bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "L&T",
+  "monthOfPayment": "July",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b49f429fd4e5717aa106b0"
+  },
+  "date": "2022-07-15",
+  "amount": "5000",
+  "description": "Watchman Salary",
+  "status": "paid",
+  "modeOfPayment": "cash",
+  "personOrAgencyName": "dyamanna",
+  "monthOfPayment": "July",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b4a0399fd4e5717aa106b1"
+  },
+  "date": "2022-08-18",
+  "amount": "5925",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "August",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b4a0589fd4e5717aa106b2"
+  },
+  "date": "2022-08-20",
+  "amount": "3011",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "August",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b4a0e89fd4e5717aa106b3"
+  },
+  "date": "2022-08-30",
+  "amount": "5000",
+  "description": "Watchman Salary",
+  "status": "paid",
+  "modeOfPayment": "cash",
+  "personOrAgencyName": "Dyamanna",
+  "monthOfPayment": "August",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b5f854d08540d43f94e84b"
+  },
+  "date": "2022-08-19",
+  "amount": "1578",
+  "description": "Water bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "L&T",
+  "monthOfPayment": "August",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b5f8d6d08540d43f94e84c"
+  },
+  "date": "2022-09-19",
+  "amount": "3587",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "September",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b5f911d08540d43f94e84d"
+  },
+  "date": "2022-09-30",
+  "amount": "4216",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "September",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b5f944d08540d43f94e84e"
+  },
+  "date": "2022-09-01",
+  "amount": "5000",
+  "description": "Watchman Salary",
+  "status": "paid",
+  "modeOfPayment": "cash",
+  "personOrAgencyName": "dyamanna",
+  "monthOfPayment": "September",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b5f969d08540d43f94e84f"
+  },
+  "date": "2022-09-10",
+  "amount": "927",
+  "description": "Water bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "L&T",
+  "monthOfPayment": "September",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "67b5f9b8d08540d43f94e850"
+  },
+  "date": "2023-09-10",
+  "amount": "3224",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "September",
+  "year": "2023"
+},
+{
+  "_id": {
+    "$oid": "67b5f9e3d08540d43f94e851"
+  },
+  "date": "2023-10-10",
+  "amount": "4255",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "October",
+  "year": "2023"
+},
+{
+  "_id": {
+    "$oid": "67b5fa14d08540d43f94e852"
+  },
+  "date": "2023-10-11",
+  "amount": "686",
+  "description": "Water bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "L&T",
+  "monthOfPayment": "October",
+  "year": "2023"
+},
+{
+  "_id": {
+    "$oid": "67b5fa72d08540d43f94e853"
+  },
+  "date": "2023-10-01",
+  "amount": "10000",
+  "description": "Watchman salary with arrears",
+  "status": "paid",
+  "modeOfPayment": "cash",
+  "personOrAgencyName": "dyamanna",
+  "monthOfPayment": "October",
+  "year": "2023"
+},
+{
+  "_id": {
+    "$oid": "67b5fac5d08540d43f94e854"
+  },
+  "date": "2023-10-10",
+  "amount": "3538",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "October",
+  "year": "2023"
+},
+{
+  "_id": {
+    "$oid": "67b5fb5ad08540d43f94e855"
+  },
+  "date": "2023-11-01",
+  "amount": "4444",
+  "description": "Electricity bill paid",
+  "status": "paid",
+  "modeOfPayment": "online",
+  "personOrAgencyName": "Hescom",
+  "monthOfPayment": "November",
+  "year": "2023"
+},
+{
+  "_id": {
+    "$oid": "67b5fd17d08540d43f94e856"
+  },
+  "date": "2023-11-02",
+  "amount": "10000",
+  "description": "Watchman salary with arrears",
+  "status": "paid",
+  "modeOfPayment": "cash",
+  "personOrAgencyName": "dyamanna",
+  "monthOfPayment": "November",
+  "year": "2023"
+}]

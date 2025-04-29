@@ -5,10 +5,12 @@ import axios from "axios";
 function DashboardOverview() {
 
   const [statss, setStats] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/api/getstats")
+      .get(`${API_BASE_URL}/getstats`)
       .then((response) => {
         setStats(response.data);
       })

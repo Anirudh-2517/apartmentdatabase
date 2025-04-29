@@ -3,9 +3,11 @@ import QRCodeScanner from "./QRCodeScanner";
 import axios from "axios";
 
 const UseQRReader = ({ setScannedData, scannedData ,setFormData,formData}) => {
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     if (scannedData.length > 0) {
-      axios.get("http://localhost:9000/api/security/getinfobycellnumber/" + scannedData)
+      axios.get(`${API_BASE_URL}/security/getinfobycellnumber/` + scannedData)
         .then(response => {
           setFormData(response.data[0])
         })

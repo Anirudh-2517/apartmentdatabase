@@ -8,7 +8,7 @@ router.get('/getallvisitors', async (req, res) => {
   try {
     const visitors = await db.collection('visitors').find({})
     .sort({ vdate: -1 })
-    .limit(10)
+    .limit(100)
     .toArray();  // Fetch all employees from MongoDB
     res.json(visitors);
   } catch (error) {

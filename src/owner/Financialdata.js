@@ -7,10 +7,11 @@ function FinancialData() {
     const [error, setError] = useState(null);
     const [yearFilter, setYearFilter] = useState('all');
     const [sortConfig, setSortConfig] = useState({ key: 'financialyear', direction: 'ascending' });
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:9000/api/owner/getfinancedata`)
+        axios.get(`${API_BASE_URL}/owner/getfinancedata`)
             .then((response) => {
                 setFinanceData(response.data);
                 setLoading(false);

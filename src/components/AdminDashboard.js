@@ -47,8 +47,11 @@ function AdminDashboard({ setLoginStatus }) {
                   onClick={logout}
                   className="flex items-center px-4 py-3 text-gray-100 hover:bg-indigo-700 rounded-md w-full transition-colors duration-200"
                 >
-                  <LogOut className="mr-3" size={20} />
-                  <span>Logout</span>
+                  <div className="flex items-center text-red-500">
+                    <LogOut className="mr-3" size={20} />
+                    <span>Logout</span>
+                  </div>
+
                 </button>
               </div>
             </div>
@@ -93,8 +96,8 @@ function NavItem({ to, icon, label }) {
     <Link
       to={to}
       className={`flex items-center px-4 py-3 rounded-md transition-colors duration-200 ${isActive
-          ? 'bg-indigo-700 text-white'
-          : 'text-indigo-100 hover:bg-indigo-700 hover:text-white'
+        ? 'bg-indigo-700 text-white'
+        : 'text-indigo-100 hover:bg-indigo-700 hover:text-white'
         }`}
     >
       <span className="mr-3">{icon}</span>

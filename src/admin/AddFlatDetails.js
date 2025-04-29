@@ -15,14 +15,15 @@ function AddFlatDetails() {
   const [formErrors, setFormErrors] = useState({});
   const [wings, setWings] = useState([]);
   const [isWingOrBlock, setIsWingOrBlock] = useState("Wing");
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   // Simulated fetch of available wings/blocks
   useEffect(() => {
     // In a real app, fetch from API
     setWings(["A", "B", "C", "D"]);
-    
+
     // You can also fetch the wing/block setting from your backend
-    axios.get("http://localhost:9000/api/admin/getblocksorwings")
+    axios.get(`${API_BASE_URL}i/admin/getblocksorwings`)
       .then(response => {
         if (response.data && response.data.Blocks) {
           setIsWingOrBlock(response.data.Blocks);
@@ -40,25 +41,25 @@ function AddFlatDetails() {
 
   const validateForm = () => {
     const errors = {};
-    
+
     if (!flatNumberRef.current.value.trim()) {
       errors.flatNumber = "Flat number is required";
     }
-    
+
     if (!flatOwnerRef.current.value.trim()) {
       errors.flatOwner = "Owner name is required";
     }
-    
+
     if (!ownerIdRef.current.value.trim()) {
       errors.ownerId = "Owner ID is required";
     }
-    
+
     if (!flatSizeRef.current.value.trim()) {
       errors.flatSize = "Flat size is required";
     } else if (isNaN(flatSizeRef.current.value) || Number(flatSizeRef.current.value) <= 0) {
       errors.flatSize = "Please enter a valid flat size";
     }
-    
+
     if (!flatFloorRef.current.value.trim()) {
       errors.flatFloor = "Floor number is required";
     } else if (isNaN(flatFloorRef.current.value)) {
@@ -76,7 +77,7 @@ function AddFlatDetails() {
     }
 
     setLoading(true);
-    
+
     const payload = {
       FlatNumber: flatNumberRef.current.value,
       FlatOwner: flatOwnerRef.current.value,
@@ -85,8 +86,8 @@ function AddFlatDetails() {
       FlatFloor: flatFloorRef.current.value,
       Wing: wingBlockRef.current.value || "A"
     };
-
-    axios.post("http://localhost:9000/api/admin/insertFlatDetails", payload)
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    axios.post(`${API_BASE_URL}/admin/insertFlatDetails`, payload)
       .then((response) => {
         showNotification("success", "Flat details have been successfully added!");
         // Clear input fields after submission
@@ -110,10 +111,9 @@ function AddFlatDetails() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
       {notification.show && (
-        <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg flex items-center transition-all duration-500 ${
-          notification.type === "success" ? "bg-green-100 border-l-4 border-green-500 text-green-700" : 
-          "bg-red-100 border-l-4 border-red-500 text-red-700"
-        }`}>
+        <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg flex items-center transition-all duration-500 ${notification.type === "success" ? "bg-green-100 border-l-4 border-green-500 text-green-700" :
+            "bg-red-100 border-l-4 border-red-500 text-red-700"
+          }`}>
           {notification.type === "success" ? <FaCheck className="mr-2" /> : <FaTimes className="mr-2" />}
           {notification.message}
         </div>
@@ -136,9 +136,8 @@ function AddFlatDetails() {
               </div>
               <select
                 ref={wingBlockRef}
-                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${
-                  formErrors.wing ? "border-red-500" : "border-gray-300"
-                } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${formErrors.wing ? "border-red-500" : "border-gray-300"
+                  } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               >
                 <option value="">Select {isWingOrBlock}</option>
                 {wings.map(wing => (
@@ -159,9 +158,8 @@ function AddFlatDetails() {
               <input
                 type="text"
                 ref={flatNumberRef}
-                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${
-                  formErrors.flatNumber ? "border-red-500" : "border-gray-300"
-                } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${formErrors.flatNumber ? "border-red-500" : "border-gray-300"
+                  } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                 placeholder="e.g., 101"
                 name="flatNumber"
               />
@@ -179,9 +177,8 @@ function AddFlatDetails() {
               <input
                 type="text"
                 ref={flatOwnerRef}
-                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${
-                  formErrors.flatOwner ? "border-red-500" : "border-gray-300"
-                } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${formErrors.flatOwner ? "border-red-500" : "border-gray-300"
+                  } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                 placeholder="e.g., John Doe"
                 name="ownerName"
               />
@@ -199,9 +196,8 @@ function AddFlatDetails() {
               <input
                 type="text"
                 ref={ownerIdRef}
-                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${
-                  formErrors.ownerId ? "border-red-500" : "border-gray-300" 
-                } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${formErrors.ownerId ? "border-red-500" : "border-gray-300"
+                  } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                 placeholder="e.g., OID12345"
                 name="ownerId"
               />
@@ -219,9 +215,8 @@ function AddFlatDetails() {
               <input
                 type="text"
                 ref={flatSizeRef}
-                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${
-                  formErrors.flatSize ? "border-red-500" : "border-gray-300"
-                } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${formErrors.flatSize ? "border-red-500" : "border-gray-300"
+                  } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                 placeholder="e.g., 1200"
                 name="size"
               />
@@ -239,9 +234,8 @@ function AddFlatDetails() {
               <input
                 type="text"
                 ref={flatFloorRef}
-                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${
-                  formErrors.flatFloor ? "border-red-500" : "border-gray-300"
-                } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                className={`w-full pl-10 pr-4 py-3 text-gray-800 rounded-lg bg-white border ${formErrors.flatFloor ? "border-red-500" : "border-gray-300"
+                  } shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                 placeholder="e.g., 1"
                 name="floor"
               />
@@ -269,7 +263,7 @@ function AddFlatDetails() {
               )}
             </button>
           </div>
-          
+
           <p className="text-center text-sm text-gray-600 mt-4">
             Fields marked with * are required
           </p>

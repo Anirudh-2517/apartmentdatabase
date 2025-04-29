@@ -5,11 +5,13 @@ const OwnerServices = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:9000/api/owner/getOwnerServices`)
+      .get(`${API_BASE_URL}/owner/getOwnerServices`)
       .then((response) => {
         setServices(response.data);
         setLoading(false);

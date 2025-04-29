@@ -13,10 +13,12 @@ function Home({ setLoginStatus, setUserType, oid, setOid, setUsername, setLogin 
   const [apartmentName, setApartmentname] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/api/getAptname")
+      .get(`${API_BASE_URL}/getAptname`)
       .then((response) => {
         setApartmentname(response.data[0].Apartmentname);
       })

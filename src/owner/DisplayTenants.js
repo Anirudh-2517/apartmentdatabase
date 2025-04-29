@@ -5,9 +5,10 @@ function DisplayTenants({ oid }) {
     const [tenants, setTenants] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     useEffect( () => {
-        axios.get(`http://localhost:9000/api/owner/gettenants/${oid}`)
+        axios.get(`${API_BASE_URL}/owner/gettenants/${oid}`)
             .then(response => {
                 setTenants(response.data);
                 setIsLoading(false);
@@ -41,7 +42,7 @@ function DisplayTenants({ oid }) {
             oid:oid,
             tenant:tenant
         }
-        axios.post("http://localhost:9000/api/owner/updatetenantstatus",payload)
+        axios.post(`${API_BASE_URL}/owner/updatetenantstatus`,payload)
         .then(response=>{
             alert("Status updated !!")
         })

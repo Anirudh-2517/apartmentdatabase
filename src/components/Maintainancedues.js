@@ -11,7 +11,7 @@ function Maintainancedues() {
   useEffect(() => {
     setLoading(true); // Set loading to true while fetching data
     axios
-      .get(`http://localhost:9000/api/getDues/${selectedYear}`)
+      .get(`${API_BASE_URL}/getDues/${selectedYear}`)
       .then((response) => {
         setMaintainancedues(response.data); // Update the state with the response data
       })
