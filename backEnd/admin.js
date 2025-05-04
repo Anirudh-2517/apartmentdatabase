@@ -5,27 +5,47 @@ const client = require("./dbconnect")
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
 
-router.get("/getsummaryexpenses", async (req, res) => {
+router.get("/getsummaryexpenses/:year", async (req, res) => {
   try {
+    const year = req.params.year;
+    console.log("Requested year:", year);
+
+    if (!year || typeof year !== "string") {
+      return res.status(400).json({ error: "Invalid year parameter" });
+    }
+
     const results = await db.collection("Expenses").aggregate([
       {
+        $match: { year: year } // Match string year like "2024-2025"
+      },
+      {
         $addFields: {
-          amount: { $toInt: "$amount" }, // Ensure 'amount' is cast to integer
-        },
+          amount: { $toInt: "$amount" } // Convert amount to integer
+        }
       },
       {
         $group: {
-          _id: "$description",
-          total: { $sum: "$amount" }, // Sum the integer values
-        },
+          _id: "$personOrAgencyName",
+          total: { $sum: "$amount" }
+        }
       },
+      {
+        $project: {
+          personOrAgencyName: "$_id",
+          total: 1,
+          _id: 0
+        }
+      }
     ]).toArray();
+
     res.json(results);
   } catch (error) {
     console.error("Error during aggregation:", error);
     res.status(500).json({ error: "An error occurred while processing your request." });
   }
 });
+
+
 router.post("/setfinancialyear", async (req, res) => {
   try {
     const { financialyear } = req.body;

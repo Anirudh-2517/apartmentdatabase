@@ -8,6 +8,7 @@ import AddApartmentDetails from "../admin/AddApartmentDetails";
 import AddFlatDetails from '../admin/AddFlatDetails'
 import Adminsettings from "../admin/Adminsettings";
 import DashboardOverview from "../admin/DashboardOverview"; // You'll need to create this component
+import MonthlyExpenseAnalysis from "../admin/MonthlyExpenseAnalysis";
 
 function AdminDashboard({ setLoginStatus }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -72,6 +73,7 @@ function AdminDashboard({ setLoginStatus }) {
             <div className="max-w-7xl mx-auto">
               <Routes>
                 <Route path="/" element={<DashboardOverview />} />
+                <Route path="/monthlyexpenses" element={<MonthlyExpenseAnalysis />} />                
                 <Route path="/add-owner" element={<AddOwner />} />
                 <Route path="/addflatdetails" element={<AddFlatDetails />} />
                 <Route path="/add-employee" element={<Addemployee />} />

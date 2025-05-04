@@ -10,7 +10,7 @@ import OwnerandTenantDisplay from "../chairman/OwnerandTenantDisplay";
 import axios from "axios";
 import FinancialExpenses from "../admin/FinancialExpenses";
 
-function Chairman({ setLoginStatus }) {
+function Chairman({ setLoginStatus ,imageURL}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState(3);
   const [statsData, setStatsData] = useState({
@@ -351,7 +351,7 @@ function Chairman({ setLoginStatus }) {
             <Route path="/message" element={<ChairmanMessages />} />
             <Route path="/notice" element={<ChairmanNotice />} />
             <Route path="/calendar" element={<AcademicCalendar />} />
-            <Route path="/ownersdisplay" element={<OwnerandTenantDisplay />} />
+            <Route path="/ownersdisplay" element={<OwnerandTenantDisplay imageURL={imageURL} />} />
             <Route path="/financialexpenses" element={<FinancialExpenses />} />
             <Route path="*" element={
               <div className="text-center py-16">

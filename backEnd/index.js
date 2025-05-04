@@ -217,29 +217,52 @@ app.get("/api/getMaintainance/:oid", async (req, res) => {
     return res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
-app.post("/api/getMaintainance", async (req, res) => {
-  const { oid,year, estatus } = req.body;  // Assuming the body contains the year and the new status
+app.post("/api/updateMaintainance", async (req, res) => {
+  const { oid, year, estatus, amount } = req.body;
+  console.log(amount + " im here");
+
   try {
     const collection = db.collection("ownerandmaintainence");
+    const collection1 = db.collection("collectioncorpus");
     const result = await collection.updateOne(
-      { oid: oid, "maintainence.year": year }, // Find the Owner with the specified OID and year in Maintainance array
+      { oid: oid, "maintainence.year": year },
       {
         $set: {
-          "maintainance.$.estatus": estatus // Update the status of the matching Maintainance entry
+          "maintainance.$.estatus": estatus
         }
       }
     );
 
-    if (result.modifiedCount > 0) {
-      return res.json({ message: "Maintenance status updated successfully." });
+    // Update the collection corpus
+    console.log(year)
+    const result1 = await collection1.updateOne(
+  
+      { financialyear: year },
+      {
+        $inc: {
+          amountcollected:parseFloat(amount) ,
+          totalamount:parseFloat(amount),
+          balance:parseFloat(amount)
+        }
+      }
+    );
+
+    // Unified response
+    if (result.modifiedCount > 0 && result1.modifiedCount > 0) {
+      return res.json({ message: "Maintenance and collection data updated successfully." });
     } else {
-      return res.status(404).json({ message: "No maintenance entry found with the given year." });
+      return res.status(404).json({
+        message: "Update failed for one or both collections.",
+        ownerUpdate: result.modifiedCount > 0,
+        corpusUpdate: result1.modifiedCount > 0
+      });
     }
   } catch (error) {
     console.error("Error updating maintenance data:", error);
     return res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
+
 app.get('/temperature', async (req, res) => {
   try {
     const url = 'https://api.thingspeak.com/channels/2796922/feeds.json?api_key=UVLIOZ47RTOXHCVN&results=2';

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function ComplaintFeedback() {
+function ComplaintFeedback({ oid }) {
   const [complaint, setComplaint] = useState({
     category: "",
+    oid: oid,
     description: "",
-    isAnonymous: false,
     status: "Pending",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,19 +25,21 @@ function ComplaintFeedback() {
       setNotification({ show: false, message: '', type: '' });
     }, 5000);
   };
+  const date = new Date();
+  const formattedDate = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-  
+
     const payload = {
       category: complaint.category,
       cdescription: complaint.description,
-      isAnonymous: complaint.isAnonymous,
       cstatus: "Pending", // Always set to 'Pending'
-      submittedAt: new Date().toISOString(), // Add date here
+      date: formattedDate, // Add date here
     };
-  
+
     try {
       const response = await axios.post(
         `${API_BASE_URL}/owner/lodgecomplaint`,
@@ -57,7 +59,7 @@ function ComplaintFeedback() {
       setIsSubmitting(false);
     }
   };
-  
+
 
   const categories = [
     { value: "maintenance", label: "Maintenance" },
@@ -72,19 +74,17 @@ function ComplaintFeedback() {
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       {/* Notification */}
       {notification.show && (
-        <div className={`fixed top-4 right-4 px-4 py-3 rounded shadow-lg ${
-          notification.type === 'error' ? 'bg-red-100 border-l-4 border-red-500 text-red-700' : 
+        <div className={`fixed top-4 right-4 px-4 py-3 rounded shadow-lg ${notification.type === 'error' ? 'bg-red-100 border-l-4 border-red-500 text-red-700' :
           'bg-green-100 border-l-4 border-green-500 text-green-700'
-        }`}>
+          }`}>
           <div className="flex items-center">
             <div className="py-1">
-              <svg className={`fill-current h-6 w-6 mr-4 ${
-                notification.type === 'error' ? 'text-red-500' : 'text-green-500'
-              }`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <svg className={`fill-current h-6 w-6 mr-4 ${notification.type === 'error' ? 'text-red-500' : 'text-green-500'
+                }`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 {notification.type === 'error' ? (
-                  <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM11.4 10l2.83-2.83-1.41-1.41L10 8.59 7.17 5.76 5.76 7.17 8.59 10l-2.83 2.83 1.41 1.41L10 11.41l2.83 2.83 1.41-1.41L11.41 10z"/>
+                  <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM11.4 10l2.83-2.83-1.41-1.41L10 8.59 7.17 5.76 5.76 7.17 8.59 10l-2.83 2.83 1.41 1.41L10 11.41l2.83 2.83 1.41-1.41L11.41 10z" />
                 ) : (
-                  <path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/>
+                  <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
                 )}
               </svg>
             </div>
@@ -171,11 +171,11 @@ function ComplaintFeedback() {
             </div>
 
             <div className="text-xs text-gray-500 italic">
-              {complaint.isAnonymous ? 
-                "Your identity will be kept confidential when submitting this complaint." : 
+              {complaint.isAnonymous ?
+                "Your identity will be kept confidential when submitting this complaint." :
                 "Your identity will be associated with this complaint. Check the box above to submit anonymously."}
             </div>
-            
+
             {/* Divider */}
             <div className="border-t border-gray-200 my-2"></div>
 
@@ -207,7 +207,7 @@ function ComplaintFeedback() {
             </div>
           </div>
         </form>
-        
+
         <div className="px-6 py-4 bg-gray-50 text-center">
           <p className="text-xs text-gray-500">All complaints are reviewed by our management team within 48 hours</p>
         </div>

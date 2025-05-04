@@ -9,12 +9,11 @@ import Test from "./Test";
 import axios from "axios";
 
 
-function Home({ setLoginStatus, setUserType, oid, setOid, setUsername, setLogin }) {
+function Home({ setLoginStatus, setUserType, oid, setOid, setUsername, setLogin,setImageURL}){
   const [apartmentName, setApartmentname] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
 
   useEffect(() => {
     axios
@@ -153,6 +152,7 @@ function Home({ setLoginStatus, setUserType, oid, setOid, setUsername, setLogin 
                     oid={oid}
                     setUsername={setUsername}
                     setLogin={setLogin}
+                    setImageURL={setImageURL}
                   />
                 }
               />

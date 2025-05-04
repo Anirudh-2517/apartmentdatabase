@@ -159,68 +159,6 @@ function Contact() {
           </div>
         </div>
       </div>
-
-      {/* Enhanced Contact Form */}
-      <div className="max-w-2xl mx-auto bg-white p-10 shadow-2xl rounded-2xl border border-gray-100">
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div>
-            <label htmlFor="name" className="block text-gray-700 font-semibold mb-3 text-lg">Your Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your name"
-              className="w-full px-6 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-200"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-gray-700 font-semibold mb-3 text-lg">Your Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              className="w-full px-6 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-200"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="message" className="block text-gray-700 font-semibold mb-3 text-lg">Your Message</label>
-            <textarea
-              name="message"
-              id="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Type your message"
-              className="w-full px-6 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-200 h-48"
-              required
-            />
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              className="w-full bg-teal-600 hover:bg-teal-700 text-white text-lg font-semibold py-4 px-8 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transform transition duration-200 hover:-translate-y-1 hover:shadow-lg"
-            >
-              Send Message
-            </button>
-          </div>
-        </form>
-
-        {status && (
-          <div className={`mt-6 p-4 rounded-xl text-center font-semibold text-lg ${status.includes("success") ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"
-            }`}>
-            {status}
-          </div>
-        )}
-      </div>
     </div>
   );
 }

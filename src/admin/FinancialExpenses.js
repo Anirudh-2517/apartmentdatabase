@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
-import {Chart as ChartJS,CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,ArcElement,PointElement,LineElement,} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, } from "chart.js";
 import axios from "axios";
 import { ChevronDown } from "lucide-react";
-ChartJS.register(CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,ArcElement,PointElement,LineElement);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement);
 const FinancialExpenses = () => {
   const [expenseData, setExpenseData] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedYear, setSelectedYear] = useState("2022-2023");
   const [monthWiseData, setMonthWiseData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [chartLoading, setChartLoading] = useState(false);
@@ -19,14 +19,14 @@ const FinancialExpenses = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const years = [
-    "2022-23",
-    "2023-24",
-    "2024-25",
-    "2025-26",
-    "2026-27",
-    "2027-28",
-    "2028-29",
-    "2029-30"
+    "2022-2023",
+    "2023-2024",
+    "2024-2025",
+    "2025-2026",
+    "2026-2027",
+    "2027-2028",
+    "2028-2029",
+    "2029-2030"
   ];
   const displayNotification = (message, type = "success") => {
     setNotificationMessage(message);
@@ -39,7 +39,7 @@ const FinancialExpenses = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${API_BASE_URL}/admin/getsummaryexpenses`)
+      .get(`${API_BASE_URL}/admin/getsummaryexpenses/` + selectedYear)
       .then((response) => {
         const data = response.data || [];
         setExpenseData(data);
@@ -56,6 +56,21 @@ const FinancialExpenses = () => {
   }, [monthWiseData]);
   const handleYearSelect = (year) => {
     setSelectedYear(year);
+    axios
+      .get(`${API_BASE_URL}/admin/getsummaryexpenses/` + year)
+      .then((response) => {
+        const data = response.data || [];
+        setExpenseData(data);
+        const total = data.reduce((sum, item) => sum + (item.total || 0), 0);
+        setTotalExpenseAmount(total);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching summary expenses:", error);
+        displayNotification("Failed to load expense data. Please try again later.", "error");
+        setLoading(false);
+      });
     setDropdownOpen(false);
     sendSelectedYearData(year);
   };
@@ -136,7 +151,7 @@ const FinancialExpenses = () => {
     }
   };
   const overallChartData = {
-    labels: expenseData.map((item) => item._id || "Unknown"),
+    labels: expenseData.map((item) => item.personOrAgencyName || "Unknown"),
     datasets: [
       {
         label: "Total Expenses",
@@ -236,7 +251,7 @@ const FinancialExpenses = () => {
         >
           {notificationMessage}
         </div>
-      )}
+      )} 
       <div className="max-w-7xl mx-auto px-4">
         <div className="bg-white shadow-xl rounded-2xl mb-8 p-8 border border-gray-100">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -258,7 +273,7 @@ const FinancialExpenses = () => {
             <div className="inline-flex items-center space-x-4" role="group">
               <div className="relative w-48">
                 <label htmlFor="year-select" className="block text-sm font-medium text-gray-700 mb-1">
-                  Academic Year
+                  Financial Year
                 </label>
                 <button
                   type="button"
@@ -330,123 +345,6 @@ const FinancialExpenses = () => {
           <div className="h-96 mb-12">
             {renderChart()}
           </div>
-        </div>
-        <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-100">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">
-            Monthly Expense Analysis
-          </h2>
-          <div className="bg-gray-50 p-6 rounded-xl mb-8">
-            <h3 className="text-lg font-medium text-gray-700 mb-4">Filter Options</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Expense Category</label>
-                <select
-                  value={selectedDescription}
-                  onChange={(e) => setSelectedDescription(e.target.value)}
-                  className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 focus:outline-none transition"
-                >
-                  <option value="" disabled>
-                    Select a description
-                  </option>
-                  <option value="Electricity bill paid">Electricity Bill</option>
-                  <option value="Water bill paid">Water Bill</option>
-                  <option value="Watchman salary">Watchman Salary</option>
-                  <option value="electrician_charges">Electrician Charges</option>
-                  <option value="lift_maintenance_charges">Lift Maintenance Charges</option>
-                  <option value="others">Others</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
-                <select
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(e.target.value)}
-                  className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 focus:outline-none transition"
-                >
-                  <option value="" disabled>Select a Year</option>
-                  {Array.from({ length: 14 }, (_, i) => 2022 + i).map(year => (
-                    <option key={year} value={year.toString()}>{year}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex items-end">
-                <button
-                  onClick={fetchMonthWiseExpenses}
-                  disabled={chartLoading}
-                  className={`w-full p-3 rounded-lg shadow text-white font-medium transition-all ${chartLoading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-indigo-600 hover:bg-indigo-700 hover:shadow-lg"
-                    }`}
-                >
-                  {chartLoading ? (
-                    <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Loading...
-                    </span>
-                  ) : (
-                    "Generate Report"
-                  )}
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white p-4 rounded-xl">
-            <div className="h-96">
-              {chartLoading ? (
-                <div className="flex justify-center items-center h-full">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
-                </div>
-              ) : monthWiseData ? (
-                monthWiseData.length > 0 ? (
-                  <Bar data={monthWiseChartData} options={chartOptions} />
-                ) : (
-                  <div className="flex flex-col justify-center items-center h-full bg-gray-50 rounded-xl">
-                    <p className="text-gray-500 text-lg">No data available for {selectedDescription} in {selectedYear}</p>
-                    <p className="text-gray-400 text-sm mt-2">Try selecting a different category or year</p>
-                  </div>
-                )
-              ) : (
-                <div className="flex flex-col justify-center items-center h-full bg-gray-50 rounded-xl">
-                  <p className="text-gray-500 text-lg">Select a category and year to view monthly breakdown</p>
-                  <p className="text-gray-400 text-sm mt-2">Use the filters above to generate a report</p>
-                </div>
-              )}
-            </div>
-          </div>
-          {monthWiseData && monthWiseData.length > 0 && (
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-gray-700 mb-4">Data Summary</h3>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-white rounded-lg p-4 shadow">
-                    <h4 className="text-sm text-gray-500 mb-1">Total Amount</h4>
-                    <p className="text-2xl font-bold text-indigo-600">
-                      ₹{monthWiseData.reduce((sum, item) => sum + (item.totalAmount || 0), 0).toLocaleString()}
-                    </p>
-                  </div>
-                  <div className="bg-white rounded-lg p-4 shadow">
-                    <h4 className="text-sm text-gray-500 mb-1">Average Monthly</h4>
-                    <p className="text-2xl font-bold text-green-600">
-                      ₹{(monthWiseData.reduce((sum, item) => sum + (item.totalAmount || 0), 0) / monthWiseData.length).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                    </p>
-                  </div>
-                  <div className="bg-white rounded-lg p-4 shadow">
-                    <h4 className="text-sm text-gray-500 mb-1">Highest Month</h4>
-                    <p className="text-2xl font-bold text-amber-600">
-                      {(() => {
-                        const highestExpense = Math.max(...monthWiseData.map(item => item.totalAmount || 0));
-                        const highestMonth = monthWiseData.find(item => item.totalAmount === highestExpense);
-                        return highestMonth ? getMonthName(highestMonth.month) : 'N/A';
-                      })()}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

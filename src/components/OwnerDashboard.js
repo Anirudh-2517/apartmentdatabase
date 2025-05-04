@@ -15,7 +15,7 @@ import Gassensorinfo from "../owner/Gassensorinfo";
 import DisplayTenants from "../owner/DisplayTenants";
 import PredictRent from "./PredictRent";
 
-function Owner({ oid, username, setLoginStatus, login }) {
+function Owner({ oid, username, setLoginStatus, login,imageURL }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState(3);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -132,8 +132,8 @@ function Owner({ oid, username, setLoginStatus, login }) {
                 <span className="text-yellow-400">Owner</span> Dashboard
               </h1>
               <div className="mt-6 bg-gray-800 rounded-lg p-4 border border-gray-700 flex items-center space-x-3">
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-full text-white">
-                  <User size={20} />
+                <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-full text-white">
+                  <img src={imageURL} width="40px" height="40px" alt="ownersimages" style={{borderRadius:"25px"}}></img>
                 </div>
                 <div>
                   <div className="text-white font-medium">{username || "Owner"}</div>
@@ -192,7 +192,7 @@ function Owner({ oid, username, setLoginStatus, login }) {
               <Routes>
                 <Route path="/" element={<WelcomeDashboard username={username} />} />
                 <Route path="/viewexpenses" element={<Financialdata />} />
-                <Route path="/lodgecomplaint" element={<ComplaintFeedback />} />
+                <Route path="/lodgecomplaint" element={<ComplaintFeedback oid={oid} />} />
                 <Route path="/addtenant" element={<AddTenant oid={oid} />} />
                 <Route path="/ownerservices" element={<OwnerServices />} />
                 <Route path="/tenantview" element={<DisplayTenants oid={oid} />} />

@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import {BrowserRouter as Router,Route,Routes,Link,useLocation,Navigate} from "react-router-dom";
-import {Bell,LogOut,  Settings,User,Home,CreditCard,FileText,Mail,DollarSign,AlertCircle,PlusCircle,ChevronRight,Menu,X,Calendar,Clock,BarChart3,
-  Building,Shield,Users,Sun,Moon,Coffee} from "lucide-react";
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, Navigate } from "react-router-dom";
+import {
+  Bell, LogOut, Settings, User, Home, CreditCard, FileText, Mail, DollarSign, AlertCircle, PlusCircle, ChevronRight, Menu, X, Calendar, Clock, BarChart3,
+  Building, Shield, Users, Sun, Moon, Coffee,
+  IndianRupee
+} from "lucide-react";
 import Employee from "../secretary/Employee";
 import Paymentdue from "../secretary/Paymentdue";
 import Raisedemand from "../secretary/Raisedemand";
 import SendReminder from "../secretary/SendReminder";
 import Viewcomplaints from "../secretary/Viewcomplaints";
 import AddExpense from "../secretary/AddExpense";
+import FinancialExpenses from '../admin/FinancialExpenses';
 
 function NavLink({ to, label, icon }) {
   const location = useLocation();
@@ -15,11 +19,10 @@ function NavLink({ to, label, icon }) {
   return (
     <Link
       to={to}
-      className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-        isActive
+      className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
           ? "bg-gray-700 text-white shadow-lg transform scale-105"
           : "text-gray-300 hover:bg-gray-800 hover:text-white hover:transform hover:translate-x-1"
-      }`}
+        }`}
     >
       <span className={`mr-3 ${isActive ? "text-yellow-400" : ""}`}>{icon}</span>
       {label}
@@ -37,15 +40,15 @@ function DashboardCard({ title, icon, description, linkTo, count, color = "blue"
     red: "bg-red-50 text-red-600 border-red-100 hover:border-red-300",
     indigo: "bg-indigo-50 text-indigo-600 border-indigo-100 hover:border-indigo-300"
   };
-  
+
   const iconBgClass = colorClasses[color].split(' ')[0];
   const iconTextClass = colorClasses[color].split(' ')[1];
   const borderClass = colorClasses[color].split(' ')[2];
   const hoverClass = colorClasses[color].split(' ')[3];
 
   return (
-    <Link 
-      to={linkTo} 
+    <Link
+      to={linkTo}
       className={`bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border ${borderClass} ${hoverClass} flex flex-col h-full transform hover:scale-105`}
     >
       <div className="p-5">
@@ -105,60 +108,69 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <DashboardCard 
-          title="Add Expense" 
-          icon={<PlusCircle size={24} />} 
+        <DashboardCard
+          title="Add Expense"
+          icon={<PlusCircle size={24} />}
           description="Record and categorize new society expenses"
           linkTo="/add-expense"
           color="blue"
         />
-        
-        <DashboardCard 
-          title="Send Reminders" 
-          icon={<Mail size={24} />} 
+
+        <DashboardCard
+          title="View Expenses"
+          icon={<IndianRupee size={24} />}
+          description="Track outstanding payments and dues"
+          linkTo="/financialexpenses"
+          count="12"
+          color="red"
+        />
+
+        <DashboardCard
+          title="Send Reminders"
+          icon={<Mail size={24} />}
           description="Send payment reminders to residents"
           linkTo="/send-reminder"
           count="5"
           color="purple"
         />
-        
-        <DashboardCard 
-          title="Process Salaries" 
-          icon={<DollarSign size={24} />} 
+
+        <DashboardCard
+          title="Process Salaries"
+          icon={<DollarSign size={24} />}
           description="Manage and process staff salary payments"
           linkTo="/make-salary"
           color="green"
         />
-        
-        <DashboardCard 
-          title="Raise Demands" 
-          icon={<FileText size={24} />} 
+
+        <DashboardCard
+          title="Raise Demands"
+          icon={<FileText size={24} />}
           description="Create payment requests for society members"
           linkTo="/raise-demand"
           color="orange"
         />
-        
-        <DashboardCard 
-          title="Payment Dues" 
-          icon={<CreditCard size={24} />} 
+
+        <DashboardCard
+          title="Payment Dues"
+          icon={<CreditCard size={24} />}
           description="Track outstanding payments and dues"
           linkTo="/view-paymentdues"
           count="12"
           color="red"
         />
-        
-        <DashboardCard 
-          title="Complaints" 
-          icon={<AlertCircle size={24} />} 
+
+        <DashboardCard
+          title="Complaints"
+          icon={<AlertCircle size={24} />}
           description="View and manage resident complaints"
           linkTo="/view-lodgedcomplaints"
           count="3"
           color="indigo"
         />
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
           <div className="flex items-center justify-between mb-4">
@@ -188,7 +200,7 @@ function Dashboard() {
             ))}
           </div>
         </div>
-        
+
         <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-lg text-gray-800 flex items-center">
@@ -294,6 +306,7 @@ function Secretary({ setLoginStatus }) {
       "/add-expense": "Add Expense",
       "/send-reminder": "Send Reminder",
       "/make-salary": "Process Salaries",
+      "/financialexpenses":"View Expenses",
       "/raise-demand": "Raise Demand",
       "/view-paymentdues": "Payment Dues",
       "/view-lodgedcomplaints": "Complaints Management"
@@ -311,6 +324,11 @@ function Secretary({ setLoginStatus }) {
       path: "/add-expense",
       label: "Add Expense",
       icon: <PlusCircle size={18} />
+    },
+    {
+      path: "/financialexpenses",
+      label: "Financial Expenses",
+      icon: <IndianRupee size={18} />
     },
     {
       path: "/send-reminder",
@@ -341,15 +359,14 @@ function Secretary({ setLoginStatus }) {
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
       {mobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
         ></div>
       )}
-      <aside 
-        className={`${
-          mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } fixed top-0 left-0 h-full z-50 lg:z-0 lg:static lg:translate-x-0 w-72 bg-gradient-to-b from-gray-900 to-gray-800 shadow-xl transition-transform duration-300 ease-in-out flex flex-col`}
+      <aside
+        className={`${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          } fixed top-0 left-0 h-full z-50 lg:z-0 lg:static lg:translate-x-0 w-72 bg-gradient-to-b from-gray-900 to-gray-800 shadow-xl transition-transform duration-300 ease-in-out flex flex-col`}
       >
         <div className="p-6">
           <div className="flex items-center justify-between">
@@ -358,7 +375,7 @@ function Secretary({ setLoginStatus }) {
               <span className="text-yellow-400">Secretary</span>
               <span className="ml-1 text-white">Dashboard</span>
             </h1>
-            <button 
+            <button
               className="lg:hidden text-gray-400 hover:text-white"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -405,7 +422,7 @@ function Secretary({ setLoginStatus }) {
       <main className="flex-1 flex flex-col overflow-hidden">
         <div className="bg-white p-4 shadow-sm border-b border-gray-100 flex items-center justify-between">
           <div className="flex items-center">
-            <button 
+            <button
               className="mr-4 text-gray-500 hover:text-gray-700 lg:hidden"
               onClick={() => setMobileMenuOpen(true)}
             >
@@ -425,14 +442,14 @@ function Secretary({ setLoginStatus }) {
             <div className="hidden md:block text-gray-600 text-sm">
               <span className="font-medium text-blue-600">{getGreeting()}</span>, {userName}
             </div>
-            <button 
+            <button
               className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors duration-200"
               aria-label="Notifications"
             >
               <Bell size={20} />
               <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
             </button>
-            <button 
+            <button
               className="p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors duration-200"
               aria-label="Settings"
             >
@@ -465,6 +482,7 @@ function Secretary({ setLoginStatus }) {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/add-expense" element={<AddExpense />} />
+            <Route path="/financialexpenses" element={<FinancialExpenses />} />
             <Route path="/send-reminder" element={<SendReminder />} />
             <Route path="/make-salary" element={<Employee />} />
             <Route path="/raise-demand" element={<Raisedemand />} />

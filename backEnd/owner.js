@@ -42,7 +42,6 @@ router.post('/updatetenantstatus', async (req, res) => {
 router.get('/getallowners', async (req, res) => {
   try {
     const owners = await db.collection('ownerandmaintainence').find().toArray();
-    // Fetch all employees from MongoDB
     res.json(owners);  // Send the employee data as JSON
   } catch (error) {
     res.status(500).json({ message: 'Error fetching employee data', error });

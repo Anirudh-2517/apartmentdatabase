@@ -12,6 +12,7 @@ function App()
 {
   const [loginStatus, setLoginStatus] = useState(false);
   const [login,setLogin]=useState("")
+  const [imageURL,setImageURL]=useState("")
   const [userType, setUserType] = useState("");
   const [scannedData, setScannedData] = useState("");
   const [oid, setOid] = useState()
@@ -43,21 +44,23 @@ function App()
           setLoginStatus={setLoginStatus}
           setUserType={setUserType}
           setUsername={setUsername}
-          setLogin={setLogin} />
+          setLogin={setLogin}
+          setImageURL={setImageURL}          
+          />
       ) : userType === "Admin" ? 
       (
         <AdminDashboard setLoginStatus={setLoginStatus} />
       ) : userType === "Chairman" ?
       (
         <BrowserRouter>
-        <Chairman setLoginStatus={setLoginStatus} /></BrowserRouter>
+        <Chairman setLoginStatus={setLoginStatus} imageURL={imageURL} /></BrowserRouter>
       ) : userType === "Secretary" ? 
       (
         <Secretary setLoginStatus={setLoginStatus} />
       ) : userType === "Owner" ? 
       (
         <div>
-          <Owner username={username} setLoginStatus={setLoginStatus} oid={oid} login={login}/>
+          <Owner imageURL={imageURL} username={username} setLoginStatus={setLoginStatus} oid={oid} login={login}/>
         </div>
       ) : 
       (

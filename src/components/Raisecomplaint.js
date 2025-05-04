@@ -3,6 +3,7 @@ import axios from 'axios'
 
 function Raisecomplaint({ oid }) {
     const cdescription = useRef("")
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     const lodgecomplaint = () => {
         let cdescription1 = cdescription.current.value
@@ -15,7 +16,7 @@ function Raisecomplaint({ oid }) {
             oid: oid1,
             cstatus:"Pending"
         }
-        axios.post("http://localhost:9000/api/owner/lodgecomplaint", payload)
+        axios.post(`${API_BASE_URL}/owner/lodgecomplaint`, payload)
             .then(response => {
                 alert("Your complaint has been sent !!")
             })
@@ -28,8 +29,8 @@ function Raisecomplaint({ oid }) {
         const today = new Date();
         const day = String(today.getDate()).padStart(2, '0'); // Ensure 2 digits for day
         const month = String(today.getMonth() + 1).padStart(2, '0'); // Ensure 2 digits for month
-        const year = today.getFullYear(); // Get the year
-        return `${day}-${month}-${year}`; // Return in dd-mm-yyyy format
+        const year = today.getFullYear();
+        return `${day}-${month}-${year}`;
     }
     var todaysdate = getCurrentDate()
     return (

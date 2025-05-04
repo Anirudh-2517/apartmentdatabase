@@ -17,7 +17,7 @@ function RaiseDemand() {
   const [errorMessage, setErrorMessage] = useState("");
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2022;
   const yearOptions = Array.from({ length: 5 }, (_, i) => `${currentYear + i}-${currentYear + i + 1}`);
 
   const handleChange = (e) => {

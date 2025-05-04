@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Search, Home, Phone, Users, UserPlus, Filter, ChevronDown, X, AlertCircle, ArrowUp, ArrowDown, Eye } from 'lucide-react';
 
-function OwnerandTenantDisplay() {
+function OwnerandTenantDisplay({ imageURL }) {
     const [ownersntenants, setownersntenants] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -336,7 +336,7 @@ function OwnerandTenantDisplay() {
                                 <div className="p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-100">
                                     <div className="flex items-center">
                                         <div className="h-14 w-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                                            {owner.ofname?.charAt(0).toUpperCase()}{owner.olname?.charAt(0).toUpperCase()}
+                                            <img src={owner.imageURL} width="40px" height="40px" alt="ownersimages" style={{ borderRadius: "25px" }}></img>
                                         </div>
                                         <div className="ml-4">
                                             <div className="flex flex-col sm:flex-row sm:items-center gap-2">

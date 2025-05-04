@@ -6,11 +6,16 @@ db = client.db(dbName);
 
 router.post('/addExpense', async (req, res) => {
   const expense = req.body
-  const amount = parseFloat(expense.amount)
+  if (!expense.date || !expense.amount || !expense.year || isNaN(parseFloat(expense.amount))) {
+    return res.status(400).json({ message: "Invalid expense data." });
+  }
+
+  const amount = parseFloat(expense.amount);
+  const year = expense.year; // Use year from expense body
   try {
     const result = await db.collection('Expenses').insertOne(expense)
-    const result1 = await db.collection('collectioncorpus').updateOne({}, { $inc: { expenses: amount } })
-    const result2 = await db.collection('collectioncorpus').updateOne({}, { $inc: { balance: -amount } })
+    const result1 = await db.collection('collectioncorpus').updateOne({ financialyear: year }, { $inc: { expenses: amount } })
+    const result2 = await db.collection('collectioncorpus').updateOne({ financialyear: year }, { $inc: { balance: -amount } })
     res.send("added expense!!!")
   } catch (error) {
     console.log(error)
@@ -128,9 +133,9 @@ router.post('/recievepayment', async (req, res) => {
 router.get('/getlodgedcomplaints', async (req, res) => {
   try {
     const complaints = await db.collection('complaints').find({})
-    .sort({ date: -1 })
-    .limit(5)
-    .toArray();  // Fetch all employees from MongoDB
+      .sort({ date: -1 })
+      .limit(5)
+      .toArray();  // Fetch all employees from MongoDB
     res.send(complaints);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching data', error });
