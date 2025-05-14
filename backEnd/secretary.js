@@ -151,5 +151,94 @@ router.post('/generatesalarydetails', async (req, res) => {
     res.status(500).json({ message: 'Error saving employee data', error });
   }
 });
+router.post("/raisedemand", async (req, res) => {
+  const { paymentdescription, modeofpayment, year, paymentdate, amount, estatus } = req.body;
+  const Owner = db.collection("ownerandmaintainence");
+
+  try {
+    // Check for duplicate year in any document
+    const duplicateCheck = await Owner.findOne({
+      "maintainence.year": year,
+    });
+
+    if (duplicateCheck) {
+      return res.status(400).json({
+        message: "Duplicate year detected in Maintenance field.",
+      });
+    }
+
+    // Fetch all owners to apply amount * flatcount
+    const owners = await Owner.find({}).toArray();
+    let updatedCount = 0;
+
+    for (const owner of owners) {
+      const calculatedAmount = amount * (owner.flatcount || 0); // default to 0 if flatcount missing
+
+      const newMaintenance = {
+        paymentdescription,
+        modeofpayment,
+        year,
+        paymentdate,
+        amount: calculatedAmount,
+        estatus,
+      };
+
+      const result = await Owner.updateOne(
+        { _id: owner._id },
+        { $push: { maintainence: newMaintenance } }
+      );
+
+      if (result.modifiedCount > 0) {
+        updatedCount++;
+      }
+    }
+
+    res.status(200).json({
+      message: "Demands submitted successfully.",
+      updatedCount,
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "An unexpected error occurred.",
+    });
+  }
+});
+router.get('/expense-heads', async (req, res) => {
+  try {
+    const result = await db.collection('Expensehead').findOne();// Adjust model accordingly
+    res.json({ expenseheads: result.expenseheads });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch expense heads" });
+  }
+});
+router.post('/add-expense-head', async (req, res) => {
+  const { newExpenseHead } = req.body;
+
+  if (!newExpenseHead || typeof newExpenseHead !== 'string') {
+    return res.status(400).json({ error: "Invalid expense head" });
+  }
+
+  try {
+    const collection = db.collection('Expensehead');
+
+    // Update or insert the document
+    const updateResult = await collection.updateOne(
+      {},
+      {
+        $addToSet: { expenseheads: newExpenseHead.trim() } // ensures no duplicates
+      },
+      { upsert: true } // creates the doc if it doesn't exist
+    );
+
+    res.status(200).json({ message: "Expense head added successfully" });
+  } catch (error) {
+    console.error("Error adding expense head:", error);
+    res.status(500).json({ error: "Failed to add expense head" });
+  }
+});
+
+
 
 module.exports = router;

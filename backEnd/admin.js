@@ -7,44 +7,71 @@ db = client.db(dbName);
 
 router.get("/getsummaryexpenses/:year", async (req, res) => {
   try {
-    const year = req.params.year;
-    console.log("Requested year:", year);
+    const currentYear = req.params.year;
+    console.log("Requested current year:", currentYear);
 
-    if (!year || typeof year !== "string") {
+    if (!currentYear || typeof currentYear !== "string") {
       return res.status(400).json({ error: "Invalid year parameter" });
     }
 
+    // Assuming year is a string like "2024-2025"
+    const yearParts = currentYear.split("-");
+    if (yearParts.length !== 2) {
+      return res.status(400).json({ error: "Year format should be 'YYYY-YYYY'" });
+    }
+
+    // Derive the previous year in the same format
+    const startPrev = parseInt(yearParts[0]) - 1;
+    const endPrev = parseInt(yearParts[1]) - 1;
+    const previousYear = `${startPrev}-${endPrev}`;
+
     const results = await db.collection("Expenses").aggregate([
       {
-        $match: { year: year } // Match string year like "2024-2025"
+        $match: {
+          year: { $in: [currentYear, previousYear] }
+        }
       },
       {
         $addFields: {
-          amount: { $toInt: "$amount" } // Convert amount to integer
+          amount: { $toInt: "$amount" }
         }
       },
       {
         $group: {
-          _id: "$personOrAgencyName",
+          _id: { name: "$personOrAgencyName", year: "$year" },
           total: { $sum: "$amount" }
         }
       },
       {
         $project: {
-          personOrAgencyName: "$_id",
+          personOrAgencyName: "$_id.name",
+          year: "$_id.year",
           total: 1,
           _id: 0
         }
       }
     ]).toArray();
 
-    res.json(results);
+    // Transform the results into a comparison format
+    const summary = {};
+    results.forEach(item => {
+      const name = item.personOrAgencyName;
+      if (!summary[name]) {
+        summary[name] = {
+          personOrAgencyName: name,
+          [currentYear]: 0,
+          [previousYear]: 0
+        };
+      }
+      summary[name][item.year] = item.total;
+    });
+
+    res.json(Object.values(summary));
   } catch (error) {
     console.error("Error during aggregation:", error);
     res.status(500).json({ error: "An error occurred while processing your request." });
   }
 });
-
 
 router.post("/setfinancialyear", async (req, res) => {
   try {
@@ -134,48 +161,56 @@ router.post('/insertapartmentdetails', async (req, res) => {
     console.log(error)
   }
 })
-router.post("/getmonthwiseexpenses", async (req, res) => {
-  let { description, year } = req.body
+router.post("/getmonthlyexpenses", async (req, res) => {
+  const { agency, year } = req.body;
+  console.log(agency,year)
+
+  if (!agency || !year) {
+    return res.status(400).json({ message: "Agency and year are required." });
+  }
   try {
-    const result = await db.collection("Expenses").aggregate([
+    const expenses = await db.collection("Expenses").aggregate([
       {
         $match: {
-          description: description,
+          personOrAgencyName: agency,
           year: year,
-          date: { $exists: true, $ne: null }, // Ensure only documents with valid dates are processed
-          amount: { $exists: true, $ne: null } // Ensure only valid amounts are processed
+          amount: { $exists: true, $ne: null }
         }
       },
       {
         $addFields: {
-          month: { $month: { $toDate: "$date" } },
-          year: { $year: { $toDate: "$date" } }
+          amountNumeric: { $toDouble: "$amount" }
         }
       },
       {
         $group: {
-          _id: { month: "$month", year: "$year" },
-          totalAmount: { $sum: { $toDouble: "$amount" } }
+          _id: "$monthOfPayment",
+          totalAmount: { $sum: "$amountNumeric" }
         }
       },
       {
-        $sort: { "_id.year": 1, "_id.month": 1 }
+        $project: {
+          _id: 0,
+          monthOfPayment: "$_id",
+          totalAmount: 1
+        }
       }
     ]).toArray();
-    const transformedData = result.map(item => ({
-      month: item._id.month,
-      year: item._id.year,
-      totalAmount: item.totalAmount
-    }));
-    //const chartData = result.map(({ _id, totalAmount }) => ({
-    // month: `${_id.month}-${_id.year}`,
-    //totalAmount,
-    //}));
-    return res.send(transformedData);
+    const monthOrder = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const sorted = expenses.sort((a, b) => {
+      return monthOrder.indexOf(a.monthOfPayment) - monthOrder.indexOf(b.monthOfPayment);
+    });
+    console.log(sorted)
+
+    return res.json(expenses);
   } catch (error) {
-    console.error("Error fetching month-wise expenses:", error);
-    return res.status(500).json({ message: "Failed to fetch month-wise expenses" });
+    console.error("Error fetching monthly expenses:", error);
+    return res.status(500).json({ message: "Failed to fetch data", error: error.message });
   }
 });
+
 
 module.exports = router;

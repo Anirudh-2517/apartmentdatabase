@@ -144,7 +144,7 @@ function FinancialData() {
                 </div>
 
                 {/* Summary Cards */}
-                {summary && (
+                {/* {summary && (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                         <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
                             <div className="text-sm text-gray-500 mb-1">Total Collected</div>
@@ -163,7 +163,7 @@ function FinancialData() {
                             <div className="text-2xl font-bold text-gray-800">{formatCurrency(summary.netBalance)}</div>
                         </div>
                     </div>
-                )}
+                )} */}
 
                 {/* Filter and Controls */}
                 <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-4 rounded-t-lg shadow-sm border border-gray-200 mb-1">

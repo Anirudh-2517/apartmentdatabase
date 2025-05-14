@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Eye, EyeOff, LogIn, Home } from "lucide-react";
 
-const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin,setImageURL }) => {
+const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin, setImageURL }) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -14,7 +14,6 @@ const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin,
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
-    // Trigger entrance animation after component mounts
     setTimeout(() => setAppear(true), 100);
   }, []);
 
@@ -30,9 +29,8 @@ const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin,
     setUsername(formData.username);
 
     try {
-      // Simulating API call delay for demo purposes
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       const response = await fetch(`${API_BASE_URL}/login/authenticate`, {
         method: "POST",
         headers: {
@@ -70,10 +68,20 @@ const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin,
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-4">
-      <div 
-        className={`w-full max-w-md transform transition-all duration-700 ease-out ${
-          appear ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-        }`}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="fixed top-0 left-0 w-full h-full object-cover z-[-1]"
+      >
+        <source src="/videos/test1.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div
+        className={`w-full max-w-md transform transition-all duration-700 ease-out ${appear ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          }`}
       >
         {/* Logo and branding section */}
         <div className="text-center mb-6">
@@ -81,7 +89,7 @@ const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin,
             <Home className="text-white" size={28} />
           </div>
           <h1 className="text-3xl font-bold text-blue-800">GrihaMitra</h1>
-          <p className="text-gray-500 mt-1">Apartment Management System</p>
+          {/* <p className="text-gray-500 mt-1">Apartment Management System</p> */}
         </div>
 
         {/* Card container with shadow and border effects */}
@@ -183,11 +191,10 @@ const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin,
 
               {/* Sign In button with animation */}
               <button
-                className={`w-full py-3 px-4 rounded-lg text-white font-medium flex items-center justify-center space-x-2 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] mt-6 ${
-                  isLoading
-                    ? "bg-blue-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-md hover:shadow-lg"
-                }`}
+                className={`w-full py-3 px-4 rounded-lg text-white font-medium flex items-center justify-center space-x-2 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] mt-6 ${isLoading
+                  ? "bg-blue-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-md hover:shadow-lg"
+                  }`}
                 onClick={handleSubmit}
                 disabled={isLoading}
               >
@@ -204,11 +211,10 @@ const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin,
               {/* Message display with animation */}
               {message && (
                 <div
-                  className={`p-4 rounded-lg text-sm font-medium text-center transform transition-all duration-300 animate-fadeIn ${
-                    message.includes("failed")
-                      ? "bg-red-50 text-red-700 border border-red-100"
-                      : "bg-green-50 text-green-700 border border-green-100"
-                  }`}
+                  className={`p-4 rounded-lg text-sm font-medium text-center transform transition-all duration-300 animate-fadeIn ${message.includes("failed")
+                    ? "bg-red-50 text-red-700 border border-red-100"
+                    : "bg-green-50 text-green-700 border border-green-100"
+                    }`}
                   role="alert"
                 >
                   {message}

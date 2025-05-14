@@ -13,7 +13,6 @@ const axios=require('axios')
 require('dotenv').config();
 
 const SERVER_PORT = process.env.SERVER_PORT;
-
 const app = express();
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
@@ -145,34 +144,34 @@ app.get("/api/getinfo", async (req, res) => {
     return res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
-app.post("/api/Raisedemand", async (req, res) => {
-  const { paymentdescription,modeofpayment, year, paymentdate, amount, estatus } = req.body;
-  const Owner=db.collection("ownerandmaintainence")
-  try {
-    const duplicateCheck = await Owner.findOne({
-      "maintenence.year": year,
-    });
+// 
+//   const { paymentdescription,modeofpayment, year, paymentdate, amount, estatus } = req.body;
+//   const Owner=db.collection("ownerandmaintainence")
+//   try {
+//     const duplicateCheck = await Owner.findOne({
+//       "maintenence.year": year,
+//     });
 
-    if (duplicateCheck) {
-      return res
-        .status(400)
-        .json({ message: "Duplicate year detected in Maintenance field." });
-    }
-    const newMaintenance = { paymentdescription, year, paymentdate, amount,estatus };
-    const result = await Owner.updateMany(
-      {},
-      { $push: { maintainence: newMaintenance } }
-    );
+//     if (duplicateCheck) {
+//       return res
+//         .status(400)
+//         .json({ message: "Duplicate year detected in Maintenance field." });
+//     }
+//     const newMaintenance = { paymentdescription, year, paymentdate, amount,estatus };
+//     const result = await Owner.updateMany(
+//       {},
+//       { $push: { maintainence: newMaintenance } }
+//     );
 
-    res.status(200).json({
-      message: "Demands submitted successfully.",
-      updatedCount: result.modifiedCount,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "An unexpected error occurred." });
-  }
-});
+//     res.status(200).json({
+//       message: "Demands submitted successfully.",
+//       updatedCount: result.modifiedCount,
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "An unexpected error occurred." });
+//   }
+// });
 app.get("/api/getDues/:year", async (req, res) => {
   const year = req.params.year;
   try {
@@ -263,12 +262,12 @@ app.post("/api/updateMaintainance", async (req, res) => {
   }
 });
 
-app.get('/temperature', async (req, res) => {
+app.get('/api/temperature', async (req, res) => {
   try {
-    const url = 'https://api.thingspeak.com/channels/2796922/feeds.json?api_key=UVLIOZ47RTOXHCVN&results=2';
+    const url = 'https://api.thingspeak.com/channels/2956159/feeds.json?api_key=WCUP6YXUFJDNF194&results=2';
     const response = await axios.get(url);
 
-    // Extract data properly
+    // Extract data properly 
     const temperatureData = response.data.feeds.map((feed) => ({
       time: feed.created_at,
       temperature: feed.field1, // Field1 (Temperature)
@@ -276,7 +275,7 @@ app.get('/temperature', async (req, res) => {
     }));
 
     console.log("Gas Data from ThingSpeak: ", temperatureData[0].gasSensorData);
-    console.log("Gas Data from ThingSpeak: ", temperatureData[0].temperature);
+    console.log("Temperature Data from ThingSpeak: ", temperatureData[0].temperature);
     res.json(temperatureData);
   } catch (error) {
     console.error('Error fetching data from ThingSpeak:', error.message);

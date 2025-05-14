@@ -18,7 +18,7 @@ function RaiseDemand() {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   
   const currentYear = 2022;
-  const yearOptions = Array.from({ length: 5 }, (_, i) => `${currentYear + i}-${currentYear + i + 1}`);
+  const yearOptions = Array.from({ length: 10 }, (_, i) => `${currentYear + i}-${currentYear + i + 1}`);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,7 +69,7 @@ function RaiseDemand() {
         estatus: "Pending"
       };
       
-      const response = await axios.post(`${API_BASE_URL}/Raisedemand`, payload);
+      const response = await axios.post(`${API_BASE_URL}/secretary/raisedemand`, payload);
       
       if (response.data.message === "Duplicate year detected in Maintainance field.") {
         setErrorMessage("Duplicate year detected! Please check and try again.");
@@ -127,7 +127,7 @@ function RaiseDemand() {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="block text-gray-700 mb-1 text-sm font-medium">Payment Type</label>
-            <div className="flex items-center">
+            <div className="flex items-center"> 
               <FileText className="text-gray-500 mr-2" size={18} />
               <select
                 name="paymentDescription"

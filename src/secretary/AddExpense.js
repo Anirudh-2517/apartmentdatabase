@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 function AddExpense() {
   const [expense, setExpense] = useState({
@@ -9,9 +9,12 @@ function AddExpense() {
     modeOfPayment: "",
     personOrAgencyName: "",
     monthOfPayment: "",
-    year:""
+    year: ""
   });
   const [loading, setLoading] = useState(false);
+  const [agencyList, setAgencyList] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [newExpenseHead, setNewExpenseHead] = useState("");
   const [notification, setNotification] = useState({ show: false, type: "", message: "" });
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -31,8 +34,40 @@ function AddExpense() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setExpense((prev) => ({ ...prev, [name]: value }));
+    if (name === "personOrAgencyName" && value === "Add New ExpenseHead") {
+      setShowModal(true);
+    } else {
+      setExpense((prev) => ({ ...prev, [name]: value }));
+    }
   };
+ const handleAddNewExpenseHead = () => {
+  if (!newExpenseHead.trim()) return;
+
+  axios.post(`${API_BASE_URL}/secretary/add-expense-head`, {
+    newExpenseHead: newExpenseHead.trim()
+  })
+    .then(() => {
+      setAgencyList(prev => [...prev, newExpenseHead.trim()]);
+      setExpense(prev => ({ ...prev, personOrAgencyName: newExpenseHead.trim() }));
+      setShowModal(false);
+      setNewExpenseHead("");
+    })
+    .catch(err => {
+      console.error("Failed to add new expense head:", err);
+      alert("Error adding new expense head.");
+    });
+};
+
+
+  useEffect(() => {
+    axios.get(`${API_BASE_URL}/secretary/expense-heads`)
+      .then((response) => {
+        setAgencyList(response.data.expenseheads); // Assuming response = { expenseheads: [...] }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch agency list:", error);
+      });
+  }, []);
 
   const handleAddExpense = (event) => {
     event.preventDefault();
@@ -41,7 +76,7 @@ function AddExpense() {
     setExpense(prev => ({
       ...prev,
       year: year
-    }));    
+    }));
     axios.post(`${API_BASE_URL}/secretary/addExpense`, expense)
       .then(() => {
         setNotification({
@@ -204,15 +239,20 @@ function AddExpense() {
                 </svg>
                 Person/Agency Name
               </label>
-              <input
-                type="text"
+              <select
                 name="personOrAgencyName"
                 value={expense.personOrAgencyName}
                 onChange={handleInputChange}
-                placeholder="Name of person or agency"
                 required
                 className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
+              >
+                <option value="">Select agency/person</option>
+                {agencyList.map((name, index) => (
+                  <option key={index} value={name}>{name}</option>
+                ))}
+                <option value="Add New ExpenseHead">➕ Add New ExpenseHead</option>
+              </select>
+
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium flex items-center">
@@ -254,6 +294,38 @@ function AddExpense() {
             {loading ? "Processing..." : "Add Expense"}
           </button>
         </form>
+        {showModal && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
+              <h2 className="text-lg font-semibold mb-4">Add New Expense Head</h2>
+              <input
+                type="text"
+                value={newExpenseHead}
+                onChange={(e) => setNewExpenseHead(e.target.value)}
+                placeholder="Enter new expense head"
+                className="w-full mb-4 px-4 py-2 border rounded-lg"
+              />
+              <div className="flex justify-end gap-2">
+                <button
+                  className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                  onClick={() => {
+                    setShowModal(false);
+                    setNewExpenseHead("");
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  onClick={handleAddNewExpenseHead}
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

@@ -1,23 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  PointElement,
+  LineElement,
+} from "chart.js";
 import axios from "axios";
 import { ChevronDown } from "lucide-react";
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement);
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  PointElement,
+  LineElement
+);
+
 const FinancialExpenses = () => {
   const [expenseData, setExpenseData] = useState([]);
-  const [selectedDescription, setSelectedDescription] = useState("");
+  const [comparisonYears, setComparisonYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState("2022-2023");
-  const [monthWiseData, setMonthWiseData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [chartLoading, setChartLoading] = useState(false);
   const [chartType, setChartType] = useState("bar");
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationType, setNotificationType] = useState("success");
   const [totalExpenseAmount, setTotalExpenseAmount] = useState(0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const years = [
     "2022-2023",
     "2023-2024",
@@ -26,8 +49,9 @@ const FinancialExpenses = () => {
     "2026-2027",
     "2027-2028",
     "2028-2029",
-    "2029-2030"
+    "2029-2030",
   ];
+
   const displayNotification = (message, type = "success") => {
     setNotificationMessage(message);
     setNotificationType(type);
@@ -36,32 +60,29 @@ const FinancialExpenses = () => {
       setShowNotification(false);
     }, 3000);
   };
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${API_BASE_URL}/admin/getsummaryexpenses/` + selectedYear)
-      .then((response) => {
-        const data = response.data || [];
-        setExpenseData(data);
-        const total = data.reduce((sum, item) => sum + (item.total || 0), 0);
-        setTotalExpenseAmount(total);
 
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching summary expenses:", error);
-        displayNotification("Failed to load expense data. Please try again later.", "error");
-        setLoading(false);
-      });
-  }, [monthWiseData]);
-  const handleYearSelect = (year) => {
-    setSelectedYear(year);
+  useEffect(() => {
+    fetchExpenseData(selectedYear);
+  }, []);
+
+  const fetchExpenseData = (year) => {
+    setLoading(true);
     axios
       .get(`${API_BASE_URL}/admin/getsummaryexpenses/` + year)
       .then((response) => {
         const data = response.data || [];
+
+        // Extract years present in data (excluding name field)
+        const detectedYears = [...new Set(
+          data.flatMap((item) => Object.keys(item).filter((key) => key !== "personOrAgencyName"))
+        )];
+
+        setComparisonYears(detectedYears);
         setExpenseData(data);
-        const total = data.reduce((sum, item) => sum + (item.total || 0), 0);
+
+        const total = data.reduce((sum, item) =>
+          detectedYears.reduce((acc, y) => acc + (item[y] || 0), sum), 0
+        );
         setTotalExpenseAmount(total);
 
         setLoading(false);
@@ -71,119 +92,53 @@ const FinancialExpenses = () => {
         displayNotification("Failed to load expense data. Please try again later.", "error");
         setLoading(false);
       });
+  };
+
+  const handleYearSelect = (year) => {
+    setSelectedYear(year);
+    fetchExpenseData(year);
     setDropdownOpen(false);
     sendSelectedYearData(year);
   };
+
   const sendSelectedYearData = (year) => {
     setLoading(true);
-    axios.post(`${API_BASE_URL}/admin/setyear`, { selectedYear: year })
-      .then((response) => {
+    axios
+      .post(`${API_BASE_URL}/admin/setyear`, { selectedYear: year })
+      .then(() => {
         displayNotification(`Year ${year} selected successfully`);
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error sending selected year:", error);
-        displayNotification("Failed to set selected year. Please try again.", "error");
         setLoading(false);
       });
   };
-  const fetchMonthWiseExpenses = () => {
-    if (!selectedDescription) {
-      displayNotification("Please select a description.", "error");
-      return;
-    }
-    if (!selectedYear) {
-      displayNotification("Please select a year.", "error");
-      return;
-    }
-    setChartLoading(true);
-    const payload = {
-      description: selectedDescription,
-      year: selectedYear
-    };
-    axios.post(`${API_BASE_URL}/admin/getmonthwiseexpenses`, payload)
-      .then((response) => {
-        const data = response.data;
-        if (Array.isArray(data)) {
-          setMonthWiseData(data);
-          displayNotification(`Successfully loaded data for ${selectedDescription} in ${selectedYear}`);
-        } else {
-          console.error("Unexpected response format for month-wise data:", data);
-          displayNotification("Error: Unable to load month-wise data.", "error");
-        }
-        setChartLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching month-wise expenses:", error);
-        displayNotification("Failed to fetch month-wise expenses.", "error");
-        setChartLoading(false);
-      });
-  };
-  const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  const getMonthName = (monthNumber) => {
-    return months[monthNumber - 1] || "Unknown";
-  };
+
   const chartColors = {
-    bar: {
-      backgroundColor: "rgba(99, 102, 241, 0.8)",
-      borderColor: "rgba(67, 56, 202, 1)",
-    },
     doughnut: {
-      backgroundColor: expenseData.map((_, index) => {
-        const hue = (index * 30) % 360;
-        return `hsla(${hue}, 70%, 60%, 0.8)`;
-      }),
-      borderColor: expenseData.map((_, index) => {
-        const hue = (index * 30) % 360;
-        return `hsla(${hue}, 70%, 50%, 1)`;
-      }),
-    },
-    line: {
-      backgroundColor: "rgba(16, 185, 129, 0.2)",
-      borderColor: "rgba(5, 150, 105, 1)",
-    },
-    monthWise: {
-      backgroundColor: "rgba(16, 185, 129, 0.8)",
-      borderColor: "rgba(5, 150, 105, 1)",
+      backgroundColor: expenseData.map((_, index) => `hsla(${(index * 60) % 360}, 70%, 60%, 0.8)`),
+      borderColor: expenseData.map((_, index) => `hsla(${(index * 60) % 360}, 70%, 50%, 1)`),
     }
   };
+
   const overallChartData = {
     labels: expenseData.map((item) => item.personOrAgencyName || "Unknown"),
-    datasets: [
-      {
-        label: "Total Expenses",
-        data: expenseData.map((item) => item.total || 0),
-        backgroundColor: chartType === "doughnut"
-          ? chartColors.doughnut.backgroundColor
-          : expenseData.map((_, index) => `hsl(${(index * 30) % 360}, 70%, 60%)`),
-        borderColor: chartType === "doughnut"
-          ? chartColors.doughnut.borderColor
-          : expenseData.map((_, index) => `hsl(${(index * 30) % 360}, 70%, 50%)`),
-        borderWidth: 2,
-        borderRadius: chartType === "bar" ? 5 : 0,
-        tension: 0.4,
-        barThickness: chartType === "bar" ? 50 : undefined,
-      },
-    ],
+    datasets: comparisonYears.map((year, index) => ({
+      label: `Expenses ${year}`,
+      data: expenseData.map((item) => item[year] || 0),
+      backgroundColor: chartType === "doughnut"
+        ? chartColors.doughnut.backgroundColor[index % chartColors.doughnut.backgroundColor.length]
+        : `hsl(${(index * 60) % 360}, 70%, 60%)`,
+      borderColor: chartType === "doughnut"
+        ? chartColors.doughnut.borderColor[index % chartColors.doughnut.borderColor.length]
+        : `hsl(${(index * 60) % 360}, 70%, 50%)`,
+      borderWidth: 2,
+      barThickness: chartType === "bar" ? 40 : undefined,
+      tension: 0.4,
+    })),
   };
-  const monthWiseChartData = {
-    labels: monthWiseData ? monthWiseData.map((item) => getMonthName(item.month)) : [],
-    datasets: [
-      {
-        label: `Expenses for ${selectedDescription} (${selectedYear})`,
-        data: monthWiseData ? monthWiseData.map((item) => item.totalAmount || 0) : [],
-        backgroundColor: monthWiseData ? monthWiseData.map((_, index) => `hsl(${(index * 30) % 360}, 70%, 60%)`) : [],
-        borderColor: monthWiseData ? monthWiseData.map((_, index) => `hsl(${(index * 30) % 360}, 70%, 50%)`) : [],
-        borderWidth: 2,
-        borderRadius: 5,
-        barThickness: 20,
-        tension: 0.4,
-      },
-    ],
-  };
+
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -191,31 +146,37 @@ const FinancialExpenses = () => {
       legend: { display: true, position: "top" },
       title: {
         display: true,
-        text: chartType === "doughnut" ? "Expense Distribution" : "Financial Overview",
-        font: { size: 18, weight: 'bold' }
+        text:
+          chartType === "doughnut"
+            ? "Expense Distribution"
+            : `Financial Overview: ${comparisonYears.join(" vs ")}`,
+        font: { size: 18, weight: "bold" },
       },
       tooltip: {
         callbacks: {
           label: function (context) {
-            const label = context.dataset.label || '';
+            const label = context.dataset.label || "";
             const value = context.raw || 0;
             return `${label}: ₹${value.toLocaleString()}`;
-          }
-        }
-      }
-    },
-    scales: chartType !== "doughnut" ? {
-      x: { grid: { display: false } },
-      y: {
-        grid: { color: "rgba(209, 213, 219, 0.2)" },
-        ticks: {
-          callback: function (value) {
-            return '₹' + value.toLocaleString();
-          }
-        }
+          },
+        },
       },
-    } : {},
+    },
+    scales: chartType !== "doughnut"
+      ? {
+        x: { grid: { display: false } },
+        y: {
+          grid: { color: "rgba(209, 213, 219, 0.2)" },
+          ticks: {
+            callback: function (value) {
+              return "₹" + value.toLocaleString();
+            },
+          },
+        },
+      }
+      : {},
   };
+
   const renderChart = () => {
     if (loading) {
       return (
@@ -242,16 +203,19 @@ const FinancialExpenses = () => {
         return <Bar data={overallChartData} options={chartOptions} />;
     }
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-10">
       {showNotification && (
         <div
-          className={`fixed top-6 right-6 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${notificationType === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+          className={`fixed top-6 right-6 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${notificationType === "success"
+            ? "bg-green-500 text-white"
+            : "bg-red-500 text-white"
             }`}
         >
           {notificationMessage}
         </div>
-      )} 
+      )}
       <div className="max-w-7xl mx-auto px-4">
         <div className="bg-white shadow-xl rounded-2xl mb-8 p-8 border border-gray-100">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -261,7 +225,9 @@ const FinancialExpenses = () => {
             <div className="flex items-center space-x-3">
               <div className="px-4 py-2 bg-indigo-50 rounded-lg">
                 <span className="text-sm text-indigo-600 font-medium">Total Expenses</span>
-                <div className="text-2xl font-bold text-indigo-800">₹{totalExpenseAmount.toLocaleString()}</div>
+                <div className="text-2xl font-bold text-indigo-800">
+                  ₹{totalExpenseAmount.toLocaleString()}
+                </div>
               </div>
               <div className="px-4 py-2 bg-green-50 rounded-lg">
                 <span className="text-sm text-green-600 font-medium">Categories</span>
@@ -283,9 +249,7 @@ const FinancialExpenses = () => {
                   aria-expanded={dropdownOpen}
                   aria-labelledby="year-select"
                 >
-                  <span className="block truncate">
-                    {selectedYear || 'Select a year'}
-                  </span>
+                  <span className="block truncate">{selectedYear || "Select a year"}</span>
                   <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <ChevronDown className="h-4 w-4 text-gray-400" />
                   </span>
@@ -300,11 +264,14 @@ const FinancialExpenses = () => {
                     {years.map((year) => (
                       <li
                         key={year}
-                        className={`cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-indigo-100 ${selectedYear === year ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-900'
+                        className={`cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-indigo-100 ${selectedYear === year
+                          ? "bg-indigo-50 text-indigo-700 font-medium"
+                          : "text-gray-900"
                           }`}
                         onClick={() => handleYearSelect(year)}
                         role="option"
-                        aria-selected={selectedYear === year}>
+                        aria-selected={selectedYear === year}
+                      >
                         {year}
                       </li>
                     ))}
@@ -337,14 +304,13 @@ const FinancialExpenses = () => {
                 className={`px-4 py-2 text-sm font-medium rounded-r-lg ${chartType === "doughnut"
                   ? "bg-indigo-600 text-white"
                   : "bg-white text-gray-700 hover:bg-gray-100"
-                  }`}>
+                  }`}
+              >
                 Doughnut Chart
               </button>
             </div>
           </div>
-          <div className="h-96 mb-12">
-            {renderChart()}
-          </div>
+          <div className="h-96 mb-12">{renderChart()}</div>
         </div>
       </div>
     </div>

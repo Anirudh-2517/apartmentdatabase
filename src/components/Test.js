@@ -68,9 +68,6 @@ const EnhancedLandingPage = () => {
                   Our platform provides a seamless experience for managing apartments—from tenant communication to maintenance scheduling.
                   Enhance efficiency, streamline operations, and elevate tenant satisfaction with a reliable solution tailored to your needs.
                 </p>
-
-
-
                 {/* <div className="flex flex-wrap gap-4">
                   <button className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition flex items-center">
                     Get Started <ChevronRight className="ml-2 h-5 w-5" />

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Link, Routes, Route, useLocation } from 'react-router-dom';
 import {
   Home, FileText, DollarSign, BarChart2, Thermometer, Wind,
-  Menu, X, LogOut, User, ChevronRight, Settings, Bell
+  Menu, X, LogOut, User, ChevronRight, Settings, Bell,
+  IndianRupee,
+  HomeIcon
 } from 'lucide-react';
 import ComplaintFeedback from "../owner/Complaint";
 import Maintainance from "../owner/Maintainance";
@@ -11,11 +13,12 @@ import Financialdata from "../owner/Financialdata";
 import OwnerServices from "../owner/Ownerservices";
 import TempDisplay from "../owner/TempDisplay";
 import AddTenant from "../owner/AddTenant";
+import MonthlyExpenseAnalysis from '../admin/MonthlyExpenseAnalysis'
 import Gassensorinfo from "../owner/Gassensorinfo";
 import DisplayTenants from "../owner/DisplayTenants";
 import PredictRent from "./PredictRent";
 
-function Owner({ oid, username, setLoginStatus, login,imageURL }) {
+function Owner({ oid, username, setLoginStatus, login, imageURL }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState(3);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -26,16 +29,18 @@ function Owner({ oid, username, setLoginStatus, login,imageURL }) {
   }, []);
 
   const navItems = [
-    { to: "/viewexpenses", label: "View Expenses", icon: <DollarSign size={18} />, color: "text-blue-500" },
-    { to: "/addtenant", label: "Add New Tenant", icon: <User size={18} />, color: "text-pink-500" },
+    { to: "/", label: "Dasboard Home", icon: <HomeIcon size={18} />, color: "text-blue-500" },
+    { to: "/viewexpenses", label: "View Expenses", icon: <IndianRupee size={18} />, color: "text-blue-500" },
     { to: "/lodgecomplaint", label: "Lodge Complaint", icon: <FileText size={18} />, color: "text-green-500" },
-    { to: "/ownerservices", label: "Owner Services", icon: <User size={18} />, color: "text-purple-500" },
-    { to: "/tenantview", label: "View Tenant Info", icon: <User size={18} />, color: "text-orange-500" },
-    { to: "/predictrent", label: "Predict Rent", icon: <User size={18} />, color: "text-indigo-500" },
-    { to: "/paymaintainence", label: "Pay Maintenance", icon: <DollarSign size={18} />, color: "text-amber-500" },
-    { to: "/expensegraphicview", label: "Expense Graphics", icon: <BarChart2 size={18} />, color: "text-indigo-500" },
+    { to: "/expensegraphicview", label: "Expense Graphics(Yearly)", icon: <BarChart2 size={18} />, color: "text-indigo-500" },
+    { to: "/paymaintainence", label: "Pay Maintenance", icon: <IndianRupee size={18} />, color: "text-amber-500" },
+    { to: "/expensemonthlyview", label: "Expense Graphics(Monthly)", icon: <BarChart2 size={18} />, color: "text-blue-500" },
     { to: "/viewtemp", label: "Temperature", icon: <Thermometer size={18} />, color: "text-red-500" },
     { to: "/gasinfo", label: "Gas Info", icon: <Wind size={18} />, color: "text-cyan-500" },
+    { to: "/predictrent", label: "Predict Rent", icon: <IndianRupee size={18} />, color: "text-indigo-500" },
+    { to: "/addtenant", label: "Add New Tenant", icon: <User size={18} />, color: "text-pink-500" },
+    { to: "/tenantview", label: "View Tenant Info", icon: <User size={18} />, color: "text-orange-500" },
+    { to: "/ownerservices", label: "Owner Services", icon: <User size={18} />, color: "text-purple-500" },
   ];
 
   const NavLink = ({ to, children, className = "" }) => {
@@ -133,7 +138,7 @@ function Owner({ oid, username, setLoginStatus, login,imageURL }) {
               </h1>
               <div className="mt-6 bg-gray-800 rounded-lg p-4 border border-gray-700 flex items-center space-x-3">
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-full text-white">
-                  <img src={imageURL} width="40px" height="40px" alt="ownersimages" style={{borderRadius:"25px"}}></img>
+                  <img src={imageURL} width="40px" height="40px" alt="ownersimages" style={{ borderRadius: "25px" }}></img>
                 </div>
                 <div>
                   <div className="text-white font-medium">{username || "Owner"}</div>
@@ -194,6 +199,7 @@ function Owner({ oid, username, setLoginStatus, login,imageURL }) {
                 <Route path="/viewexpenses" element={<Financialdata />} />
                 <Route path="/lodgecomplaint" element={<ComplaintFeedback oid={oid} />} />
                 <Route path="/addtenant" element={<AddTenant oid={oid} />} />
+                <Route path="/expensemonthlyview" element={<MonthlyExpenseAnalysis />} />
                 <Route path="/ownerservices" element={<OwnerServices />} />
                 <Route path="/tenantview" element={<DisplayTenants oid={oid} />} />
                 <Route path="/paymaintainence" element={<Maintainance oid={oid} login={login} />} />
@@ -237,9 +243,9 @@ function WelcomeDashboard({ username }) {
   }, []);
 
   const quickLinks = [
-    { to: "/viewexpenses", title: "View Expenses", icon: <DollarSign className="text-blue-500" size={24} />, desc: "Review financial records", color: "bg-blue-50", textColor: "text-blue-800" },
-    { to: "/addtenant", title: "Add Tenant", icon: <User className="text-pink-500" size={24} />, desc: "Add a new tenant", color: "bg-pink-50", textColor: "text-pink-800" },
+    { to: "/viewexpenses", title: "View Expenses", icon: <IndianRupee className="text-blue-500" size={24} />, desc: "Review financial records", color: "bg-blue-50", textColor: "text-blue-800" },
     { to: "/lodgecomplaint", title: "Complaint", icon: <FileText className="text-green-500" size={24} />, desc: "Submit issues", color: "bg-green-50", textColor: "text-green-800" },
+    { to: "/addtenant", title: "Add Tenant", icon: <User className="text-pink-500" size={24} />, desc: "Add a new tenant", color: "bg-pink-50", textColor: "text-pink-800" },
     { to: "/tenantview", title: "Tenants", icon: <User className="text-orange-500" size={24} />, desc: "View tenants", color: "bg-orange-50", textColor: "text-orange-800" },
     { to: "/paymaintainence", title: "Maintenance", icon: <DollarSign className="text-purple-500" size={24} />, desc: "Pay dues", color: "bg-purple-50", textColor: "text-purple-800" },
     { to: "/expensegraphicview", title: "Graphs", icon: <BarChart2 className="text-indigo-500" size={24} />, desc: "Visualize expenses", color: "bg-indigo-50", textColor: "text-indigo-800" },

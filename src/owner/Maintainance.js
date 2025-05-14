@@ -38,7 +38,6 @@ function Maintainance({ oid, username, login }) {
     } finally {
       setProcessingPayment(false);
     }
-    alert(M.year+" "+M.amount)
     axios.post(`${API_BASE_URL}/updateMaintainance`, { oid: oid, year: M.year, status: "Updated",amount:parseFloat(M.amount) })
       .then(response => {
         showNotification("Status updated successfully");

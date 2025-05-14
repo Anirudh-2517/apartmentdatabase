@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.9",
+    "axios": "^1.9.0",
     "body-parser": "^1.20.3",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
@@ -16,6 +16,7 @@
     "dotenv": "^16.5.0",
     "express": "^4.21.1",
     "html5-qrcode": "^2.3.8",
+    "jspdf": "^3.0.1",
     "lucide-react": "^0.469.0",
     "mongodb": "^6.11.0",
     "qrcode.react": "^4.2.0",
@@ -23,9 +24,10 @@
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.4.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.0.2",
     "react-scripts": "5.0.1",
+    "react-to-print": "^3.1.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
