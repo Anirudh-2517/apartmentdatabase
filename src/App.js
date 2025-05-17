@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter} from "react-router-dom";
+import { BrowserRouter, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Chairman from "./components/ChairmanDashboard";
 import Secretary from "./components/SecretaryDashboard";
@@ -8,11 +8,10 @@ import Security from "./components/SecurityDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 import Home from "./components/Home";
 
-function App() 
-{
+function App() {
   const [loginStatus, setLoginStatus] = useState(false);
-  const [login,setLogin]=useState("")
-  const [imageURL,setImageURL]=useState("")
+  const [login, setLogin] = useState("")
+  const [imageURL, setImageURL] = useState("")
   const [userType, setUserType] = useState("");
   const [scannedData, setScannedData] = useState("");
   const [oid, setOid] = useState()
@@ -33,40 +32,42 @@ function App()
     setUsername("");
   };
   return (
+
     <div className="App">
-      {!loginStatus ? 
-      (
-        <Home
-          firstTime={firstTime}
-          setFirstTime={setFirstTime}
-          setOid={setOid}
-          oid={oid}
-          setLoginStatus={setLoginStatus}
-          setUserType={setUserType}
-          setUsername={setUsername}
-          setLogin={setLogin}
-          setImageURL={setImageURL}          
+      {!loginStatus ?
+        (
+          <Home
+            firstTime={firstTime}
+            setFirstTime={setFirstTime}
+            setOid={setOid}
+            oid={oid}
+            setLoginStatus={setLoginStatus}
+            setUserType={setUserType}
+            setUsername={setUsername}
+            setLogin={setLogin}
+            setImageURL={setImageURL}
           />
-      ) : userType === "Admin" ? 
-      (
-        <AdminDashboard setLoginStatus={setLoginStatus} />
-      ) : userType === "Chairman" ?
-      (
-        <BrowserRouter>
-        <Chairman setLoginStatus={setLoginStatus} imageURL={imageURL} /></BrowserRouter>
-      ) : userType === "Secretary" ? 
-      (
-        <Secretary setLoginStatus={setLoginStatus} />
-      ) : userType === "Owner" ? 
-      (
-        <div>
-          <Owner imageURL={imageURL} username={username} setLoginStatus={setLoginStatus} oid={oid} login={login}/>
-        </div>
-      ) : 
-      (
-        <Security formData={formData} setFormData={setFormData} scannedData={scannedData} setScannedData={setScannedData} setLoginStatus={setLoginStatus} />
-      )}
+        ) : userType === "Admin" ?
+          (
+            <BrowserRouter> <AdminDashboard setLoginStatus={setLoginStatus} /></BrowserRouter>
+          ) : userType === "Chairman" ?
+            (
+              <BrowserRouter>
+                <Chairman setLoginStatus={setLoginStatus} imageURL={imageURL} /></BrowserRouter>
+            ) : userType === "Secretary" ?
+              (
+                <BrowserRouter><Secretary setLoginStatus={setLoginStatus} /></BrowserRouter>
+              ) : userType === "Owner" ?
+                (
+                  <div>
+                    <BrowserRouter><Owner imageURL={imageURL} username={username} setLoginStatus={setLoginStatus} oid={oid} login={login} /></BrowserRouter>
+                  </div>
+                ) :
+                (
+                  <BrowserRouter><Security formData={formData} setFormData={setFormData} scannedData={scannedData} setScannedData={setScannedData} setLoginStatus={setLoginStatus} /></BrowserRouter>
+                )}
     </div>
+
   );
 }
 

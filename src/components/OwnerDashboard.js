@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Link, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Routes, Route, useLocation ,useNavigate} from 'react-router-dom';
 import {
   Home, FileText, DollarSign, BarChart2, Thermometer, Wind,
   Menu, X, LogOut, User, ChevronRight, Settings, Bell,
@@ -22,6 +22,11 @@ function Owner({ oid, username, setLoginStatus, login, imageURL }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState(3);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const navigate = useNavigate();
+  const logout = () => {
+    setLoginStatus(false);
+    navigate('/login');
+  };
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 60000);
@@ -65,7 +70,6 @@ function Owner({ oid, username, setLoginStatus, login, imageURL }) {
   });
 
   return (
-    <Router>
       <div className="min-h-screen bg-gray-50 flex flex-col">
         {/* Mobile Header */}
         <header className="bg-gradient-to-r from-gray-900 to-gray-800 shadow-lg lg:hidden">
@@ -117,7 +121,7 @@ function Owner({ oid, username, setLoginStatus, login, imageURL }) {
                   </li>
                 ))}
                 <li className="pt-2 border-t border-gray-700">
-                  <button onClick={() => setLoginStatus(false)} className="w-full flex items-center p-3 text-red-400 hover:bg-gray-700 hover:text-red-300 rounded-lg">
+                  <button onClick={logout} className="w-full flex items-center p-3 text-red-400 hover:bg-gray-700 hover:text-red-300 rounded-lg">
                     <LogOut size={18} className="mr-3" />
                     Logout
                   </button>
@@ -157,7 +161,7 @@ function Owner({ oid, username, setLoginStatus, login, imageURL }) {
                   </li>
                 ))}
                 <li className="pt-6 mt-6 border-t border-gray-700">
-                  <button onClick={() => setLoginStatus(false)} className="w-full flex items-center p-3 text-red-400 hover:bg-gray-700 hover:text-red-300 rounded-lg">
+                  <button onClick={logout} className="w-full flex items-center p-3 text-red-400 hover:bg-gray-700 hover:text-red-300 rounded-lg">
                     <LogOut size={18} className="mr-3" />
                     Logout
                   </button>
@@ -212,7 +216,6 @@ function Owner({ oid, username, setLoginStatus, login, imageURL }) {
           </main>
         </div>
       </div>
-    </Router>
   );
 }
 function LocationDisplay() {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ChairmanMessages, { ChairmanNotice } from "../chairman/ChairmanMessages";
 import AcademicCalendar from "../chairman/ApartmentCalender";
-import { Route, Routes, Link, useLocation } from "react-router-dom";
+import { Route, Routes, Link, useLocation,useNavigate } from "react-router-dom";
 import {
   Bell, MessageSquare, Home, LogOut, User, Calendar, Settings,
   Users, ChevronRight, BarChart3, Layers, Menu, X, DollarSign
@@ -23,6 +23,11 @@ function Chairman({ setLoginStatus ,imageURL}) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
+  const navigate = useNavigate();
+  const logout = () => {
+    setLoginStatus(false);
+    navigate('/login');
+  };
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -150,7 +155,7 @@ function Chairman({ setLoginStatus ,imageURL}) {
               </li>
             ))}
             <li className="pt-6 mt-6 border-t border-indigo-700">
-              <button onClick={() => setLoginStatus(false)} className="w-full flex items-center p-3 text-red-400 hover:bg-indigo-700 hover:text-red-300 rounded-lg">
+              <button onClick={logout} className="w-full flex items-center p-3 text-red-400 hover:bg-indigo-700 hover:text-red-300 rounded-lg">
                 <LogOut size={18} className="mr-3" />
                 Logout
               </button>

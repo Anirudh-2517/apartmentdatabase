@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Home, Users, UserPlus, List, LogOut, Bell } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import AddVisitors from '../security/AddVisitor';
 import DisplayVisitors from '../security/DisplayVisitors';
 import VisitorsInfo from '../security/VisitorsInfo';
@@ -16,6 +17,11 @@ function SecurityDashboard({ setLoginStatus,setScannedData,scannedData,formData,
     } else if (hours >= 17) {
         greeting = "Good evening";
     }
+    const navigate=useNavigate();
+    const logout = () => {
+    setLoginStatus(false);
+    navigate('/login');
+  };
 
     const navItems = [
         { id: 'home', icon: <Home className="h-5 w-5" />, label: 'Dashboard' },
@@ -66,7 +72,7 @@ function SecurityDashboard({ setLoginStatus,setScannedData,scannedData,formData,
 
                 <div className="absolute bottom-0 w-64 border-t">
                     <button
-                        onClick={() => setLoginStatus(false)}
+                        onClick={logout}
                         className="flex items-center w-full px-6 py-4 text-left text-red-600 hover:bg-red-50"
                     >
                         <LogOut className="h-5 w-5 mr-3" />

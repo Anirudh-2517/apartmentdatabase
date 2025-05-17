@@ -261,7 +261,6 @@ app.post("/api/updateMaintainance", async (req, res) => {
     return res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
-
 app.get('/api/temperature', async (req, res) => {
   try {
     const url = 'https://api.thingspeak.com/channels/2956159/feeds.json?api_key=WCUP6YXUFJDNF194&results=2';

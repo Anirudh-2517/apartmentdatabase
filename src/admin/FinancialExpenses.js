@@ -135,6 +135,7 @@ const FinancialExpenses = () => {
         : `hsl(${(index * 60) % 360}, 70%, 50%)`,
       borderWidth: 2,
       barThickness: chartType === "bar" ? 40 : undefined,
+      borderRadius: chartType === "bar" ? 8 : 0,
       tension: 0.4,
     })),
   };

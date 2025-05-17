@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, useLocation, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, Navigate ,useNavigate} from "react-router-dom";
 import {
   Bell, LogOut, Settings, User, Home, CreditCard, FileText, Mail, DollarSign, AlertCircle, PlusCircle, ChevronRight, Menu, X, Calendar, Clock, BarChart3,
   Building, Shield, Users, Sun, Moon, Coffee,
@@ -283,6 +283,11 @@ function Secretary({ setLoginStatus }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+    const logout = () => {
+      setLoginStatus(false);
+      navigate('/login');
+    };
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 60000);
@@ -411,7 +416,7 @@ function Secretary({ setLoginStatus }) {
         </nav>
         <div className="p-4 border-t border-gray-700 mt-auto">
           <button
-            onClick={() => setLoginStatus(false)}
+            onClick={logout}
             className="w-full flex items-center p-3 rounded-lg text-red-400 hover:bg-gray-700 hover:text-red-300 transition-all duration-200"
           >
             <LogOut size={18} className="mr-3" />
