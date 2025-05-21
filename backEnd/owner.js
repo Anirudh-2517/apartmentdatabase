@@ -166,5 +166,14 @@ router.post('/addtenant', async (req, res) => {
     res.status(500).send("Error adding tenant.");
   }
 });
+router.post('/book-flat', async (req, res) => {
+  const payload = req.body
+  try {
+    const result = await db.collection('bookings').insertOne(payload)
+    res.send("Booking Added successfully!!!")
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 module.exports = router;

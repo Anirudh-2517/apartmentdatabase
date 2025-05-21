@@ -5,7 +5,7 @@ import AddVisitors from '../security/AddVisitor';
 import DisplayVisitors from '../security/DisplayVisitors';
 import VisitorsInfo from '../security/VisitorsInfo';
 
-function SecurityDashboard({ setLoginStatus,setScannedData,scannedData,formData,setFormData}) {
+function SecurityDashboard({ setLoginStatus, setScannedData, scannedData, formData, setFormData }) {
     const [activeTab, setActiveTab] = useState('home');
     const userName = "Security";
     const currentTime = new Date();
@@ -17,11 +17,11 @@ function SecurityDashboard({ setLoginStatus,setScannedData,scannedData,formData,
     } else if (hours >= 17) {
         greeting = "Good evening";
     }
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const logout = () => {
-    setLoginStatus(false);
-    navigate('/login');
-  };
+        setLoginStatus(false);
+        navigate('/login');
+    };
 
     const navItems = [
         { id: 'home', icon: <Home className="h-5 w-5" />, label: 'Dashboard' },
@@ -35,7 +35,7 @@ function SecurityDashboard({ setLoginStatus,setScannedData,scannedData,formData,
             case 'home':
                 return <HomePage greeting={greeting} userName={userName} setActiveTab={setActiveTab} />;
             case 'add-visitors':
-                return <AddVisitors formData={formData} setFormData={setFormData} setScannedData={setScannedData} scannedData={scannedData}/>;
+                return <AddVisitors formData={formData} setFormData={setFormData} setScannedData={setScannedData} scannedData={scannedData} />;
             case 'display-visitors':
                 return <DisplayVisitors />;
             case 'visitors-info':

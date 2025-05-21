@@ -39,8 +39,8 @@ function Employee() {
         let amount1 = amount.current.value;
         let sstatus1 = sstatus.current.value;
         let saldate1 = saldate.current.value;
-        
-        if (month1 === "Enter salary month" || year1 === "Enter salary year" || 
+
+        if (month1 === "Enter salary month" || year1 === "Enter salary year" ||
             amount1 === "" || sstatus1 === "Enter salary status" || saldate1 === "") {
             alert("All fields are compulsory");
         } else {
@@ -51,7 +51,7 @@ function Employee() {
                 sstatus: sstatus1,
                 saldate: saldate1
             };
-            
+
             axios.post(`${API_BASE_URL}/secretary/generatesalarydetails`, { payload, empid })
                 .then(response => {
                     alert("Salary details added successfully!");
@@ -85,7 +85,7 @@ function Employee() {
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Employee Management System</h1>
-            
+
             {/* Enter Salary Details Section */}
             <div className="bg-white rounded-lg shadow-lg mb-8 overflow-hidden">
                 <div className="bg-blue-600 text-white px-6 py-4">
@@ -96,13 +96,13 @@ function Employee() {
                         </span>
                     )}
                 </div>
-                
+
                 <div className="p-6 bg-gray-50">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Salary Month</label>
-                            <select 
-                                ref={month} 
+                            <select
+                                ref={month}
                                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option>Enter salary month</option>
                                 <option>January</option>
@@ -119,11 +119,11 @@ function Employee() {
                                 <option>December</option>
                             </select>
                         </div>
-                        
+
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Financial Year</label>
-                            <select 
-                                ref={year} 
+                            <select
+                                ref={year}
                                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option>Enter salary year</option>
                                 <option>2020-21</option>
@@ -136,7 +136,7 @@ function Employee() {
                                 <option>2027-28</option>
                             </select>
                         </div>
-                        
+
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Amount</label>
                             <input
@@ -146,18 +146,18 @@ function Employee() {
                                 placeholder="Enter salary amount"
                             />
                         </div>
-                        
+
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                            <select 
-                                ref={sstatus} 
+                            <select
+                                ref={sstatus}
                                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option>Enter salary status</option>
                                 <option>Pending</option>
                                 <option>Paid</option>
                             </select>
                         </div>
-                        
+
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Salary Date</label>
                             <input
@@ -166,22 +166,21 @@ function Employee() {
                                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
-                        
+
                         <div className="flex items-end">
                             <button
                                 onClick={() => selectedEmpId && makesalary(selectedEmpId)}
                                 disabled={!selectedEmpId}
-                                className={`px-4 py-2 rounded-md text-white font-medium ${
-                                    selectedEmpId 
-                                    ? 'bg-green-600 hover:bg-green-700 focus:ring-green-500' 
-                                    : 'bg-gray-400 cursor-not-allowed'
-                                } focus:outline-none focus:ring-2 focus:ring-offset-2`}
+                                className={`px-4 py-2 rounded-md text-white font-medium ${selectedEmpId
+                                        ? 'bg-green-600 hover:bg-green-700 focus:ring-green-500'
+                                        : 'bg-gray-400 cursor-not-allowed'
+                                    } focus:outline-none focus:ring-2 focus:ring-offset-2`}
                             >
                                 {selectedEmpId ? 'Make Salary' : 'Select Employee'}
                             </button>
                         </div>
                     </div>
-                    
+
                     {!selectedEmpId && (
                         <div className="mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 text-sm text-blue-700">
                             Select an employee from the table below to process salary.
@@ -189,13 +188,13 @@ function Employee() {
                     )}
                 </div>
             </div>
-            
+
             {/* Employee Details Section - Tabular Format */}
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div className="bg-blue-600 text-white px-6 py-4">
                     <h2 className="text-xl font-semibold">Employee Details</h2>
                 </div>
-                
+
                 <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-100">
@@ -250,11 +249,10 @@ function Employee() {
                                                 <div className="flex justify-center space-x-2">
                                                     <button
                                                         onClick={() => selectEmployee(employee.empid)}
-                                                        className={`px-3 py-1 rounded text-xs font-medium ${
-                                                            selectedEmpId === employee.empid
-                                                            ? 'bg-blue-600 text-white'
-                                                            : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-                                                        }`}
+                                                        className={`px-3 py-1 rounded text-xs font-medium ${selectedEmpId === employee.empid
+                                                                ? 'bg-blue-600 text-white'
+                                                                : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                                                            }`}
                                                     >
                                                         {selectedEmpId === employee.empid ? 'Selected' : 'Select'}
                                                     </button>
@@ -267,14 +265,14 @@ function Employee() {
                                                 </div>
                                             </td>
                                         </tr>
-                                        
+
                                         {/* Expanded Salary Details */}
                                         {expandedEmployee === employee.empid && (
                                             <tr>
                                                 <td colSpan="7" className="px-6 py-4 bg-gray-50">
                                                     <div className="border-t border-b border-gray-200 py-3">
                                                         <h4 className="font-medium text-gray-700 mb-3">Salary History</h4>
-                                                        
+
                                                         {employee.empsalarydet.length > 0 ? (
                                                             <table className="min-w-full divide-y divide-gray-200">
                                                                 <thead className="bg-blue-600">
@@ -306,11 +304,10 @@ function Employee() {
                                                                                 {salary.year}
                                                                             </td>
                                                                             <td className="px-6 py-3 whitespace-nowrap text-sm">
-                                                                                <span className={`px-2 py-1 rounded-full text-xs ${
-                                                                                    salary.sstatus === 'Approved' 
-                                                                                    ? 'bg-green-100 text-green-800' 
-                                                                                    : 'bg-yellow-100 text-yellow-800'
-                                                                                }`}>
+                                                                                <span className={`px-2 py-1 rounded-full text-xs ${salary.sstatus === 'Approved'
+                                                                                        ? 'bg-green-100 text-green-800'
+                                                                                        : 'bg-yellow-100 text-yellow-800'
+                                                                                    }`}>
                                                                                     {salary.sstatus}
                                                                                 </span>
                                                                             </td>

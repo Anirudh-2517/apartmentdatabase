@@ -14,7 +14,7 @@ function Raisecomplaint({ oid }) {
             cdescription: cdescription1,
             date: date1,
             oid: oid1,
-            cstatus:"Pending"
+            cstatus: "Pending"
         }
         axios.post(`${API_BASE_URL}/owner/lodgecomplaint`, payload)
             .then(response => {

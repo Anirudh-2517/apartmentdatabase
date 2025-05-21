@@ -7,7 +7,7 @@ function DisplayTenants({ oid }) {
     const [error, setError] = useState(null);
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-    useEffect( () => {
+    useEffect(() => {
         axios.get(`${API_BASE_URL}/owner/gettenants/${oid}`)
             .then(response => {
                 setTenants(response.data);
@@ -18,8 +18,8 @@ function DisplayTenants({ oid }) {
                 setError("Failed to load tenants. Please try again later.");
                 setIsLoading(false);
             });
-    }, [oid,tenants]); 
-    
+    }, [oid, tenants]);
+
 
     if (isLoading) {
         return (
@@ -37,18 +37,18 @@ function DisplayTenants({ oid }) {
             </div>
         );
     }
-    const changestatus=(tenant)=>{
-        const payload={
-            oid:oid,
-            tenant:tenant
+    const changestatus = (tenant) => {
+        const payload = {
+            oid: oid,
+            tenant: tenant
         }
-        axios.post(`${API_BASE_URL}/owner/updatetenantstatus`,payload)
-        .then(response=>{
-            alert("Status updated !!")
-        })
-        .catch(error=>{
-            console.log(error)
-        })
+        axios.post(`${API_BASE_URL}/owner/updatetenantstatus`, payload)
+            .then(response => {
+                alert("Status updated !!")
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     return (
@@ -88,10 +88,10 @@ function DisplayTenants({ oid }) {
                                         )}
                                     </td>
                                     <td className="py-3 px-6 text-left">
-                                        <button onClick={()=>changestatus(tenant)} className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded text-sm transition duration-150 ease-in-out">
+                                        <button onClick={() => changestatus(tenant)} className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded text-sm transition duration-150 ease-in-out">
                                             Change Status
                                         </button>
-                                    </td>                
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

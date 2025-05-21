@@ -26,12 +26,12 @@ const Addemployee = () => {
     setIsSubmitting(true);
     setFormStatus({ type: '', message: '' });
     try {
-      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;    
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
       const response = await axios.post(`${API_BASE_URL}/admin/addemployee`, formData);
       console.log('Data submitted successfully:', response.data);
-      setFormStatus({ 
-        type: 'success', 
-        message: 'Employee data saved successfully!' 
+      setFormStatus({
+        type: 'success',
+        message: 'Employee data saved successfully!'
       });
       // Optional: Reset form after successful submission
       // setFormData({
@@ -45,9 +45,9 @@ const Addemployee = () => {
       // });
     } catch (error) {
       console.error('Error submitting data:', error);
-      setFormStatus({ 
-        type: 'error', 
-        message: 'Failed to save data. Please try again.' 
+      setFormStatus({
+        type: 'error',
+        message: 'Failed to save data. Please try again.'
       });
     } finally {
       setIsSubmitting(false);
@@ -70,12 +70,11 @@ const Addemployee = () => {
           <p className="text-gray-600">Complete the form below to add a new team member</p>
         </div>
         {formStatus.message && (
-          <div 
-            className={`mb-6 p-4 rounded-lg flex items-start ${
-              formStatus.type === 'success' 
-                ? 'bg-green-50 text-green-700 border border-green-200' 
+          <div
+            className={`mb-6 p-4 rounded-lg flex items-start ${formStatus.type === 'success'
+                ? 'bg-green-50 text-green-700 border border-green-200'
                 : 'bg-red-50 text-red-700 border border-red-200'
-            }`}
+              }`}
             role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {formStatus.type === 'success' ? (
@@ -144,7 +143,7 @@ const Addemployee = () => {
                 placeholder="Enter cell number"
               />
             </div>
-      
+
             <div>
               <div className="flex items-center mb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -209,7 +208,7 @@ const Addemployee = () => {
               placeholder="Enter full address"
             ></textarea>
           </div>
-          
+
           <div className="pt-4">
             <button
               type="submit"
@@ -235,7 +234,7 @@ const Addemployee = () => {
             </button>
           </div>
         </form>
-        
+
         <div className="mt-8 pt-6 border-t border-gray-200 text-center text-sm text-gray-500">
           <p>All employee information is kept confidential and secure</p>
         </div>

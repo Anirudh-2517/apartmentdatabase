@@ -40,23 +40,23 @@ function AddExpense() {
       setExpense((prev) => ({ ...prev, [name]: value }));
     }
   };
- const handleAddNewExpenseHead = () => {
-  if (!newExpenseHead.trim()) return;
+  const handleAddNewExpenseHead = () => {
+    if (!newExpenseHead.trim()) return;
 
-  axios.post(`${API_BASE_URL}/secretary/add-expense-head`, {
-    newExpenseHead: newExpenseHead.trim()
-  })
-    .then(() => {
-      setAgencyList(prev => [...prev, newExpenseHead.trim()]);
-      setExpense(prev => ({ ...prev, personOrAgencyName: newExpenseHead.trim() }));
-      setShowModal(false);
-      setNewExpenseHead("");
+    axios.post(`${API_BASE_URL}/secretary/add-expense-head`, {
+      newExpenseHead: newExpenseHead.trim()
     })
-    .catch(err => {
-      console.error("Failed to add new expense head:", err);
-      alert("Error adding new expense head.");
-    });
-};
+      .then(() => {
+        setAgencyList(prev => [...prev, newExpenseHead.trim()]);
+        setExpense(prev => ({ ...prev, personOrAgencyName: newExpenseHead.trim() }));
+        setShowModal(false);
+        setNewExpenseHead("");
+      })
+      .catch(err => {
+        console.error("Failed to add new expense head:", err);
+        alert("Error adding new expense head.");
+      });
+  };
 
 
   useEffect(() => {

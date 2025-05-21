@@ -55,7 +55,7 @@ function GasSensorInfo() {
       <div className="p-6 bg-red-50 rounded-lg shadow border border-red-200">
         <h2 className="text-lg font-bold text-red-600 mb-2">Error</h2>
         <p className="text-red-500">{error}</p>
-        <button 
+        <button
           className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
           onClick={() => window.location.reload()}
         >
@@ -92,14 +92,14 @@ function GasSensorInfo() {
                 </span>
               </div>
             </div>
-            
+
             <div className="pt-4">
               <h3 className="text-lg font-semibold mb-3">Historical Readings</h3>
               <div className="max-h-64 overflow-y-auto pr-2">
                 {gasSensorData.map((item, index) => (
                   index > 0 && (
-                    <div key={index} className="mb-2 p-3 rounded border-l-4 hover:bg-gray-50 transition-colors" 
-                         style={{ borderLeftColor: getStatusColor(item.gasSensorData).replace('bg-', '') }}>
+                    <div key={index} className="mb-2 p-3 rounded border-l-4 hover:bg-gray-50 transition-colors"
+                      style={{ borderLeftColor: getStatusColor(item.gasSensorData).replace('bg-', '') }}>
                       <div className="flex justify-between items-center">
                         <span className="text-gray-500 text-sm">{new Date(item.time).toLocaleString()}</span>
                         <div className="flex items-center">

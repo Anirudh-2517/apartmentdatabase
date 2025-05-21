@@ -95,7 +95,7 @@ function Maintainancedues() {
                             </span>
                           ) : (
                             <span className="text-green-500 flex items-center">
-                              <FaCheckCircle className="mr-5 text-green-500"  /> {/* Increased gap with mr-5 */}
+                              <FaCheckCircle className="mr-5 text-green-500" /> {/* Increased gap with mr-5 */}
                               {M.status}
                             </span>
                           )}

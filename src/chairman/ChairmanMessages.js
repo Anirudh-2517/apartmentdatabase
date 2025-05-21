@@ -60,7 +60,7 @@ function ChairmanMessages() {
             required
           />
         </div>
-        
+
         <div className="mb-6">
           <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
           <textarea
@@ -121,7 +121,7 @@ export function ChairmanNotice() {
 
     try {
       const notice = noticeRef.current.value;
-      
+
       if (!notice.trim()) {
         throw new Error("Please enter a notice");
       }

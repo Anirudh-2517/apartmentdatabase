@@ -22,8 +22,8 @@ function AddFlatDetails() {
     // In a real app, fetch from API
     setWings(["A", "B", "C", "D"]);
 
-    // You can also fetch the wing/block setting from your backend
-    axios.get(`${API_BASE_URL}i/admin/getblocksorwings`)
+    // You can also fetch the wing/block setting from your backend yes chikaa i love u so much 
+    axios.get(`${API_BASE_URL}/admin/getblocksorwings`)
       .then(response => {
         if (response.data && response.data.Blocks) {
           setIsWingOrBlock(response.data.Blocks);
@@ -112,7 +112,7 @@ function AddFlatDetails() {
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
       {notification.show && (
         <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg flex items-center transition-all duration-500 ${notification.type === "success" ? "bg-green-100 border-l-4 border-green-500 text-green-700" :
-            "bg-red-100 border-l-4 border-red-500 text-red-700"
+          "bg-red-100 border-l-4 border-red-500 text-red-700"
           }`}>
           {notification.type === "success" ? <FaCheck className="mr-2" /> : <FaTimes className="mr-2" />}
           {notification.message}

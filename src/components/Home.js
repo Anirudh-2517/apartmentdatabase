@@ -87,8 +87,8 @@ function AppLayout({
       {/* Navbar */}
       <nav
         className={`fixed w-full z-50 transition-all duration-500 ${scrolled
-            ? "bg-gradient-to-r from-teal-600/95 to-blue-500/95 backdrop-blur-md shadow-xl"
-            : "bg-gradient-to-r from-teal-600 to-blue-500"
+          ? "bg-gradient-to-r from-teal-600/95 to-blue-500/95 backdrop-blur-md shadow-xl"
+          : "bg-gradient-to-r from-teal-600 to-blue-500"
           }`}
       >
 

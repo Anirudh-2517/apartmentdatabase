@@ -15,11 +15,11 @@ import {
 } from "chart.js";
 
 ChartJS.register(
-  BarElement, 
-  CategoryScale, 
-  LinearScale, 
-  Tooltip, 
-  Legend, 
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
   Title,
   ArcElement,
   PointElement,
@@ -43,18 +43,18 @@ function VisitorsInfo() {
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 10 }, (_, i) => (currentYear - 2 + i).toString());
-  
+
   useEffect(() => {
     // Calculate statistics when visitor data changes
     if (visitorCount.length > 0) {
       const total = visitorCount.reduce((sum, item) => sum + item.count, 0);
       setTotalVisitors(total);
-      
+
       const avg = total / visitorCount.length;
       setAverageVisitors(avg);
-      
-      const highest = visitorCount.reduce((max, item) => 
-        item.count > max.count ? { date: item.date, count: item.count } : max, 
+
+      const highest = visitorCount.reduce((max, item) =>
+        item.count > max.count ? { date: item.date, count: item.count } : max,
         { date: "", count: 0 }
       );
       setHighestDay(highest);
@@ -85,7 +85,7 @@ function VisitorsInfo() {
       if (response.data.success) {
         setVisitorCount(response.data.data);
         showNotification("Visitor data loaded successfully");
-        
+
         // If there's data, check if we can fetch previous period for comparison
         if (response.data.data.length > 0) {
           fetchPreviousPeriodData();
@@ -105,15 +105,15 @@ function VisitorsInfo() {
     // Calculate previous month and year
     let prevMonth = parseInt(month) - 1;
     let prevYear = parseInt(year);
-    
+
     if (prevMonth === 0) {
       prevMonth = 12;
       prevYear -= 1;
     }
-    
+
     // Format month to ensure it has leading zero if needed
     const formattedPrevMonth = prevMonth.toString().padStart(2, '0');
-    
+
     try {
       const payload = { year: prevYear.toString(), month: formattedPrevMonth };
       const response = await axios.post(
@@ -167,7 +167,7 @@ function VisitorsInfo() {
   // Dynamic chart data based on chartType and whether comparison is shown
   const getChartData = () => {
     if (!visitorCount.length) return { labels: [], datasets: [] };
-    
+
     // Basic current period dataset
     const currentDataset = {
       label: `${getMonthName(month)} ${year} Visitors`,
@@ -178,8 +178,8 @@ function VisitorsInfo() {
       barThickness: 20, // smaller value = thinner bars
       // or use maxBarThickness if you want it to auto-fit but not exceed a width
     };
-    
-    
+
+
     // For pie chart, use different colors for each day
     if (chartType === "pie") {
       currentDataset.backgroundColor = visitorCount.map((_, index) => {
@@ -191,9 +191,9 @@ function VisitorsInfo() {
         return `hsla(${hue}, 70%, 50%, 1)`;
       });
     }
-    
+
     const datasets = [currentDataset];
-    
+
     // Add comparison dataset if enabled and data exists
     if (showComparison && previousPeriodData) {
       // Need to align dates - get just the day part
@@ -202,13 +202,13 @@ function VisitorsInfo() {
         const day = parseInt(item.date.split('-')[2]);
         prevDataByDay[day] = item.count;
       });
-      
+
       // Create comparison dataset with aligned days
       const comparisonData = visitorCount.map(item => {
         const day = parseInt(item.date.split('-')[2]);
         return prevDataByDay[day] || 0;
       });
-      
+
       // Figure out previous month name
       let prevMonth = parseInt(month) - 1;
       let prevYear = parseInt(year);
@@ -216,7 +216,7 @@ function VisitorsInfo() {
         prevMonth = 12;
         prevYear -= 1;
       }
-      
+
       datasets.push({
         label: `${getMonthName(prevMonth.toString())} ${prevYear} Visitors`,
         data: comparisonData,
@@ -225,10 +225,9 @@ function VisitorsInfo() {
         borderWidth: 2,
       });
     }
-    
+
     return {
       labels: visitorCount.map((item) => {
-        // Format date to show just the day
         const day = item.date.split('-')[2];
         return `Day ${day}`;
       }),
@@ -253,8 +252,7 @@ function VisitorsInfo() {
       },
       tooltip: {
         callbacks: {
-          title: function(context) {
-            // Show full date in tooltip title
+          title: function (context) {
             const index = context[0].dataIndex;
             return visitorCount[index]?.date || 'Unknown Date';
           }
@@ -277,11 +275,8 @@ function VisitorsInfo() {
       }
     } : {}
   };
-
-  // Render the appropriate chart based on chartType
   const renderChart = () => {
     const chartData = getChartData();
-    
     if (loading) {
       return (
         <div className="flex items-center justify-center h-64">
@@ -289,7 +284,6 @@ function VisitorsInfo() {
         </div>
       );
     }
-    
     if (visitorCount.length === 0) {
       return (
         <div className="flex flex-col items-center justify-center p-8 bg-gray-50 rounded-lg h-64">
@@ -301,7 +295,6 @@ function VisitorsInfo() {
         </div>
       );
     }
-    
     switch (chartType) {
       case "bar":
         return <Bar data={chartData} options={chartOptions} />;
@@ -317,12 +310,12 @@ function VisitorsInfo() {
   // Calculate growth rate if previous data exists
   const calculateGrowth = () => {
     if (!previousPeriodData || !visitorCount.length) return null;
-    
+
     const currentTotal = visitorCount.reduce((sum, item) => sum + item.count, 0);
     const prevTotal = previousPeriodData.reduce((sum, item) => sum + item.count, 0);
-    
+
     if (prevTotal === 0) return { rate: 100, positive: true };
-    
+
     const growthRate = ((currentTotal - prevTotal) / prevTotal) * 100;
     return {
       rate: Math.abs(growthRate).toFixed(1),
@@ -336,10 +329,9 @@ function VisitorsInfo() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-8 px-4">
       {/* Notification */}
       {notification.show && (
-        <div 
-          className={`fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${
-            notification.type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
-          }`}
+        <div
+          className={`fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 ${notification.type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+            }`}
         >
           {notification.message}
         </div>
@@ -352,7 +344,7 @@ function VisitorsInfo() {
             <h1 className="text-2xl font-bold text-white">Visitor Analytics Dashboard</h1>
             <p className="text-blue-100 mt-1">Track and analyze visitor statistics</p>
           </div>
-          
+
           <div className="p-6">
             {/* Filter Controls */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -377,8 +369,6 @@ function VisitorsInfo() {
                   ))}
                 </select>
               </div>
-
-              {/* Month Dropdown */}
               <div>
                 <label htmlFor="month" className="block text-sm font-medium text-gray-700 mb-1">
                   Month
@@ -402,8 +392,6 @@ function VisitorsInfo() {
                   })}
                 </select>
               </div>
-
-              {/* Chart Type Selector */}
               <div>
                 <label htmlFor="chartType" className="block text-sm font-medium text-gray-700 mb-1">
                   Chart Type
@@ -419,28 +407,22 @@ function VisitorsInfo() {
                   <option value="pie">Pie Chart</option>
                 </select>
               </div>
-
-              {/* Fetch Button */}
               <div className="flex items-end">
                 <button
                   onClick={fetchVisitorCount}
                   disabled={loading}
-                  className={`w-full py-2 px-4 rounded-md text-white font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                    loading
+                  className={`w-full py-2 px-4 rounded-md text-white font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${loading
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-blue-600 hover:bg-blue-700"
-                  }`}
+                    }`}
                 >
                   {loading ? "Loading..." : "Fetch Data"}
                 </button>
               </div>
             </div>
-
-            {/* Visitor Statistics Cards - Only show when we have data */}
             {visitorCount.length > 0 && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                  {/* Total Visitors Card */}
                   <div className="bg-blue-50 rounded-lg p-4 border border-blue-100 shadow-sm">
                     <h3 className="text-sm font-medium text-blue-700">Total Visitors</h3>
                     <p className="text-3xl font-bold text-blue-800 mt-1">{totalVisitors}</p>
@@ -450,8 +432,6 @@ function VisitorsInfo() {
                       </div>
                     )}
                   </div>
-
-                  {/* Average Daily Visitors Card */}
                   <div className="bg-green-50 rounded-lg p-4 border border-green-100 shadow-sm">
                     <h3 className="text-sm font-medium text-green-700">Average Daily</h3>
                     <p className="text-3xl font-bold text-green-800 mt-1">{averageVisitors.toFixed(1)}</p>
@@ -471,23 +451,22 @@ function VisitorsInfo() {
                   <div className="flex justify-end mb-4">
                     <button
                       onClick={toggleComparison}
-                      className={`flex items-center px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                        showComparison
+                      className={`flex items-center px-3 py-1.5 rounded text-sm font-medium transition-colors ${showComparison
                           ? 'bg-indigo-100 text-indigo-700'
                           : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                      }`}
+                        }`}
                     >
-                      <svg 
-                        className="w-4 h-4 mr-1" 
-                        fill="none" 
-                        stroke="currentColor" 
+                      <svg
+                        className="w-4 h-4 mr-1"
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round" 
-                          strokeWidth="2" 
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
                         ></path>
                       </svg>
@@ -535,7 +514,7 @@ function VisitorsInfo() {
                         const date = new Date(item.date);
                         const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
                         const percentOfTotal = ((item.count / totalVisitors) * 100).toFixed(1);
-                        
+
                         // Find matching day from previous period if available
                         let prevDayData = null;
                         if (previousPeriodData && showComparison) {
@@ -545,7 +524,7 @@ function VisitorsInfo() {
                             return prevDay === currentDay;
                           });
                         }
-                        
+
                         return (
                           <tr key={index} className="hover:bg-gray-50">
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
@@ -572,8 +551,8 @@ function VisitorsInfo() {
                             )}
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                <div 
-                                  className="bg-blue-600 h-2.5 rounded-full" 
+                                <div
+                                  className="bg-blue-600 h-2.5 rounded-full"
                                   style={{ width: `${percentOfTotal}%` }}
                                 ></div>
                               </div>
@@ -589,7 +568,7 @@ function VisitorsInfo() {
             )}
           </div>
         </div>
-        
+
         {/* Footer */}
         <div className="text-center mt-6 text-gray-500 text-sm">
           <p>Last updated: {new Date().toLocaleDateString()}</p>

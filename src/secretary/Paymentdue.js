@@ -71,10 +71,10 @@ function Paymentdue() {
                       <span className="text-gray-800">{m.paymentdescription}</span>
                     </div>
                   </div>
-                  <CollectMaintainence amount={m.amount} paymentdate={m.paymentdate} year={m.year} status={m.estatus} oid={owner.oid}/>
-                </div> 
-              ))              
-            ) : ""}            
+                  <CollectMaintainence amount={m.amount} paymentdate={m.paymentdate} year={m.year} status={m.estatus} oid={owner.oid} />
+                </div>
+              ))
+            ) : ""}
           </div>
         </div>
       ))

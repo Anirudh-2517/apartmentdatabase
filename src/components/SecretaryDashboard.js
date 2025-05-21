@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, useLocation, Navigate ,useNavigate} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, Navigate, useNavigate } from "react-router-dom";
 import {
   Bell, LogOut, Settings, User, Home, CreditCard, FileText, Mail, DollarSign, AlertCircle, PlusCircle, ChevronRight, Menu, X, Calendar, Clock, BarChart3,
   Building, Shield, Users, Sun, Moon, Coffee,
@@ -20,8 +20,8 @@ function NavLink({ to, label, icon }) {
     <Link
       to={to}
       className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
-          ? "bg-gray-700 text-white shadow-lg transform scale-105"
-          : "text-gray-300 hover:bg-gray-800 hover:text-white hover:transform hover:translate-x-1"
+        ? "bg-gray-700 text-white shadow-lg transform scale-105"
+        : "text-gray-300 hover:bg-gray-800 hover:text-white hover:transform hover:translate-x-1"
         }`}
     >
       <span className={`mr-3 ${isActive ? "text-yellow-400" : ""}`}>{icon}</span>
@@ -284,10 +284,10 @@ function Secretary({ setLoginStatus }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-    const logout = () => {
-      setLoginStatus(false);
-      navigate('/login');
-    };
+  const logout = () => {
+    setLoginStatus(false);
+    navigate('/login');
+  };
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 60000);
@@ -311,7 +311,7 @@ function Secretary({ setLoginStatus }) {
       "/add-expense": "Add Expense",
       "/send-reminder": "Send Reminder",
       "/make-salary": "Process Salaries",
-      "/financialexpenses":"View Expenses",
+      "/financialexpenses": "View Expenses",
       "/raise-demand": "Raise Demand",
       "/view-paymentdues": "Payment Dues",
       "/view-lodgedcomplaints": "Complaints Management"

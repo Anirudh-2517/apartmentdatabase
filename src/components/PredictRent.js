@@ -151,7 +151,7 @@ export default function PredictRent() {
     // Render form field based on type
     const renderField = (field) => {
         const { name, label, type, options, icon } = field;
-        
+
         return (
             <div key={name} className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">{label}</label>
@@ -159,7 +159,7 @@ export default function PredictRent() {
                     <div className="absolute left-3 top-3 text-gray-400">
                         {icon}
                     </div>
-                    
+
                     {type === "select" ? (
                         <select
                             name={name}

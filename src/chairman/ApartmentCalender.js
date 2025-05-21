@@ -29,12 +29,12 @@ const ApartmentCalendar = () => {
   const getEventsForMonth = (monthIndex) => {
     return eventsData.filter(event => {
       // For events that have multiple dates or recurring patterns
-      if (event.date.includes(months[monthIndex]) || 
-          (event.date.includes("each month")) ||
-          (monthIndex === 2 && event.date.includes("Mar")) ||
-          (monthIndex === 5 && event.date.includes("Jun")) ||
-          (monthIndex === 8 && event.date.includes("Sep")) ||
-          (monthIndex === 11 && event.date.includes("Dec"))) {
+      if (event.date.includes(months[monthIndex]) ||
+        (event.date.includes("each month")) ||
+        (monthIndex === 2 && event.date.includes("Mar")) ||
+        (monthIndex === 5 && event.date.includes("Jun")) ||
+        (monthIndex === 8 && event.date.includes("Sep")) ||
+        (monthIndex === 11 && event.date.includes("Dec"))) {
         return true;
       }
       return false;
@@ -52,31 +52,31 @@ const ApartmentCalendar = () => {
   return (
     <div className="flex flex-col w-full max-w-4xl mx-auto p-4 bg-gray-50 rounded-lg shadow">
       <h1 className="text-3xl font-bold text-center mb-6 text-blue-800">Event Calendar</h1>
-      
+
       {/* Month Selector */}
       <div className="flex justify-between mb-6">
-        <button 
+        <button
           onClick={() => setSelectedMonth((selectedMonth - 1 + 12) % 12)}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Previous
         </button>
         <h2 className="text-2xl font-semibold">{months[selectedMonth]}</h2>
-        <button 
+        <button
           onClick={() => setSelectedMonth((selectedMonth + 1) % 12)}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Next
         </button>
       </div>
-      
+
       {/* Events List */}
       <div className="bg-white rounded-lg shadow p-4 mb-6">
         <h3 className="text-xl font-semibold mb-4">Events for {months[selectedMonth]}</h3>
         {getEventsForMonth(selectedMonth).length > 0 ? (
           <ul className="space-y-2">
             {getEventsForMonth(selectedMonth).map(event => (
-              <li 
+              <li
                 key={event.id}
                 className="p-3 border border-gray-200 rounded hover:bg-blue-50 cursor-pointer"
                 onClick={() => handleEventClick(event)}
@@ -90,7 +90,7 @@ const ApartmentCalendar = () => {
           <p className="text-gray-500 italic">No events scheduled for this month.</p>
         )}
       </div>
-      
+
       {/* Year at a glance */}
       {/* <div className="bg-white rounded-lg shadow p-4">
         <h3 className="text-xl font-semibold mb-4">Year at a Glance</h3>
@@ -107,7 +107,7 @@ const ApartmentCalendar = () => {
           ))}
         </div>
       </div> */}
-      
+
       {/* Event Details Modal */}
       {selectedEvent && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -117,7 +117,7 @@ const ApartmentCalendar = () => {
             <p className="text-gray-600 mb-4"><strong>Location:</strong> {selectedEvent.location}</p>
             <p className="mb-6">{selectedEvent.description}</p>
             <div className="flex justify-end">
-              <button 
+              <button
                 onClick={closeEventDetails}
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >

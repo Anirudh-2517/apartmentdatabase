@@ -37,15 +37,15 @@ const DisplayVisitors = () => {
 
     // Filtered visitors based on search term and filters
     const filteredVisitors = visitors.filter(visitor => {
-        const matchesSearch = 
+        const matchesSearch =
             visitor.vname.toLowerCase().includes(searchTerm.toLowerCase()) ||
             visitor.flatno.includes(searchTerm) ||
             visitor.vpurpose.toLowerCase().includes(searchTerm.toLowerCase()) ||
             visitor.vcellno.includes(searchTerm);
-            
+
         const matchesDateFilter = filterDate ? visitor.vdate === filterDate : true;
         const matchesFlatFilter = filterFlat ? visitor.flatno === filterFlat : true;
-        
+
         return matchesSearch && matchesDateFilter && matchesFlatFilter;
     });
 
@@ -70,14 +70,14 @@ const DisplayVisitors = () => {
     const handlePrint = () => {
         const printContent = document.getElementById('printable-area');
         const originalContents = document.body.innerHTML;
-        
+
         document.body.innerHTML = `
             <div style="padding: 20px;">
                 <h1 style="text-align: center; margin-bottom: 20px;">Visitors Log</h1>
                 ${printContent.innerHTML}
             </div>
         `;
-        
+
         window.print();
         document.body.innerHTML = originalContents;
         window.location.reload();
@@ -86,29 +86,29 @@ const DisplayVisitors = () => {
     // Export to CSV
     const exportToCSV = () => {
         const headers = ['Name', 'Contact', 'Flat', 'Purpose', 'Check In', 'Check Out', 'Date'];
-        
+
         const csvRows = [
             headers.join(','),
             ...sortedVisitors.map(visitor => [
-                `"${visitor.vname}"`, 
-                `"${visitor.vcellno}"`, 
-                `"${visitor.flatno}"`, 
+                `"${visitor.vname}"`,
+                `"${visitor.vcellno}"`,
+                `"${visitor.flatno}"`,
                 `"${visitor.vpurpose}"`,
                 `"${visitor.intime}"`,
                 `"${visitor.outtime}"`,
                 `"${visitor.vdate}"`
             ].join(','))
         ];
-        
+
         const csvString = csvRows.join('\n');
         const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
-        
+
         const url = URL.createObjectURL(blob);
         link.setAttribute('href', url);
         link.setAttribute('download', `visitors_log_${new Date().toLocaleDateString()}.csv`);
         link.style.visibility = 'hidden';
-        
+
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -167,7 +167,7 @@ const DisplayVisitors = () => {
                     </div>
                 </div>
             </div>
-            
+
             <div className="p-4">
                 {/* Search and filters */}
                 <div className="mb-4">
@@ -234,7 +234,7 @@ const DisplayVisitors = () => {
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-gray-50">
                                 <tr>
-                                    <th 
+                                    <th
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                                         onClick={() => handleSort('vname')}
                                     >
@@ -248,7 +248,7 @@ const DisplayVisitors = () => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Contact
                                     </th>
-                                    <th 
+                                    <th
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                                         onClick={() => handleSort('flatno')}
                                     >
@@ -265,7 +265,7 @@ const DisplayVisitors = () => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Time
                                     </th>
-                                    <th 
+                                    <th
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                                         onClick={() => handleSort('vdate')}
                                     >
@@ -322,7 +322,7 @@ const DisplayVisitors = () => {
                         </table>
                     </div>
                 </div>
-                
+
                 {/* Footer with summary */}
                 <div className="mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center text-sm text-gray-600">
                     <div>

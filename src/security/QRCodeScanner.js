@@ -4,7 +4,7 @@ import { Camera, Scan, CheckCircle, XCircle } from "lucide-react";
 
 const QRCodeScanner = ({ onScanSuccess }) => {
   const [scannerActive, setScannerActive] = useState(false);
-  const [scanStatus, setScanStatus] = useState(null); 
+  const [scanStatus, setScanStatus] = useState(null);
   const [lastScanned, setLastScanned] = useState("");
   const scannerRef = useRef(null);
   const scannerContainerId = "qr-reader";

@@ -9,6 +9,7 @@ import AddFlatDetails from '../admin/AddFlatDetails'
 import Adminsettings from "../admin/Adminsettings";
 import DashboardOverview from "../admin/DashboardOverview"; // You'll need to create this component
 import MonthlyExpenseAnalysis from "../admin/MonthlyExpenseAnalysis";
+import BookFlat from "./BookFlat";
 
 function AdminDashboard({ setLoginStatus }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -34,24 +35,23 @@ function AdminDashboard({ setLoginStatus }) {
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-6 text-center">Admin Dashboard</h1>
           <div className="space-y-4">
-            <NavItem to="/" icon={<Home />} label="Home" />
-            <NavItem to="/add-owner" icon={<Users />} label="Add Flat Owners" />
-            <NavItem to="/addflatdetails" icon={<Users />} label="Add Flat Details" />
-            <NavItem to="/add-employee" icon={<UserPlus />} label="Employees" />
-            <NavItem to="/add-apartment" icon={<Building />} label="Apartments" />
-            <NavItem to="/financial-expenses" icon={<DollarSign />} label="Expenses" />
-            <NavItem to="/financial-year" icon={<Settings />} label="Settings" />
-
+            <NavItem to="/" icon={<Home color="#4ade80" />} label="Home" />
+            <NavItem to="/book-flat" icon={<Building color="#a78bfa" />} label="Flat Bookings" />
+            <NavItem to="/add-owner" icon={<Users color="#60a5fa" />} label="Add Flat Owners" />
+            <NavItem to="/addflatdetails" icon={<Users color="#f472b6" />} label="Add Flat Details" />
+            <NavItem to="/add-employee" icon={<UserPlus color="#fbbf24" />} label="Employees" />
+            <NavItem to="/add-apartment" icon={<Building color="#a78bfa" />} label="Apartments" />
+            <NavItem to="/financial-expenses" icon={<DollarSign color="#34d399" />} label="Expenses" />
+            <NavItem to="/financial-year" icon={<Settings color="#f97316" />} label="Settings" />
             <div className="pt-6 mt-6 border-t border-indigo-700">
               <button
                 onClick={logout}
                 className="flex items-center px-4 py-3 text-gray-100 hover:bg-indigo-700 rounded-md w-full transition-colors duration-200"
               >
                 <div className="flex items-center text-red-500">
-                  <LogOut className="mr-3" size={20} />
+                  <LogOut className="mr-3" size={20} color="#ef4444" />
                   <span>Logout</span>
                 </div>
-
               </button>
             </div>
           </div>
@@ -73,6 +73,7 @@ function AdminDashboard({ setLoginStatus }) {
               <Route path="/monthlyexpenses" element={<MonthlyExpenseAnalysis />} />
               <Route path="/add-owner" element={<AddOwner />} />
               <Route path="/addflatdetails" element={<AddFlatDetails />} />
+              <Route path="/book-flat" element={<BookFlat />} />
               <Route path="/add-employee" element={<Addemployee />} />
               <Route path="/add-apartment" element={<AddApartmentDetails />} />
               <Route path="/financial-expenses" element={<FinancialExpenses />} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ChairmanMessages, { ChairmanNotice } from "../chairman/ChairmanMessages";
 import AcademicCalendar from "../chairman/ApartmentCalender";
-import { Route, Routes, Link, useLocation,useNavigate } from "react-router-dom";
+import { Route, Routes, Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell, MessageSquare, Home, LogOut, User, Calendar, Settings,
   Users, ChevronRight, BarChart3, Layers, Menu, X, DollarSign
@@ -10,7 +10,7 @@ import OwnerandTenantDisplay from "../chairman/OwnerandTenantDisplay";
 import axios from "axios";
 import FinancialExpenses from "../admin/FinancialExpenses";
 
-function Chairman({ setLoginStatus ,imageURL}) {
+function Chairman({ setLoginStatus, imageURL }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState(3);
   const [statsData, setStatsData] = useState({

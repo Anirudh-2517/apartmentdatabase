@@ -215,7 +215,7 @@ function AdminSettings() {
           </div>
         </div>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         {/* Apartment Name Card - Dark Blue and Purple */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -267,7 +267,7 @@ function AdminSettings() {
             </button>
           </div>
         </div>
-        
+
         {/* Wings/Blocks Card - Dark Blue and Dark Green */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
           <div className="bg-gradient-to-r from-blue-800 to-green-800 px-6 py-4">
@@ -278,12 +278,10 @@ function AdminSettings() {
               <h2 className="text-xl font-semibold text-white">Set Wings/Blocks</h2>
             </div>
           </div>
-
           <div className="p-6">
             <p className="text-gray-600 mb-4">
               Choose whether your apartment uses Wings or Blocks for organization.
             </p>
-
             <div className="mb-4">
               <label htmlFor="wingsBlocks" className="block text-sm font-medium text-gray-700 mb-2">
                 Wings/Blocks Setting
@@ -304,7 +302,6 @@ function AdminSettings() {
                 </select>
               </div>
             </div>
-            
             <button
               onClick={setWingsOrBlocks}
               disabled={loading}

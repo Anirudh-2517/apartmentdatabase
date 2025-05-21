@@ -77,7 +77,7 @@ const TempDisplay = () => {
             <p className="text-red-700">{error}</p>
           </div>
         </div>
-        <button 
+        <button
           className="mt-3 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
           onClick={() => window.location.reload()}
         >
@@ -140,12 +140,12 @@ const TempDisplay = () => {
             <div className="grid grid-cols-2 gap-3">
               {temperatureData.map((item, index) => (
                 index > 0 && (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="p-3 rounded-lg border-l-4 hover:bg-gray-50 transition-colors flex items-center"
                     style={{ borderLeftColor: getCircleColor(item.temperature) }}
                   >
-                    <div 
+                    <div
                       className="w-8 h-8 rounded-full mr-3 flex items-center justify-center text-white"
                       style={{ backgroundColor: getCircleColor(item.temperature) }}
                     >

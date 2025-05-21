@@ -26,14 +26,12 @@ function AddFlatOwner() {
         console.log(err);
       });
   };
-
   return (
     <div className="max-w-lg mx-auto bg-gradient-to-r from-blue-500 to-blue-700 p-8 rounded-lg shadow-md">
       <h2 className="text-white text-2xl font-bold mb-6 text-center">
         Add Flat Owner
       </h2>
       <div className="space-y-5">
-        {/* Owner Name Input */}
         <div className="relative">
           <input
             type="text"
@@ -44,7 +42,7 @@ function AddFlatOwner() {
           />
         </div>
 
-        {/* Flat Number Input */}
+        {/* Flat Number Input  */}
         <div className="relative">
           <input
             type="text"
@@ -54,7 +52,6 @@ function AddFlatOwner() {
             ref={FlatNumber}
           />
         </div>
-
         <div className="relative">
           <input
             type="text"

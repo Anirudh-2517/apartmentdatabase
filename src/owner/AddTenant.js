@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import axios from 'axios';
 
 
-function AddTenant({oid}) {
+function AddTenant({ oid }) {
     // References for form inputs
     const tname = useRef("");
     const taadhar = useRef("");
@@ -11,7 +11,7 @@ function AddTenant({oid}) {
     const tod = useRef("");
     const tld = useRef("");
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-    
+
     // Form state management
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState({});
@@ -20,23 +20,23 @@ function AddTenant({oid}) {
     // Validate form fields
     const validateForm = () => {
         const newErrors = {};
-        
+
         if (!tname.current.value.trim()) newErrors.tname = "Tenant name is required";
         if (!taadhar.current.value.trim()) newErrors.taadhar = "Aadhar number is required";
         else if (!/^\d{12}$/.test(taadhar.current.value.trim())) newErrors.taadhar = "Aadhar should be 12 digits";
-        
+
         if (!taddress.current.value.trim()) newErrors.taddress = "Address is required";
-        
+
         if (!tcell.current.value.trim()) newErrors.tcell = "Cell number is required";
         else if (!/^\d{10}$/.test(tcell.current.value.trim())) newErrors.tcell = "Enter a valid 10-digit number";
-        
+
         if (!tod.current.value) newErrors.tod = "Occupation date is required";
-        
+
         // Leaving date is optional but if provided, should be after occupation date
         if (tod.current.value && tld.current.value && new Date(tld.current.value) <= new Date(tod.current.value)) {
             newErrors.tld = "Leaving date must be after occupation date";
         }
-        
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -51,11 +51,11 @@ function AddTenant({oid}) {
 
     const addtenant = async () => {
         if (!validateForm()) return;
-        
+
         setIsSubmitting(true);
-        
+
         const payload = {
-            oid:oid,
+            oid: oid,
             tname: tname.current.value,
             taadhar: taadhar.current.value,
             taddress: taddress.current.value,
@@ -64,11 +64,11 @@ function AddTenant({oid}) {
             tld: tld.current.value,
             tstatus: "Occupied"
         };
-        
+
         try {
             await axios.post(`${API_BASE_URL}/owner/addtenant`, payload);
             showNotification("Tenant added successfully");
-            
+
             // Reset form
             tname.current.value = "";
             taadhar.current.value = "";
@@ -88,19 +88,17 @@ function AddTenant({oid}) {
         <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
             {/* Notification */}
             {notification.show && (
-                <div className={`fixed top-4 right-4 px-4 py-3 rounded shadow-lg ${
-                    notification.type === 'error' ? 'bg-red-100 border-l-4 border-red-500 text-red-700' : 
-                    'bg-green-100 border-l-4 border-green-500 text-green-700'
-                }`}>
+                <div className={`fixed top-4 right-4 px-4 py-3 rounded shadow-lg ${notification.type === 'error' ? 'bg-red-100 border-l-4 border-red-500 text-red-700' :
+                        'bg-green-100 border-l-4 border-green-500 text-green-700'
+                    }`}>
                     <div className="flex items-center">
                         <div className="py-1">
-                            <svg className={`fill-current h-6 w-6 mr-4 ${
-                                notification.type === 'error' ? 'text-red-500' : 'text-green-500'
-                            }`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <svg className={`fill-current h-6 w-6 mr-4 ${notification.type === 'error' ? 'text-red-500' : 'text-green-500'
+                                }`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 {notification.type === 'error' ? (
-                                    <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM11.4 10l2.83-2.83-1.41-1.41L10 8.59 7.17 5.76 5.76 7.17 8.59 10l-2.83 2.83 1.41 1.41L10 11.41l2.83 2.83 1.41-1.41L11.41 10z"/>
+                                    <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM11.4 10l2.83-2.83-1.41-1.41L10 8.59 7.17 5.76 5.76 7.17 8.59 10l-2.83 2.83 1.41 1.41L10 11.41l2.83 2.83 1.41-1.41L11.41 10z" />
                                 ) : (
-                                    <path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/>
+                                    <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
                                 )}
                             </svg>
                         </div>
@@ -111,7 +109,7 @@ function AddTenant({oid}) {
                     </div>
                 </div>
             )}
-            
+
             <div className="max-w-lg mx-auto bg-white rounded-xl shadow-md overflow-hidden">
                 <div className="px-6 py-6 bg-gradient-to-r from-blue-500 to-blue-600">
                     <h3 className="text-xl font-bold text-white">Add New Tenant</h3>
@@ -132,9 +130,8 @@ function AddTenant({oid}) {
                                 id="tname"
                                 ref={tname}
                                 placeholder="Enter full name"
-                                className={`block w-full px-4 py-3 rounded-lg border ${
-                                    errors.tname ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-                                } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
+                                className={`block w-full px-4 py-3 rounded-lg border ${errors.tname ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
+                                    } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
                             />
                             {errors.tname && <p className="mt-1 text-sm text-red-600">{errors.tname}</p>}
                         </div>
@@ -152,9 +149,8 @@ function AddTenant({oid}) {
                                     ref={taadhar}
                                     placeholder="12-digit number"
                                     maxLength="12"
-                                    className={`block w-full px-4 py-3 rounded-lg border ${
-                                        errors.taadhar ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-                                    } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
+                                    className={`block w-full px-4 py-3 rounded-lg border ${errors.taadhar ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
+                                        } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
                                 />
                                 {errors.taadhar && <p className="mt-1 text-sm text-red-600">{errors.taadhar}</p>}
                             </div>
@@ -170,9 +166,8 @@ function AddTenant({oid}) {
                                     ref={tcell}
                                     placeholder="10-digit number"
                                     maxLength="10"
-                                    className={`block w-full px-4 py-3 rounded-lg border ${
-                                        errors.tcell ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-                                    } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
+                                    className={`block w-full px-4 py-3 rounded-lg border ${errors.tcell ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
+                                        } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
                                 />
                                 {errors.tcell && <p className="mt-1 text-sm text-red-600">{errors.tcell}</p>}
                             </div>
@@ -188,9 +183,8 @@ function AddTenant({oid}) {
                                 ref={taddress}
                                 rows="2"
                                 placeholder="Enter complete previous address"
-                                className={`block w-full px-4 py-3 rounded-lg border ${
-                                    errors.taddress ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-                                } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
+                                className={`block w-full px-4 py-3 rounded-lg border ${errors.taddress ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
+                                    } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
                             ></textarea>
                             {errors.taddress && <p className="mt-1 text-sm text-red-600">{errors.taddress}</p>}
                         </div>
@@ -205,9 +199,8 @@ function AddTenant({oid}) {
                                     type="date"
                                     id="tod"
                                     ref={tod}
-                                    className={`block w-full px-4 py-3 rounded-lg border ${
-                                        errors.tod ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-                                    } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
+                                    className={`block w-full px-4 py-3 rounded-lg border ${errors.tod ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
+                                        } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
                                 />
                                 {errors.tod && <p className="mt-1 text-sm text-red-600">{errors.tod}</p>}
                             </div>
@@ -220,16 +213,15 @@ function AddTenant({oid}) {
                                     type="date"
                                     id="tld"
                                     ref={tld}
-                                    className={`block w-full px-4 py-3 rounded-lg border ${
-                                        errors.tld ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-                                    } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
+                                    className={`block w-full px-4 py-3 rounded-lg border ${errors.tld ? 'border-red-300 ring-red-500' : 'border-gray-300 focus:ring-blue-500'
+                                        } shadow-sm focus:outline-none focus:ring-2 focus:border-transparent transition duration-150`}
                                 />
                                 {errors.tld && <p className="mt-1 text-sm text-red-600">{errors.tld}</p>}
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="px-6 py-4 bg-gray-50 flex justify-between items-center">
                     <p className="text-xs text-gray-500">* Required fields</p>
                     <button

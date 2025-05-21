@@ -60,7 +60,7 @@ function FinancialData() {
     // Calculate summary statistics
     const calculateSummary = () => {
         if (financeData.length === 0) return null;
-        
+
         return financeData.reduce((acc, item) => {
             return {
                 totalCollected: acc.totalCollected + Number(item.amountcollected),
@@ -74,8 +74,8 @@ function FinancialData() {
     const summary = calculateSummary();
 
     // Filter data by year
-    const filteredData = yearFilter === 'all' 
-        ? getSortedData() 
+    const filteredData = yearFilter === 'all'
+        ? getSortedData()
         : getSortedData().filter(item => item.financialyear === yearFilter);
 
     // Get unique years for filter
@@ -120,8 +120,8 @@ function FinancialData() {
                     </svg>
                     <h3 className="text-lg font-bold mb-2">Error Loading Data</h3>
                     <p>{error}</p>
-                    <button 
-                        onClick={() => window.location.reload()} 
+                    <button
+                        onClick={() => window.location.reload()}
                         className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-150"
                     >
                         Try Again
@@ -194,7 +194,7 @@ function FinancialData() {
                             <table className="w-full border-collapse">
                                 <thead>
                                     <tr className="bg-gray-100">
-                                        <th 
+                                        <th
                                             className="p-4 text-left font-bold text-gray-600 border-b border-gray-200 cursor-pointer"
                                             onClick={() => requestSort('financialyear')}
                                         >
@@ -203,7 +203,7 @@ function FinancialData() {
                                                 <span className="ml-1">{getSortIcon('financialyear')}</span>
                                             </div>
                                         </th>
-                                        <th 
+                                        <th
                                             className="p-4 text-left font-bold text-gray-600 border-b border-gray-200 cursor-pointer"
                                             onClick={() => requestSort('balancecarriedforward')}
                                         >
@@ -212,7 +212,7 @@ function FinancialData() {
                                                 <span className="ml-1">{getSortIcon('balancecarriedforward')}</span>
                                             </div>
                                         </th>
-                                        <th 
+                                        <th
                                             className="p-4 text-left font-bold text-gray-600 border-b border-gray-200 cursor-pointer"
                                             onClick={() => requestSort('amountcollected')}
                                         >
@@ -221,7 +221,7 @@ function FinancialData() {
                                                 <span className="ml-1">{getSortIcon('amountcollected')}</span>
                                             </div>
                                         </th>
-                                        <th 
+                                        <th
                                             className="p-4 text-left font-bold text-gray-600 border-b border-gray-200 cursor-pointer"
                                             onClick={() => requestSort('amountexpected')}
                                         >
@@ -230,7 +230,7 @@ function FinancialData() {
                                                 <span className="ml-1">{getSortIcon('amountexpected')}</span>
                                             </div>
                                         </th>
-                                        <th 
+                                        <th
                                             className="p-4 text-left font-bold text-gray-600 border-b border-gray-200 cursor-pointer"
                                             onClick={() => requestSort('totalamount')}
                                         >
@@ -239,7 +239,7 @@ function FinancialData() {
                                                 <span className="ml-1">{getSortIcon('totalamount')}</span>
                                             </div>
                                         </th>
-                                        <th 
+                                        <th
                                             className="p-4 text-left font-bold text-gray-600 border-b border-gray-200 cursor-pointer"
                                             onClick={() => requestSort('expenses')}
                                         >
@@ -248,7 +248,7 @@ function FinancialData() {
                                                 <span className="ml-1">{getSortIcon('expenses')}</span>
                                             </div>
                                         </th>
-                                        <th 
+                                        <th
                                             className="p-4 text-left font-bold text-gray-600 border-b border-gray-200 cursor-pointer"
                                             onClick={() => requestSort('balance')}
                                         >
@@ -261,8 +261,8 @@ function FinancialData() {
                                 </thead>
                                 <tbody>
                                     {filteredData.map((item, index) => (
-                                        <tr 
-                                            key={index} 
+                                        <tr
+                                            key={index}
                                             className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 transition-colors duration-150`}
                                         >
                                             <td className="p-4 border-b border-gray-100 font-medium">{item.financialyear}</td>
@@ -280,7 +280,7 @@ function FinancialData() {
 
                         <div className="bg-gray-50 p-4 text-gray-500 text-sm border-t border-gray-200 flex justify-between items-center">
                             <p>Last updated: {new Date().toLocaleDateString()}</p>
-                            <button 
+                            <button
                                 className="text-blue-600 hover:text-blue-800 flex items-center"
                                 onClick={() => window.print()}
                             >
@@ -298,8 +298,8 @@ function FinancialData() {
                         </svg>
                         <h3 className="text-xl font-medium text-gray-500 mb-2">No Financial Records Available</h3>
                         <p className="text-gray-500 mb-4">There are no finance records in the system at this time.</p>
-                        <button 
-                            onClick={() => window.location.reload()} 
+                        <button
+                            onClick={() => window.location.reload()}
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

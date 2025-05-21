@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import QRCodeScanner from "./QRCodeScanner";
 import axios from "axios";
 
-const UseQRReader = ({ setScannedData, scannedData ,setFormData,formData}) => {
+const UseQRReader = ({ setScannedData, scannedData, setFormData, formData }) => {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {

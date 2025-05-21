@@ -14,8 +14,6 @@ function Viewcomplaints() {
         console.log(error)
       })
   }, [])
-  
-
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-md">
       <h1 className="text-2xl font-bold p-3 text-center">
@@ -51,8 +49,8 @@ function Viewcomplaints() {
               {/* Status */}
               <span
                 className={`col-span-2 text-sm font-semibold px-3 py-1 rounded-lg ${c.cstatus === "Resolved"
-                    ? "bg-green-200 text-green-600"
-                    : "bg-red-100 text-red-600"
+                  ? "bg-green-200 text-green-600"
+                  : "bg-red-100 text-red-600"
                   }`}
               >
                 {c.cstatus}
@@ -61,7 +59,7 @@ function Viewcomplaints() {
               {/* Resolve Button */}
               <button
                 className="col-span-2 px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-                // onClick={() => handleResolve(index)}
+              // onClick={() => handleResolve(index)}
               >
                 Resolve
               </button>
