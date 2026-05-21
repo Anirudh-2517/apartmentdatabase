@@ -19,7 +19,7 @@ db = client.db(dbName);
 app.use(cors());
 app.use(bodyParser.json());
 
-// const mongoURI = 'mongodb+srv://anirudhmore96:Fullstackanirudh96@apartmentcluster.sa5bh.mongodb.net/';
+// const mongoURI = '';
 // const dbName = 'apartmentdatabase';
 
 // const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
