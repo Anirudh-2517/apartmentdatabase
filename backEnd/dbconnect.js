@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const mongoURI = 'mongodb+srv://anirudhmore96:Fullstackanirudh96@apartmentcluster.sa5bh.mongodb.net/';
+const mongoURI = 'enter your mongo uri';
 const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 client.connect()
